@@ -1,0 +1,81 @@
+.jumbotron {
+	background-color: #FFFFFF;
+	padding-top: 0px;
+}
+
+.book {
+	display: inline-block;
+	height: 100px;
+	width: 100px;
+	background-color: grey;
+	margin: 10px;
+}
+
+.category {
+	position: relative;
+	display: inline-block;
+	width: 90%;
+	height: 40px;
+	background: linear-gradient(to bottom, white, #2F4F4F);
+    color: white;
+	margin-top: 10px;
+	margin-bottom: 10px;
+	border-radius: 5px;
+}
+
+.category span {
+	position: absolute;
+	width: 100%;
+	text-align: center;
+	top: 50%;
+	transform: translateY(-50%);
+}
+
+
+#headContainer {
+	position: relative;
+	height: 100px;
+}
+
+#profile {
+	position: absolute;
+	width: 50px;
+	height: 50px;
+	border-radius: 50%;
+	background-color: grey;
+	right: 50px;
+	top: 5px;
+}
+
+#searchContainer {
+	height: 70px;
+}
+
+#mainContainer {
+	height: 500px;
+	border-top: 1px solid grey;
+}
+
+#booksContainer {
+	overflow: auto;
+	margin-bottom: 0;
+}
+
+#addImage {
+    background-color: rgba(0, 0, 0, 0.05);
+    margin-left: 25px;
+}
+
+#searchBooks {
+	background: url(../../images/searchIcon.png);
+	background-repeat: no-repeat;
+	background-size: 20px 20px;
+	background-position: 5px center;
+	padding-left: 30px;
+}
+
+#categories {
+	padding: 0;
+    padding-left: 2%;
+    overflow: auto;
+}
