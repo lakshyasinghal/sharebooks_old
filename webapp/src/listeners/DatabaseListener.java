@@ -47,7 +47,10 @@ public class DatabaseListener implements ServletContextListener {
 
 	public void contextDestroyed(ServletContextEvent event){
 		try{
-
+			if(Connector.getConnection() == null){
+				Connector.closeConnection();
+				System.out.println("Database connection closed");
+			}
 		}
 		catch(Exception ex){
 			System.out.println("Exception occurred in contextDestroyed method in DatabaseListener class");

@@ -1,4 +1,4 @@
-applicationPath="/Users/lakshya.singhal/Desktop/Development/Personal/Apps/ShareBooks"
+applicationPath="/Users/lakshya.singhal/Desktop/Development/Personal/Git/ShareBooks"
 sourcePath="$applicationPath/webapp"
 
 libPath="$sourcePath/lib"
