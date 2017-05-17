@@ -1,0 +1,6 @@
+create table bookCategories (
+	category varchar(50)
+);
+
+
+insert into bookCategories values ("Science") , ("Computer Science") , ("Maths") , ("Physics") , ("Psychology") , ("History") , ("Novel");

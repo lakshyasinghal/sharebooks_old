@@ -23,21 +23,67 @@ public class AddBookController extends HttpServlet {
 
 	public void doPost(HttpServletRequest req , HttpServletResponse res) throws IOException {
 		try{
+			String userId = req.getParameter("userId");
 			String name = req.getParameter("name");
 			String authorName = req.getParameter("authorName");
 			String category = req.getParameter("category");
 			String pages = req.getParameter("pages");
 			String imagePath = req.getParameter("imagePath");
 
-
-			Book book = new Book(name , authorName , category , Integer.parseInt(pages) , imagePath);
-			//the value of validUser will be either 0 or 1
+			Book book = new Book(Integer.parseInt(userId) , name , authorName , category , Integer.parseInt(pages) , imagePath);
 
 			BooksHandler booksHandler = new BooksHandler();
 			int inserted = booksHandler.addBook(book);
+
+			String jsonResponse = getJsonResponse(inserted);
+
+			sendJsonResponse(res , jsonResponse);
 		}
 		catch(Exception ex){
-			System.out.println("Error in AddBookController");
+			System.out.println("Error in AddBookController : " + ex);
+		}
+	}
+
+	public void sendJsonResponse(HttpServletResponse response , String jsonResponse) throws Exception {
+		try{
+			response.setContentType("application/json");
+			    
+			PrintWriter out = response.getWriter();
+			
+			out.print(jsonResponse);
+			out.flush();
+		}
+		catch(Exception ex){
+			System.out.println("Error in sendJsonResponse in AddBookController");
+			throw ex;
+		}
+	}
+
+
+
+
+	public String getJsonResponse(int inserted) throws Exception {
+		try{
+			String jsonResponse = "{success:";
+
+			switch(inserted){
+				case 0 :
+					jsonResponse += "false , " + "message:\"The book was not added\"";
+					break;
+				case 1 :
+					jsonResponse += "true , " + "message:\"The book has been added\"";
+					break;
+				default :
+					break;
+			}
+
+			jsonResponse += "}";
+
+			return jsonResponse;
+		}
+		catch(Exception ex){
+			System.out.println("Error in getJsonResponse in AddBookController");
+			throw ex;
 		}
 	}
 

@@ -13,8 +13,7 @@ import java.util.*;
 
 import static com.sharebooks.util.URLConstants.*;
 import com.sharebooks.login.models.SignIn;
-import com.sharebooks.books.models.BooksHandler;
-import com.sharebooks.books.entities.Book;
+import com.sharebooks.login.entities.User;
 
 
 
@@ -42,9 +41,11 @@ public class SignInController extends HttpServlet {
 			//User user = nes User(username , password);
 
 			//the value of validUser will be either 0 or 1
-			int validUser = signIn.validateUser();
+			int userId = signIn.validateUser();
 
-			moveForward(validUser , req , res , username , password);
+			System.out.println("User Id - " + userId);
+
+			moveForward(req , res , userId , username , password , signIn);
 		}
 		catch(Exception ex){
 			System.out.println("Error in SignInController : " + ex);
@@ -53,23 +54,23 @@ public class SignInController extends HttpServlet {
 
 
 
-	private void moveForward(int validUser , HttpServletRequest req , HttpServletResponse res , String username , String password) throws Exception{
+	private void moveForward(HttpServletRequest req , HttpServletResponse res , int userId , String username , String password , SignIn signIn) throws Exception{
 		try{
 			RequestDispatcher view = null;
 
 			//if login credentials are correct
-			if(validUser == 1){
+			if(userId >= 1){
 				//add username and password to session object
 				HttpSession session = req.getSession();
-				session.setAttribute("username" , username);
-				session.setAttribute("password" , password);
+				User user = new User(userId , username , password);
+				// session.setAttribute("username" , username);
+				// session.setAttribute("password" , password);
+				// session.setAttribute("userId" , userId);
+				session.setAttribute("user" , user);
+				session.setAttribute("profileImage" , "lakshya.jpg");
 
-
-				//getting some books and passing them with request parameter
-				BooksHandler booksHandler = new BooksHandler();
-				int booksCount = Integer.parseInt(getServletContext().getInitParameter("BOOKSCOUNT"));
-				List<Book> someBooks = booksHandler.fetchBooksByNumber(booksCount);
-				req.setAttribute("books" , someBooks);
+				//setting initial resources in request object such as books list , books categories etc.
+				signIn.setInitialResources(req , getServletContext());
 
 				//render home page
 				view = req.getRequestDispatcher(HOMEPAGE_JSP);

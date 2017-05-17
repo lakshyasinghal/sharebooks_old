@@ -5,6 +5,7 @@ package com.sharebooks.books.entities;
 public final class Book {
 
 	private int id;
+	private int userId;
 	private final String name;
 	private final String authorName;
 	private final String category;
@@ -14,7 +15,8 @@ public final class Book {
 
 	public Book(){
 		//no arg constructor
-		id = 0;
+		id = -1;
+		userId = -1;
 		name = "";
 		authorName = "";
 		category = "";
@@ -23,8 +25,9 @@ public final class Book {
 	}
 
 
-	public Book(int id , String name , String authorName , String category , int pages , String imagePath){
+	public Book(int id , int userId , String name , String authorName , String category , int pages , String imagePath){
 		this.id = id;
+		this.userId = userId;
 		this.name = name;
 		this.authorName = authorName;
 		this.category = category;
@@ -32,8 +35,8 @@ public final class Book {
 		this.imagePath = imagePath;
 	}
 
-	public Book(String name , String authorName , String category , int pages , String imagePath){
-		//this.id = id;
+	public Book(int userId , String name , String authorName , String category , int pages , String imagePath){
+		this.userId = userId;
 		this.name = name;
 		this.authorName = authorName;
 		this.category = category;
@@ -43,6 +46,10 @@ public final class Book {
 
 	public int getId(){
 		return id;
+	}
+
+	public int getUserId(){
+		return userId;
 	}
 
 	public String getName(){

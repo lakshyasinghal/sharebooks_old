@@ -1,0 +1,3 @@
+var urls = {
+	addBookUrl : "addBook"
+}

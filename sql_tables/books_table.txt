@@ -1,0 +1,22 @@
+create table books (
+	id int,
+	userId int,
+	name varchar(30),
+	authorName varchar(20),
+	category varchar(20),
+	pages int,
+	imagePath varchar(100)
+);
+
+
+
+
+
+
+
+insert into books values 
+(1 , 1 , "Head First HTML5" , "O'REILLY" , "Computer Science" , 750 , "") , 
+(2 , 2 , "Head First C" , "O'REILLY" , "Computer Science" , 600 , "") , 
+(3 , 1 , "Physics by HC Verma" , "HC Verma" , "Computer Science" , 750 , "") , 
+(4 , 1 , "Financial Management" , "SP Jain" , "Commerce" , 450 , "") , 
+(5 , 2 , "Mathematical Wisdom" , "Nagesh Arora" , "Commerce" , 675 , "");

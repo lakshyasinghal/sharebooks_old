@@ -4,11 +4,12 @@ import com.sharebooks.database.models.*;
 import com.sharebooks.books.entities.Book;
 import java.util.*;
 import java.sql.*;
+import com.sharebooks.tables.Tables;
 
 
 
 public class BooksHandler {
-	private String tableName = "Books";
+	//private String tableName = "Books";
 	private List<String> fieldTypes = null;
 	private List<Object> fieldValues = null;
 	private List<String> fields = null;
@@ -26,15 +27,10 @@ public class BooksHandler {
 	}
 
 
-	public BooksHandler(List<String> fieldTypes , List<Object> fieldValues , List<String> fields){
-		
-	}
-
-
 	public List<Book> fetchBooks() throws Exception{
 		try{
 			//fieldTypes , fieldValues & fields will be null so that we can get all the books
-			Fetcher fetcher = new Fetcher(tableName , fieldTypes , fieldValues , fields);
+			Fetcher fetcher = new Fetcher(Tables.BOOKS , null , null , null);
 			ResultSet rs = (ResultSet)fetcher.fetch(1);
 
 			List<Book> books = new ArrayList();
@@ -81,16 +77,16 @@ public class BooksHandler {
 
 	public int addBook(Book book) throws Exception{
 		try{
-			List<String> fields = Arrays.asList("name" , "authorName" , "category" , "pages" , "imagePath");
-			setFields(fields);
+			List<String> fields = Arrays.asList("userId" , "name" , "authorName" , "category" , "pages" , "imagePath");
+			//setFields(fields);
 
-			List<String> fieldTypes = Arrays.asList("string" , "string" , "string" , "int" , "string");
-			setFieldTypes(fieldTypes);
+			List<String> fieldTypes = Arrays.asList("int" , "string" , "string" , "string" , "int" , "string");
+			//setFieldTypes(fieldTypes);
 
-			List<Object> fieldValues = Arrays.asList(book.getName() , book.getAuthorName() , book.getCategory() , book.getPages() , book.getImagePath());
-			setFieldValues(fieldValues);
+			List<Object> fieldValues = Arrays.asList(book.getUserId() , book.getName() , book.getAuthorName() , book.getCategory() , book.getPages() , book.getImagePath());
+			//setFieldValues(fieldValues);
 
-			Insertor insertor = new Insertor(tableName , this.fieldTypes , this.fieldValues , this.fields);
+			Insertor insertor = new Insertor(Tables.BOOKS , fieldTypes , fieldValues , fields);
 			int inserted = insertor.insert();
 
 			return inserted;
@@ -113,13 +109,13 @@ public class BooksHandler {
 			List<Object> fieldValues = Arrays.asList(book.getName() , book.getAuthorName() , book.getCategory() , String.valueOf(book.getPages()) , book.getImagePath() , String.valueOf(book.getId()));
 			setFieldValues(fieldValues);
 
-			Updator updator = new Updator(tableName , this.fieldTypes , this.fieldValues , this.fields , this.setPropertyCounter);
+			Updator updator = new Updator(Tables.BOOKS , this.fieldTypes , this.fieldValues , this.fields , this.setPropertyCounter);
 			int updated = updator.update();
 
 			return updated;
 		}
 		catch(Exception ex){
-			System.out.println("Exception in addBook method in BooksHandler class : " + ex);
+			System.out.println("Exception in updateBook method in BooksHandler class : " + ex);
 			throw ex;
 		}
 	}
@@ -143,6 +139,42 @@ public class BooksHandler {
 		}
 		catch(Exception ex){
 			System.out.println("Exception in getBookFromResultSet method in BooksHandler class : " + ex);
+			throw ex;
+		}
+	}
+
+
+	public List<String> fetchBookCategories() throws Exception {
+		try{
+			//fieldTypes , fieldValues & fields will be null so that we can get all the books
+			Fetcher fetcher = new Fetcher(Tables.BOOKCATEGORIES , null , null , null);
+			ResultSet rs = (ResultSet)fetcher.fetch(1);
+
+			List<String> bookCategories = new ArrayList();
+
+			while(rs.next()){
+				String category = getCategoryFromResultSet(rs);
+				bookCategories.add(category);
+			}
+
+			System.out.println("Book Categories : " + bookCategories.toString());
+
+			return bookCategories;
+		}
+		catch(Exception ex){
+			System.out.println("Exception in fetchBookCategories method in BooksHandler class");
+			throw ex;
+		}
+	}
+
+	public String getCategoryFromResultSet(ResultSet rs) throws Exception {
+		try{
+			String category = rs.getString("category");
+			
+			return category;
+		}
+		catch(Exception ex){
+			System.out.println("Exception in getCategoryFromResultSet method in BooksHandler class");
 			throw ex;
 		}
 	}

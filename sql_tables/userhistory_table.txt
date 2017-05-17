@@ -1,0 +1,6 @@
+create table user_history (
+	user_id int,
+	recently_browsed varchar(100),
+	recently_shared varchar(100),
+	last_login datetime
+);

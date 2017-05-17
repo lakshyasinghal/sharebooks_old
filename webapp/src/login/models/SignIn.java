@@ -1,8 +1,15 @@
 package com.sharebooks.login.models;
 
-
+import javax.servlet.http.HttpServletRequest;        //interface
+import com.sharebooks.books.models.BooksHandler;
+import com.sharebooks.books.entities.Book;
+import javax.servlet.*;
+import javax.servlet.http.*;
 import java.util.*;
-import com.sharebooks.database.models.Checker;
+import java.sql.*;
+import com.sharebooks.database.models.*;
+import com.sharebooks.tables.Tables;
+
 
 
 public class SignIn {
@@ -81,12 +88,49 @@ public class SignIn {
 	public int validateUser() throws Exception {
 		try{
 			init();
-			Checker checker = new Checker(tableName , fieldTypes , fieldValues , fields);
-			int validUser = checker.check();
-			return validUser;
+			Fetcher fetcher = new Fetcher(Tables.USER , fieldTypes , fieldValues , fields);
+			ResultSet rs = (ResultSet)fetcher.fetch(1);
+
+			rs.next();
+
+			int userId = getUserIdFromResultSet(rs);
+
+			return userId;
 		}
 		catch(Exception ex){
 			System.out.println("Exception in validateUser method in SignIn class");
+			throw ex;
+		}
+	}
+
+
+	public int getUserIdFromResultSet(ResultSet rs) throws Exception {
+		try{
+			int userId = rs.getInt("id");
+			
+			return userId;
+		}
+		catch(Exception ex){
+			System.out.println("Exception in getUserIdFromResultSet method in SignIn class");
+			throw ex;
+		}
+	}
+
+
+	public void setInitialResources(HttpServletRequest req , ServletContext servletContext) throws Exception {
+		try{
+			//getting some books and passing them with request parameter
+			BooksHandler booksHandler = new BooksHandler();
+			int booksCount = Integer.parseInt(servletContext.getInitParameter("BOOKSCOUNT"));
+			List<Book> someBooks = booksHandler.fetchBooksByNumber(booksCount);
+			req.setAttribute("books" , someBooks);
+
+			//setting bookCategories
+			List<String> bookCategories = booksHandler.fetchBookCategories();
+			req.setAttribute("bookCategories" , bookCategories);
+		}
+		catch(Exception ex){
+			System.out.println("Exception in getInitialResources method in SignIn class");
 			throw ex;
 		}
 	}
