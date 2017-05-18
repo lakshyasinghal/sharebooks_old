@@ -26,11 +26,11 @@
 
 	<link rel="stylesheet" href="<%=request.getContextPath()%>/view/home/css/homepage.css">
 
-	<script type="text/javascript" src="<%=request.getContextPath()%>/view/home/js/homepage.js"></script>
+	<script type="text/javascript" src="<%=request.getContextPath()%>/view/home/js/homepageController.js"></script>
 </head>
 
 
-<body>
+<body ng-app="homepage" ng-controller="HomePageController" ng-init="init()">
 
 	<%@include file="addBookPopup.jsp"%>
 

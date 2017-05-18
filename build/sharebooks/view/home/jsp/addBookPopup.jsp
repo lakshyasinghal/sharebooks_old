@@ -50,7 +50,8 @@
 
 
         <div class="modal-footer">
-            <div id="addBookMessageDiv"></div>
+            <div class="successMessage" id="addBookSuccessMessageDiv">{{addBookSuccessMessage}}</div>
+            <div class="errorMessage" id="addBookErrorMessageDiv">{{addBookErrorMessage}}</div>
             <!-- <button type="button" class="btn btn-default" data-dismiss="modal">Close</button> -->
         </div>
 
