@@ -1,0 +1,4 @@
+1. Search functionality
+2. Book images and text
+3. User account list
+4. Fetching books based on category

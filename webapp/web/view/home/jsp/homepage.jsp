@@ -37,7 +37,27 @@
 	<div class="jumbotron full-height">
 
 		<div id="headContainer" class="row">
-			<div id="profile" style="background-image: url('<%=profileImagePath%>')"></div>
+			<div id="profile" style="background-image: url('<%=profileImagePath%>')">
+				<div id="profileList" class="absolute">	
+					<table id="profileListTable">
+						<tr>
+							<td>Sign out</td>
+						</tr>
+						<tr>
+							<td>Account Settings</td>
+						</tr>
+						<tr>
+							<td>History</td>
+						</tr>
+						<tr>
+							<td>Messages</td>
+						</tr>
+						<tr>
+							<td>Notifications</td>
+						</tr>
+					</table>
+				</div>
+			</div>
 		</div>
 
 		<div id="searchContainer" class="row">
