@@ -7,6 +7,7 @@
 	User user = (User)session.getAttribute("user");
 	String imagesFolderPath = request.getContextPath() + "/view/resources/images/";
 	String profileImagePath = request.getContextPath() + "/view/resources/images/users/" + (String)session.getAttribute("profileImage");
+	String booksImagePath = request.getContextPath() + "/view/resources/images/books/";
 %>
 
 
@@ -37,7 +38,30 @@
 	<div class="jumbotron full-height">
 
 		<div id="headContainer" class="row">
-			<div id="profile" style="background-image: url('<%=profileImagePath%>')"></div>
+			<div id="profile" class="pointer" ng-click="profileList.toggleProfileList()" style="background-image: url('<%=profileImagePath%>')">
+				<div id="profileList" ng-hide="profileListHidden" class="absolute">	
+					<table id="profileListTable">
+						<!-- <tr>
+							<td>Sign out</td>
+						</tr>
+						<tr>
+							<td>Account Settings</td>
+						</tr>
+						<tr>
+							<td>History</td>
+						</tr>
+						<tr>
+							<td>Messages</td>
+						</tr>
+						<tr>
+							<td>Notifications</td>
+						</tr> -->
+						<tr ng-repeat="option in profileListOptions">
+							<td ng-click="makeRequest(this)">{{option}}</td>
+						</tr>
+					</table>
+				</div>
+			</div>
 		</div>
 
 		<div id="searchContainer" class="row">
@@ -60,12 +84,6 @@
 				<%
 					}
 				%>
-				<!-- <div class="category"><span>Fiction</span></div>
-				<div class="category"><span>History</span></div>
-				<div class="category"><span>Sports</span></div>
-				<div class="category"><span>Science</span></div>
-				<div class="category"><span>Science</span></div>
-				<div class="category"><span>Science</span></div> -->
 			</div>
 			
 			<div id="booksContainer" class="col-sm-10 col-md-10 full-height">
@@ -77,7 +95,7 @@
 						book = books.get(i);
 				%>
 				<div class="book">
-					<div class="bookImageDiv"></div>
+					<img src="<%=booksImagePath + book.getImage()%>" class="bookImageDiv" width="100" height="120"></div>
 					<div class="bookName"><%=book.getName()%></div>
 					<div class="bookAuthorName"><%=book.getAuthorName()%></div>
 				</div>

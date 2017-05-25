@@ -1,0 +1,9 @@
+redis tutorials
+http://www.baeldung.com/jedis-java-redis-client-library
+http://javapointers.com/tutorial/use-redis-java-using-jedis/
+
+Memory leaks in java
+https://www.toptal.com/java/hunting-memory-leaks-in-java
+
+How to adjust JVM memory
+http://www.oracle.com/technetwork/java/javase/tech/vmoptions-jsp-140102.html

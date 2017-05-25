@@ -7,6 +7,7 @@
 	User user = (User)session.getAttribute("user");
 	String imagesFolderPath = request.getContextPath() + "/view/resources/images/";
 	String profileImagePath = request.getContextPath() + "/view/resources/images/users/" + (String)session.getAttribute("profileImage");
+	String booksImagePath = request.getContextPath() + "/view/resources/images/books/";
 %>
 
 
@@ -30,17 +31,17 @@
 </head>
 
 
-<body ng-app="homepage" ng-controller="HomePageController" ng-init="init()">
+<body ng-app="homepage" >
 
 	<%@include file="addBookPopup.jsp"%>
 
-	<div class="jumbotron full-height">
+	<div class="jumbotron full-height" ng-controller="HomePageController" ng-init="init()">
 
 		<div id="headContainer" class="row">
-			<div id="profile" style="background-image: url('<%=profileImagePath%>')">
-				<div id="profileList" class="absolute">	
+			<div id="profile" class="pointer" ng-click="toggleProfileList()" style="background-image: url('<%=profileImagePath%>')">
+				<div id="profileList" ng-hide="profileListHidden" class="absolute">	
 					<table id="profileListTable">
-						<tr>
+						<!-- <tr>
 							<td>Sign out</td>
 						</tr>
 						<tr>
@@ -54,6 +55,9 @@
 						</tr>
 						<tr>
 							<td>Notifications</td>
+						</tr> -->
+						<tr ng-repeat="option in profileListOptions">
+							<td>{{option}}</td>
 						</tr>
 					</table>
 				</div>
@@ -80,12 +84,6 @@
 				<%
 					}
 				%>
-				<!-- <div class="category"><span>Fiction</span></div>
-				<div class="category"><span>History</span></div>
-				<div class="category"><span>Sports</span></div>
-				<div class="category"><span>Science</span></div>
-				<div class="category"><span>Science</span></div>
-				<div class="category"><span>Science</span></div> -->
 			</div>
 			
 			<div id="booksContainer" class="col-sm-10 col-md-10 full-height">
@@ -97,8 +95,9 @@
 						book = books.get(i);
 				%>
 				<div class="book">
-					<div class="bookImageDiv"></div>
+					<img src="<%=booksImagePath + book.getImage()%>" class="bookImageDiv" width="100" height="120">
 					<div class="bookName"><%=book.getName()%></div>
+					<span>By</span>
 					<div class="bookAuthorName"><%=book.getAuthorName()%></div>
 				</div>
 

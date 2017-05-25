@@ -10,7 +10,7 @@ public final class Book {
 	private final String authorName;
 	private final String category;
 	private final int pages;
-	private final String imagePath;
+	private final String image;
 
 
 	public Book(){
@@ -21,27 +21,27 @@ public final class Book {
 		authorName = "";
 		category = "";
 		pages = 0;
-		imagePath = "";
+		image = "";
 	}
 
 
-	public Book(int id , int userId , String name , String authorName , String category , int pages , String imagePath){
+	public Book(int id , int userId , String name , String authorName , String category , int pages , String image){
 		this.id = id;
 		this.userId = userId;
 		this.name = name;
 		this.authorName = authorName;
 		this.category = category;
 		this.pages = pages;
-		this.imagePath = imagePath;
+		this.image = image;
 	}
 
-	public Book(int userId , String name , String authorName , String category , int pages , String imagePath){
+	public Book(int userId , String name , String authorName , String category , int pages , String image){
 		this.userId = userId;
 		this.name = name;
 		this.authorName = authorName;
 		this.category = category;
 		this.pages = pages;
-		this.imagePath = imagePath;
+		this.image = image;
 	}
 
 	public int getId(){
@@ -68,7 +68,7 @@ public final class Book {
 		return pages;
 	}
 
-	public String getImagePath(){
-		return imagePath;
+	public String getImage(){
+		return image;
 	}
 } 

@@ -77,13 +77,13 @@ public class BooksHandler {
 
 	public int addBook(Book book) throws Exception{
 		try{
-			List<String> fields = Arrays.asList("userId" , "name" , "authorName" , "category" , "pages" , "imagePath");
+			List<String> fields = Arrays.asList("userId" , "name" , "authorName" , "category" , "pages" , "image");
 			//setFields(fields);
 
 			List<String> fieldTypes = Arrays.asList("int" , "string" , "string" , "string" , "int" , "string");
 			//setFieldTypes(fieldTypes);
 
-			List<Object> fieldValues = Arrays.asList(book.getUserId() , book.getName() , book.getAuthorName() , book.getCategory() , book.getPages() , book.getImagePath());
+			List<Object> fieldValues = Arrays.asList(book.getUserId() , book.getName() , book.getAuthorName() , book.getCategory() , book.getPages() , book.getImage());
 			//setFieldValues(fieldValues);
 
 			Insertor insertor = new Insertor(Tables.BOOKS , fieldTypes , fieldValues , fields);
@@ -100,13 +100,13 @@ public class BooksHandler {
 
 	public int updateBook(Book book) throws Exception{
 		try{
-			List<String> fields = Arrays.asList("name" , "authorName" , "category" , "pages" , "imagePath" , "id");
+			List<String> fields = Arrays.asList("name" , "authorName" , "category" , "pages" , "image" , "id");
 			setFields(fields);
 
 			List<String> fieldTypes = Arrays.asList("string" , "string" , "string" , "int" , "string" , "int");
 			setFieldTypes(fieldTypes);
 
-			List<Object> fieldValues = Arrays.asList(book.getName() , book.getAuthorName() , book.getCategory() , String.valueOf(book.getPages()) , book.getImagePath() , String.valueOf(book.getId()));
+			List<Object> fieldValues = Arrays.asList(book.getName() , book.getAuthorName() , book.getCategory() , String.valueOf(book.getPages()) , book.getImage() , String.valueOf(book.getId()));
 			setFieldValues(fieldValues);
 
 			Updator updator = new Updator(Tables.BOOKS , this.fieldTypes , this.fieldValues , this.fields , this.setPropertyCounter);
@@ -131,9 +131,9 @@ public class BooksHandler {
 			String authorName = rs.getString("authorName");
 			String category = rs.getString("category");
 			int pages = rs.getInt("pages");
-			String imagePath = rs.getString("imagePath");
+			String image = rs.getString("image");
 
-			Book book = new Book(id , name , authorName , category , pages , imagePath);
+			Book book = new Book(id , name , authorName , category , pages , image);
 
 			return book;
 		}

@@ -28,9 +28,9 @@ public class AddBookController extends HttpServlet {
 			String authorName = req.getParameter("authorName");
 			String category = req.getParameter("category");
 			String pages = req.getParameter("pages");
-			String imagePath = req.getParameter("imagePath");
+			String image = req.getParameter("image");
 
-			Book book = new Book(Integer.parseInt(userId) , name , authorName , category , Integer.parseInt(pages) , imagePath);
+			Book book = new Book(Integer.parseInt(userId) , name , authorName , category , Integer.parseInt(pages) , image);
 
 			BooksHandler booksHandler = new BooksHandler();
 			int inserted = booksHandler.addBook(book);

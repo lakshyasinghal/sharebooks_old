@@ -27,10 +27,10 @@ public class UpdateBookController extends HttpServlet {
 			String authorName = req.getParameter("authorName");
 			String category = req.getParameter("category");
 			String pages = req.getParameter("pages");
-			String imagePath = req.getParameter("imagePath");
+			String image = req.getParameter("image");
 
 
-			Book book = new Book(Integer.parseInt(id) , name , authorName , category , Integer.parseInt(pages) , imagePath);
+			Book book = new Book(Integer.parseInt(id) , name , authorName , category , Integer.parseInt(pages) , image);
 			//the value of validUser will be either 0 or 1
 
 			BooksHandler booksHandler = new BooksHandler();

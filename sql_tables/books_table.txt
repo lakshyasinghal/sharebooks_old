@@ -1,11 +1,12 @@
 create table books (
-	id int,
+	id int NOT NULL AUTO_INCREMENT,
 	userId int,
-	name varchar(30),
-	authorName varchar(20),
-	category varchar(20),
+	name varchar(100),
+	authorName varchar(100),
+	category varchar(30),
 	pages int,
-	imagePath varchar(100)
+	image varchar(100),
+	PRIMARY KEY (id)
 );
 
 
@@ -14,9 +15,11 @@ create table books (
 
 
 
-insert into books values 
-(1 , 1 , "Head First HTML5" , "O'REILLY" , "Computer Science" , 750 , "") , 
-(2 , 2 , "Head First C" , "O'REILLY" , "Computer Science" , 600 , "") , 
-(3 , 1 , "Physics by HC Verma" , "HC Verma" , "Computer Science" , 750 , "") , 
-(4 , 1 , "Financial Management" , "SP Jain" , "Commerce" , 450 , "") , 
-(5 , 2 , "Mathematical Wisdom" , "Nagesh Arora" , "Commerce" , 675 , "");
+insert into books (userId , name , authorName , category , pages , image) values 
+(1 , "Head First JavaScript" , "O'REILLY" , "Computer Science" , 750 , "book1.jpg") , 
+(2 , "Head First C" , "O'REILLY" , "Computer Science" , 600 , "book2.jpg") , 
+(1 , "Head First HTML5" , "O'REILLY" , "Computer Science" , 750 , "book3.jpg") , 
+(1 , "Head First Android Development" , "O'REILLY" , "Computer Science" , 450 , "book4.jpg") , 
+(2 , "Concepts of Physics 1" , "H.C Verma" , "Physics" , 675 , "book5.jpg"),
+(1 , "Concepts of Physics 2" , "H.C Verma" , "Physics" , 450 , "book6.jpg") , 
+(2 , "Data Structures & Algorithms Made Easy" , "Narsimha" , "Computer Science" , 675 , "book7.jpg");

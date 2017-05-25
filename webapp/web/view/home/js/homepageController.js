@@ -1,77 +1,87 @@
 var homepageApp = angular.module("homepage" , []);
 
 
+//controller for homepage
+
 homepageApp.controller("HomePageController" , ['$scope' , '$http' , function($scope , $http){
 
+	$scope.profileListOptions = ["Sign out" , "Account settings" , "History" , "Messages"];
+	$scope.profileListHidden = true;
+	
+	$scope.init = function(){
+		//$scope.profileIcon.init();
+	};
+
+	$scope.toggleProfileList = function(){
+		if($scope.profileListHidden){
+			$scope.profileListHidden = false;
+		}
+		else{
+			$scope.profileListHidden = true;
+		}
+	};
+
+
+}]);
+
+
+
+
+
+
+//controller for add book popup in homepage
+
+homepageApp.controller("BookPopupController" , ['$scope' , '$http' , function($scope , $http){
+	$scope.params = ["name" , "authorName" , "category" , "pages" , "imagePath"];
 	$scope.addBookSuccessMessage = "";
 	$scope.addBookErrorMessage = "";
 	
 	$scope.init = function(){
-		$scope.addBookPopup.init();
-	}
+		$scope.startCategoryDropdown();
+		$("#addBookButton").click($scope.addBook);
+	};
 
-	//window.onload = $scope.init;
+	$scope.startCategoryDropdown = function(){
 
+		var categoryInput = $("#category")[0];
 
-	$scope.addBookPopup = {
-		params : ["name" , "authorName" , "category" , "pages" , "imagePath"],
+		$("#categoryDropdown ul li").click(function(event){
+			var selectedValue = event.target.innerText;
+			categoryInput.value = selectedValue;
+		});		
+	};
 
-		init : function(){
-			var self = $scope.addBookPopup;
+	$scope.addBook = function(){
 
-			self.startCategoryDropdown();
-			$("#addBookButton").click(self.addBook);
-		},
+		var paramsObject = $scope.collectParameters();
+		var url = urls.addBookUrl;
 
-		startCategoryDropdown : function(){
-			var self = $scope.addBookPopup;
+		$.post(url , paramsObject , $scope.addBookCallBackHandler);
+	};
 
-			var categoryInput = $("#category")[0];
+	$scope.collectParameters = function(){
+		var params = $scope.params;
 
-			$("#categoryDropdown ul li").click(function(event){
-				var selectedValue = event.target.innerText;
-				categoryInput.value = selectedValue;
-			});		
-		},
+		var paramsObject = {};
 
-		addBook : function(){
-			var self = $scope.addBookPopup;
+		paramsObject.userId = user.id;
 
-			var paramsObject = self.collectParameters();
-			var url = urls.addBookUrl;
+		console.log("User id : " + paramsObject.userId);
 
-			$.post(url , paramsObject , self.addBookCallBackHandler);
+		for(var i=0 ; i<params.length ; i++){
+			paramsObject[params[i]] = $("#" + params[i]).val();
+		}
 
-			//makeAjaxRequest(url , paramsObject , self.showSuccessMessage , self.showErrorMessage);
-		},
+		return paramsObject;
+	};
 
-		collectParameters : function(){
-			var self = $scope.addBookPopup;
-			var params = self.params;
+	$scope.addBookCallBackHandler = function(data , status){
 
-			var paramsObject = {};
-
-			paramsObject.userId = user.id;
-
-			console.log("User id : " + paramsObject.userId);
-
-			for(var i=0 ; i<params.length ; i++){
-				paramsObject[params[i]] = $("#" + params[i]).val();
-			}
-
-			return paramsObject;
-		},
-
-
-		addBookCallBackHandler : function(data , status){
-			var self = $scope.addBookPopup;
-
-			if(data.success){
-				$scope.addBookSuccessMessage = data.message;
-			}
-			else{
-				$scope.addBookErrorMessage = data.message;
-			}
+		if(data.success){
+			$scope.addBookSuccessMessage = data.message;
+		}
+		else{
+			$scope.addBookErrorMessage = data.message;
 		}
 	};
 

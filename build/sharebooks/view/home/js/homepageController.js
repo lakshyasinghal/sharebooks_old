@@ -3,14 +3,40 @@ var homepageApp = angular.module("homepage" , []);
 
 homepageApp.controller("HomePageController" , ['$scope' , '$http' , function($scope , $http){
 
+	$scope.profileListOptions = ["Sign out" , "Account settings" , "History" , "Messages"];
+	$scope.profileListHidden = true;
+
 	$scope.addBookSuccessMessage = "";
 	$scope.addBookErrorMessage = "";
 	
 	$scope.init = function(){
 		$scope.addBookPopup.init();
-	}
+
+		$scope.profileIcon.init();
+	};
 
 	//window.onload = $scope.init;
+
+	$scope.profileList = {
+		init : function(){
+
+		},
+
+		toggleProfileList : function(){
+			if($scope.profileListHidden){
+				$scope.profileListHidden = false;
+			}
+			else{
+				$scope.profileListHidden = true;
+			}
+		}
+	};
+
+	toggleProfileList = function(){
+		window.alert("inside list");
+	}
+
+	$scope
 
 
 	$scope.addBookPopup = {
