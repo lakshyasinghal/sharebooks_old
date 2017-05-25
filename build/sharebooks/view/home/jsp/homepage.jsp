@@ -31,14 +31,14 @@
 </head>
 
 
-<body ng-app="homepage" ng-controller="HomePageController" ng-init="init()">
+<body ng-app="homepage" >
 
 	<%@include file="addBookPopup.jsp"%>
 
-	<div class="jumbotron full-height">
+	<div class="jumbotron full-height" ng-controller="HomePageController" ng-init="init()">
 
 		<div id="headContainer" class="row">
-			<div id="profile" class="pointer" ng-click="profileList.toggleProfileList()" style="background-image: url('<%=profileImagePath%>')">
+			<div id="profile" class="pointer" ng-click="toggleProfileList()" style="background-image: url('<%=profileImagePath%>')">
 				<div id="profileList" ng-hide="profileListHidden" class="absolute">	
 					<table id="profileListTable">
 						<!-- <tr>
@@ -57,7 +57,7 @@
 							<td>Notifications</td>
 						</tr> -->
 						<tr ng-repeat="option in profileListOptions">
-							<td ng-click="makeRequest(this)">{{option}}</td>
+							<td>{{option}}</td>
 						</tr>
 					</table>
 				</div>
@@ -95,8 +95,9 @@
 						book = books.get(i);
 				%>
 				<div class="book">
-					<img src="<%=booksImagePath + book.getImage()%>" class="bookImageDiv" width="100" height="120"></div>
+					<img src="<%=booksImagePath + book.getImage()%>" class="bookImageDiv" width="100" height="120">
 					<div class="bookName"><%=book.getName()%></div>
+					<span>By</span>
 					<div class="bookAuthorName"><%=book.getAuthorName()%></div>
 				</div>
 

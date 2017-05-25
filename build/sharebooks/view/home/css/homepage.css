@@ -5,10 +5,26 @@
 
 .book {
 	display: inline-block;
-	height: 100px;
+	font-size: 11px;
+	height: 165px;
 	width: 100px;
-	background-color: grey;
 	margin: 10px;
+	text-align: center;
+	overflow: auto;
+}
+
+.bookName {
+	height: 15px;
+	white-space: nowrap;
+  	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+.bookAuthorName {
+	height: 15px;
+	white-space: nowrap;
+  	overflow: hidden;
+	text-overflow: ellipsis;
 }
 
 .category {
