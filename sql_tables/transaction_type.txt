@@ -1,0 +1,9 @@
+Create Table transaction_type (
+	id smallint NOT NULL,
+	type char(10) NOT NULL
+);
+
+
+
+
+insert into transaction_type values (0 , "Rent") , (1 , "Buy");

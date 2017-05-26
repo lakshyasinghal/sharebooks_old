@@ -30,6 +30,12 @@
 	</servlet>
 
 
+	<servlet>
+		<servlet-name>FilterBooksByCategory</servlet-name>
+		<servlet-class>com.sharebooks.books.controllers.BooksFilterController</servlet-class>
+	</servlet>
+
+
 
 
 
@@ -57,6 +63,10 @@
 		<url-pattern>/addBook</url-pattern>
 	</servlet-mapping>
 
+	<servlet-mapping>
+		<servlet-name>FilterBooks</servlet-name>
+		<url-pattern>/filterBooks</url-pattern>
+	</servlet-mapping>
 
 
 
@@ -85,7 +95,7 @@
 
 	<context-param>
 		<param-name>BOOKSCOUNT</param-name>
-		<param-value>7</param-value>
+		<param-value>100</param-value>
 	</context-param>
 
 
@@ -107,7 +117,7 @@
 	<!-- session configuration -->
 
 	<session-config>
-		<session-timeout>5</session-timeout>
+		<session-timeout>3</session-timeout>
 	</session-config>
 	
 

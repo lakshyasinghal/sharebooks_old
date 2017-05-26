@@ -1,12 +1,13 @@
 create table user_info (
-	id int,
+	id int AUTO_INCREMENT,
 	name varchar(20),
 	age int,
 	address varchar(100),
 	city varchar(15),
 	state varchar(15),
 	book_ids varchar(1000),
-	creation_time datetime
+	creation_time datetime,
+	PRIMARY KEY (id)
 );
 
 

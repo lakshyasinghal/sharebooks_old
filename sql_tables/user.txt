@@ -1,0 +1,15 @@
+create table user (
+	id int AUTO_INCREMENT,
+	email varchar(40),
+	password varchar(20),
+	PRIMARY KEY (id)
+);
+
+
+
+
+
+
+insert into user (email , password) values 
+("lakshyasinghal333@gmail.com" , "lakshya") , 
+("himanshu.singhal@gmail.com" , "himanshu");
