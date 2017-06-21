@@ -1,0 +1,8 @@
+1. Once books are fetched by getAllBooks request, they can be stored in the session storage or the localStorage
+
+2. All requests will be ajax requests and if we need to migrate to another page based on successful json response, then we need to do it through javascript.
+
+3. When any page is loaded, first the session validity will be checked. If the session has expired, the user will be taken to the session timeout html page. Otherwise, the page will load as expected.
+
+
+4. The filter by category and filter by search can be handled at the frontend side only. There is no need to send request at the backend.

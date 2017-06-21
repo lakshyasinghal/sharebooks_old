@@ -4,7 +4,6 @@ package com.sharebooks.database.models;
 import java.util.*;
 import java.sql.*;
 import com.sharebooks.database.interfaces.*;
-import static com.sharebooks.util.URLConstants.*;
 import static com.sharebooks.util.StringConstants.*;
 import static com.sharebooks.util.ObjectPair.*;
 
@@ -17,19 +16,13 @@ public class Deletor extends GenericExecutor implements QueryBuilder {
 		//nothing goes here
 	}
 
-	//constructor
-	public Deletor(String tableName , List<String> fieldTypes , List<Object> fieldValues , List<String> fields){
-		super(tableName , fieldTypes , fieldValues , fields);
-	}
 
-
-	//this method will be the entry method for this class
 	//it will delete a row and will return a status value of 0 or 1
-	public int delete() throws Exception {
+	public int delete(String table , List<String> fields , List<String> fieldTypes , List<Object> fieldValues) throws Exception {
 		try{
-			String query = buildQuery();
+			String query = buildQuery(table , fields , 0);
 
-			PreparedStatement stmt = getPreparedStatement(query);
+			PreparedStatement stmt = getPreparedStatement(query , fieldTypes , fieldValues);
 
 			int result = executeUpdate(stmt);
 
@@ -45,9 +38,7 @@ public class Deletor extends GenericExecutor implements QueryBuilder {
 
 
 	//this method will return a query string in the form of        select * from tableName where field1=? , field2=? , field3=? ;
-	public String buildQuery() throws Exception {
-		List<String> fields = getFields();
-		String tableName = getTableName();
+	public String buildQuery(String table , List<String> fields , int generic) throws Exception {
 
 		try{
 			StringBuilder sqlQuery = new StringBuilder();
@@ -56,7 +47,7 @@ public class Deletor extends GenericExecutor implements QueryBuilder {
 			sqlQuery.append(SPACE);
 			sqlQuery.append("FROM");
 			sqlQuery.append(SPACE);
-			sqlQuery.append(tableName);
+			sqlQuery.append(table);
 
 			if(fields != null){
 

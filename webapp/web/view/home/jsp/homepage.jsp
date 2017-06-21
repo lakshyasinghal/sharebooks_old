@@ -1,5 +1,5 @@
 <%@page import="com.sharebooks.books.entities.Book"%>
-<%@page import="com.sharebooks.login.entities.User"%>
+<%@page import="com.sharebooks.user.entities.User"%>
 <%@page import="java.util.*"%>
 
 

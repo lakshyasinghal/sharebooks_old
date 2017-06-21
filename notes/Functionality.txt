@@ -2,7 +2,7 @@
 2. Book images and text
 3. User account list
 4. Fetching books based on category
-5. Calender on login page
+5. Create indexes in mysql tables
 6. Correct age functionality for user registration
 7. Provide validations on login page
-8. Create indexes in mysql tables
+8. Create json serializer

@@ -1,0 +1,1 @@
+Improve the jsonBuilder to accomodate simple arrays

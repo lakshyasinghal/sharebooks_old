@@ -6,14 +6,17 @@ import javax.servlet.GenericServlet;                 //abstract class
 import javax.servlet.http.HttpServlet;               //abstract class
 import javax.servlet.http.HttpServletRequest;        //interface
 import javax.servlet.http.HttpServletResponse;       //interface
+import com.sharebooks.login.models.SignIn;
+import com.sharebooks.user.entities.User;
+import com.sharebooks.response.entities.Response;
+import com.sharebooks.response.models.ResponseHandler;
+import com.sharebooks.commonResources.entities.Resources;
 import javax.servlet.*;
 import javax.servlet.http.*;
-
 import java.util.*;
+import static com.sharebooks.staticClasses.StatusCodes.*;
+import static com.sharebooks.staticClasses.ResponseTypes.*;
 
-import static com.sharebooks.util.URLConstants.*;
-import com.sharebooks.login.models.SignIn;
-import com.sharebooks.login.entities.User;
 
 
 
@@ -32,20 +35,12 @@ public class SignInController extends HttpServlet {
 
 	public void doPost(HttpServletRequest req , HttpServletResponse res){
 		try{
-
-			String username = req.getParameter("email");
-			String password = req.getParameter("password");
-
 			//Use SignIn class to validate user
-			SignIn signIn = new SignIn(username , password);
-			//User user = nes User(username , password);
+			SignIn signIn = new SignIn(req);
+			
+			User user = signIn.getUser();
 
-			//the value of validUser will be either 0 or 1
-			int userId = signIn.validateUser();
-
-			System.out.println("User Id - " + userId);
-
-			moveForward(req , res , userId , username , password , signIn);
+			moveForward(req , res , user);
 		}
 		catch(Exception ex){
 			System.out.println("Error in SignInController : " + ex);
@@ -54,37 +49,29 @@ public class SignInController extends HttpServlet {
 
 
 
-	private void moveForward(HttpServletRequest req , HttpServletResponse res , int userId , String username , String password , SignIn signIn) throws Exception{
+	private void moveForward(HttpServletRequest req , HttpServletResponse res , User user) throws Exception{
 		try{
-			RequestDispatcher view = null;
+			Response response = null;
+			ResponseHandler responseHandler = Resources.getResponseHandler();
 
-			//if login credentials are correct
-			if(userId >= 1){
-				//add username and password to session object
-				HttpSession session = req.getSession();
-				User user = new User(userId , username , password);
-				// session.setAttribute("username" , username);
-				// session.setAttribute("password" , password);
-				// session.setAttribute("userId" , userId);
-				session.setAttribute("user" , user);
-				session.setAttribute("profileImage" , "lakshya.jpg");
-
-				//setting initial resources in request object such as books list , books categories etc.
-				signIn.setInitialResources(req , getServletContext());
-
-				//render home page
-				view = req.getRequestDispatcher(HOMEPAGE_JSP);
-				view.forward(req , res);
+			//iwhen there is no user for the given login credentials
+			if(user == null){
+				response = new Response(JSON , res , false , LOGIN_FAILED);
 			}
+			//when there is a user for the given login credentials
 			else{
-				//redirect to login jsp page with error message
-				req.setAttribute("loginStatusCode" , 2);
-				view = req.getRequestDispatcher(LOGIN_JSP);
-				view.forward(req , res);
+				//start the session 
+				HttpSession session = req.getSession();
+				//add user object to the session
+				session.setAttribute("user" , user);
+
+				response = new Response(JSON , res , true , LOGIN_SUCCESSFUL);
 			}
+
+			responseHandler.sendResponse(response);
 		}
 		catch(Exception ex){
-			System.out.println("Error in moveForward method in SignInController class");
+			System.out.println("Error in moveForward method in SignInController");
 			throw ex;
 		}
 	}

@@ -4,7 +4,6 @@ package com.sharebooks.database.models;
 import java.util.*;
 import java.sql.*;
 import com.sharebooks.database.interfaces.*;
-import static com.sharebooks.util.URLConstants.*;
 import static com.sharebooks.util.StringConstants.*;
 import static com.sharebooks.util.ObjectPair.*;
 
@@ -18,20 +17,13 @@ public class Updator extends GenericExecutor implements QueryBuilder {
 	}
 
 
-	//constructor
-	public Updator(String tableName , List<String> fieldTypes , List<Object> fieldValues , List<String> fields , int n){
-		super(tableName , fieldTypes , fieldValues , fields);
-		setPropertyCounter = n;
-	}
-
-
 	//this method will be the entry method for this class
 	//it will update the rows and return the number of rows updated
-	public int update() throws Exception {
+	public int update(String table , List<String> fields , List<String> fieldTypes , List<Object> fieldValues , int propertyCounter) throws Exception {
 		try{
-			String query = buildQuery();
+			String query = buildQuery(table , fields , propertyCounter);
 
-			PreparedStatement stmt = getPreparedStatement(query);
+			PreparedStatement stmt = getPreparedStatement(query , fieldTypes , fieldValues);
 
 			int result = executeUpdate(stmt);
 
@@ -46,17 +38,16 @@ public class Updator extends GenericExecutor implements QueryBuilder {
 	}	
 
 
-	//this method will return a query string in the form of        select * from tableName where field1=? , field2=? , field3=? ;
-	public String buildQuery() throws Exception {
-		List<String> fields = getFields();
-		String tableName = getTableName();
+	//this method will return a query string in the form of        update table set field1 = ? , field2 = ? where targetField = ? ;
+	//propertyCounter will count the properties to be updated from the front
+	public String buildQuery(String table , List<String> fields , int propertyCounter) throws Exception {
 
 		try{
 			StringBuilder sqlQuery = new StringBuilder();
 
 			sqlQuery.append("UPDATE");
 			sqlQuery.append(SPACE);
-			sqlQuery.append(tableName);
+			sqlQuery.append(table);
 
 			if(fields != null){
 				int size = fields.size();
@@ -82,7 +73,6 @@ public class Updator extends GenericExecutor implements QueryBuilder {
 				// sqlQuery.append(SPACE);
 				sqlQuery.append("WHERE");
 				sqlQuery.append(SPACE);
-				// sqlQuery.append("SELECT");
 				// sqlQuery.append(SPACE);
 
 				

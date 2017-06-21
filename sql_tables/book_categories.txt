@@ -1,6 +1,7 @@
-create table bookCategories (
-	category varchar(50)
+create table Book_Categories (
+	category varchar(50) NOT NULL,
+	subcategories varchar(300) NOT NULL
 );
 
 
-insert into bookCategories values ("Science") , ("Computer Science") , ("Maths") , ("Physics") , ("Psychology") , ("History") , ("Novel");
+insert into Book_Categories (category , subcategories) values ("Science" , "Physics , Chemistry , Maths") , ("Computer Science" , "Java , Javascript , C , C++ , Data Structures & Algorithms , HTML , Android");

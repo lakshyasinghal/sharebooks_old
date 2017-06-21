@@ -14,6 +14,10 @@ public class DatabaseListener implements ServletContextListener {
 
 	public void contextInitialized(ServletContextEvent event){
 		try{
+			//System.out .println();
+			System.out .println("\n\nInitializing database connection\n\n");
+			//System.out .println();
+
 			ServletContext servContext = event.getServletContext();
 
 			String dbURL = servContext.getInitParameter("DB_URL");
@@ -36,6 +40,7 @@ public class DatabaseListener implements ServletContextListener {
 
 	private void testConnection() throws Exception{
 		try{
+			System.out .println("\n\nTesting database connection\n\n");
 			if(Connector.getConnection() == null){
 				throw new Exception("Connection not initialized");
 			}
@@ -47,7 +52,8 @@ public class DatabaseListener implements ServletContextListener {
 
 	public void contextDestroyed(ServletContextEvent event){
 		try{
-			if(Connector.getConnection() == null){
+			System.out.println("Inside contextDestroyed in DatabaseListener");
+			if(Connector.getConnection() != null){
 				Connector.closeConnection();
 				System.out.println("Database connection closed");
 			}

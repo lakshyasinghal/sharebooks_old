@@ -7,27 +7,14 @@ import java.sql.*;
 
 
 public abstract class GenericExecutor implements Executor {
-	private String tableName;
-	//private HashMap<String , Object> fieldValueMap;
 
 	private Connection connection;
-	private List<String> fields;
-	private List<String> fieldTypes;
-	private List<Object> fieldValues;
-	
 
+
+	
 
 	public GenericExecutor(){
 		connection = Connector.getConnection();
-	}
-
-	public GenericExecutor(String tableName , List<String> fieldTypes , List<Object> fieldValues , List<String> fields){
-		this();
-		this.tableName = tableName;
-		//this.fieldValueMap = fieldValueMap;
-		this.fieldTypes = fieldTypes;
-		this.fieldValues = fieldValues;
-		this.fields = fields;
 	}
 
 
@@ -55,8 +42,7 @@ public abstract class GenericExecutor implements Executor {
 
 
 	//this method will take the sqlquery and will get a prepared statement for it by inserting the parameters
-	public PreparedStatement getPreparedStatement(String sqlQuery) throws Exception {
-
+	public PreparedStatement getPreparedStatement(String sqlQuery , List<String> fieldTypes , List<Object> fieldValues) throws Exception {
 		PreparedStatement stmt = null;
 
 		try{
@@ -98,6 +84,12 @@ public abstract class GenericExecutor implements Executor {
 				case "int" :
 					stmt.setInt(fieldNumber , (Integer)fieldValue);
 					break;
+				case "float" :
+					stmt.setFloat(fieldNumber , (Float)fieldValue);
+					break;
+				case "double" :
+					stmt.setDouble(fieldNumber , (Double)fieldValue);
+					break;
 				case "string" :
 					stmt.setString(fieldNumber , (String)fieldValue);
 					break;
@@ -112,29 +104,6 @@ public abstract class GenericExecutor implements Executor {
 			System.out.println("Exception in setFielValue in GenericExecutor class " );
 			throw ex;
 		}
-	}
-
-
-
-
-
-	//gettter methods
-	public String getTableName(){
-		return tableName;
-	}
-
-
-	public List<String>  getFieldTypes(){
-		return fieldTypes;
-	}
-
-	public List<Object>  getFieldValues(){
-		return fieldValues;
-	}
-
-
-	public List<String>  getFields(){
-		return fields;
 	}
 
 

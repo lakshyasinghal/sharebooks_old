@@ -10,9 +10,10 @@ create table books (
 	available smallint NOT NULL,
 	buy smallint NOT NULL,
 	rent smallint NOT NULL,
-	rentAmount smallint NOT NULL,
+	buyAmount Double(8,3),
+	rentAmount Double(8,3) NOT NULL,
 	PRIMARY KEY (id),
-	FOREIGN KEY (userId) REFERENCES User(id)
+	FOREIGN KEY (userId) REFERENCES Users(id)
 );
 
 
@@ -21,11 +22,11 @@ create table books (
 
 
 
-insert into books (userId , name , authorName , category , pages , image) values 
-(1 , "Head First JavaScript" , "O'REILLY" , "Computer Science" , 750 , "book1.jpg") , 
-(2 , "Head First C" , "O'REILLY" , "Computer Science" , 600 , "book2.jpg") , 
-(1 , "Head First HTML5" , "O'REILLY" , "Computer Science" , 750 , "book3.jpg") , 
-(1 , "Head First Android Development" , "O'REILLY" , "Computer Science" , 450 , "book4.jpg") , 
-(2 , "Concepts of Physics 1" , "H.C Verma" , "Physics" , 675 , "book5.jpg"),
-(1 , "Concepts of Physics 2" , "H.C Verma" , "Physics" , 450 , "book6.jpg") , 
-(2 , "Data Structures & Algorithms Made Easy" , "Narsimha" , "Computer Science" , 675 , "book7.jpg");
+insert into books (userId , name , authorName , category , subcategory , pages , image , available , buy , rent , buyAmount , rentAmount) values 
+(1 , "Head First JavaScript" , "O'REILLY" , "Computer Science" , "Javascript" , 750 , "book1.jpg" , 1 , 1 , 1 , 700.00 , 10.00) , 
+(2 , "Head First C" , "O'REILLY" , "Computer Science" , "C" , 600 , "book2.jpg" , 1 , 0 , 1 , 00.00 , 15.00) , 
+(1 , "Head First HTML5" , "O'REILLY" , "Computer Science" , "HTML" , 750 , "book3.jpg" , 1 , 1 , 1 , 730.00 , 12.00) , 
+(1 , "Head First Android Development" , "O'REILLY" , "Computer Science" , "Android" , 450 , "book4.jpg" , 1 , 0 , 1 , 00.00 , 18.00) , 
+(2 , "Concepts of Physics 1" , "H.C Verma" , "Science" , "Physics" , 475 , "book5.jpg" , 1 , 1 , 1 , 240.00 , 8.00),
+(1 , "Concepts of Physics 2" , "H.C Verma" , "Science" , "Physics" , 460 , "book6.jpg" , 1 , 1 , 1 , 270.00 , 9.00) , 
+(2 , "Data Structures & Algorithms Made Easy" , "Narsimha" , "Computer Science" , "Data Structures & Algorithms" , 675 , "book7.jpg" , 1 , 1 , 1 , 520.00 , 6.00);

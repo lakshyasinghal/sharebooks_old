@@ -2,8 +2,25 @@ redis tutorials
 http://www.baeldung.com/jedis-java-redis-client-library
 http://javapointers.com/tutorial/use-redis-java-using-jedis/
 
+
+Multithreading tutorial
+http://winterbe.com/posts/2015/04/07/java8-concurrency-tutorial-thread-executor-examples/
+
+
 Memory leaks in java
 https://www.toptal.com/java/hunting-memory-leaks-in-java
 
 How to adjust JVM memory
 http://www.oracle.com/technetwork/java/javase/tech/vmoptions-jsp-140102.html
+
+
+
+How to communicate between controllers
+https://www.codeproject.com/Tips/773147/Communication-between-the-Controllers-in-AngularJS
+http://jsfiddle.net/simpulton/XqDxG/
+
+
+
+
+Advance javascript
+http://www.htmldog.com/guides/javascript/advanced/

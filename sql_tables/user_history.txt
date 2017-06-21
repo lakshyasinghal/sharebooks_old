@@ -1,6 +1,9 @@
 create table user_history (
-	user_id int,
-	recently_browsed varchar(100),
-	recently_shared varchar(100),
-	last_login datetime
+	id int,
+	userId int,
+	recentlyBrowsed varchar(100),
+	recentlyShared varchar(100),
+	lastLogin datetime,
+	PRIMARY KEY (id),
+	FOREIGN KEY (userId) REFERENCES User(userId)
 );

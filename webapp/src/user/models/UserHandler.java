@@ -1,57 +1,77 @@
 package com.sharebooks.user.models;
 
+
+import javax.servlet.http.*;
 import com.sharebooks.database.models.*;
 import com.sharebooks.user.entities.User;
-import com.sharebooks.tables.Tables;
+import com.sharebooks.commonEntity.entities.Entity;
+import com.sharebooks.commonEntity.models.EntityHandler;
+import static com.sharebooks.staticClasses.Tables.*;
 import java.util.*;
 import java.sql.*;
 
 
 
-public class UserHandler {
-
-	private List<String> fieldTypes = null;
-	private List<Object> fieldValues = null;
-	private List<String> fields = null;
-	//private int setPropertyCounter = 5;
-
-
-	// public void init(List<String> fieldTypes , List<Object> fieldValues , List<String> fields){
-
-	// }
+public class UserHandler extends EntityHandler {
 
 
 
 	public UserHandler(){
-
+		//no arg constructor
 	}
 
 
-	public UserHandler(List<String> fieldTypes , List<Object> fieldValues , List<String> fields){
-		
+
+	public List<User> fetchUsers(List<String> fields , List<String> fieldTypes , List<Object> fieldValues) throws Exception{
+		try{
+			List<Entity> entities = fetchEntities(USER , fields , fieldTypes , fieldValues);
+			
+			List<User> users = convertEntitiesToUsers(entities);
+			
+			return users;
+		}
+		catch(Exception ex){
+			System.out.println("Exception in fetchUsers method in UserHandler class");
+			throw ex;
+		}
 	}
 
 
-	// public List<User> fetchUsers() throws Exception{
-	// 	try{
-	// 		//fieldTypes , fieldValues & fields will be null so that we can get all the users
-	// 		Fetcher fetcher = new Fetcher(TABLENAME , fieldTypes , fieldValues , fields);
-	// 		ResultSet rs = (ResultSet)fetcher.fetch(1);
+	public User fetchUser(List<String> fields , List<String> fieldTypes , List<Object> fieldValues) throws Exception{
+		try{
+			Entity entity = fetchEntity(USER , fields , fieldTypes , fieldValues);
+			User user = null;
 
-	// 		List<User> users = new ArrayList();
+			if(entity != null){
+				user = (User)entity;
+			}
+			
+			return user;
+		}
+		catch(Exception ex){
+			System.out.println("Exception in fetchUser method in UserHandler class");
+			throw ex;
+		}
+	}
 
-	// 		while(rs.next()){
-	// 			User user = getUserFromResultSet(rs);
-	// 			users.add(user);
-	// 		}
 
-	// 		return users;
-	// 	}
-	// 	catch(Exception ex){
-	// 		System.out.println("Exception in fetchUsers method in UserHandler class : " + ex);
-	// 		throw ex;
-	// 	}
-	// }
+
+	public User fetchUserById(int id) throws Exception {
+		try{
+			List<String> fields = Arrays.asList("id");
+			List<String> fieldTypes = Arrays.asList("int");
+			List<Object> fieldValues = Arrays.asList(id);
+
+			Entity entity = fetchEntity(USER , fields , fieldTypes , fieldValues);
+			User user = (User)entity;
+
+			return user;
+		}
+		catch(Exception ex){
+			System.out.println("Exception in fetchUserById method in UserHandler class");
+			throw ex;
+		}
+	}
 
 
 
@@ -61,53 +81,22 @@ public class UserHandler {
 			List<String> fields = null;
 			List<String> fieldTypes = null;
 			List<Object> fieldValues = null;
-			int inserted = 0;
 
-			if(alreadyExists(user)){
+			int added = 0;
+
+			//if username already exists in database , return value of 2
+			if(usernameAlreadyExists(user.getUsername())){
 				return 2;
 			}
 
-
-			//adding username and password in user table
-			{
-				fields = Arrays.asList("username" , "password");
-				//setFields(fields);
-
-				fieldTypes = Arrays.asList("string" , "string");
-				//setFieldTypes(fieldTypes);
-
-				fieldValues = Arrays.asList(user.getUsername() , user.getPassword());
-				//setFieldValues(fieldValues);
-
-				Insertor insertor = new Insertor(Tables.USER , fieldTypes , fieldValues , fields);
-				inserted = insertor.insert();
-
-				if(inserted == 0){
-					return inserted;
-				}
-			}
-
-
-			int id = getIdOfUser(user);		
-
-
-			//adding user information in user_info table
-			{
-				fields = Arrays.asList("userId" , "name" , "age" , "address" , "city" , "state" , "bookIds" , "creationTime");
-				//setFields(fields);
-
-				fieldTypes = Arrays.asList("int" , "string" , "int" , "string" , "string" , "string" , "string" , "dateTime");
-				//setFieldTypes(fieldTypes);
-
-				fieldValues = Arrays.asList(id , user.getName() , user.getAge() , user.getAddress() , user.getCity()
-					, user.getState() , user.getBookIds() , user.getCreationTime());
-				//setFieldValues(fieldValues);
-
-				Insertor insertor = new Insertor(Tables.USERINFO , fieldTypes , fieldValues , fields);
-				inserted = insertor.insert();
-			}
-
-			return inserted;
+			fields = Arrays.asList("username" , "password" , "name" , "birthday" , "address" , "city" , "state" , "pincode" , "mobilNo" , "bookIds" , "active" , "creationTime");
+			fieldTypes = Arrays.asList("string" , "string" , "string" , "string" , "string" , "string" , "string" , "string"  , "String" , "string" , "int" , "dateTime");
+			fieldValues = Arrays.asList(user.getUsername() , user.getPassword() , user.getName() , user.getBirthday() , user.getAddress() , user.getCity()
+					, user.getState() , user.getPincode() , user.getMobileNo() , user.getBookIds() , user.getActive() , user.getCreationTime());
+			
+			added = addEntity(USER , fields , fieldTypes , fieldValues);	
+			
+			return added;
 		}
 		catch(Exception ex){
 			System.out.println("Exception in addUser method in UserHandler class");
@@ -116,82 +105,75 @@ public class UserHandler {
 	}
 
 
-	public boolean alreadyExists(User user) throws Exception{
+
+
+	//will update user using the id of the user
+	public int updateUser(User user) throws Exception{
 		try{
 			List<String> fields = null;
 			List<String> fieldTypes = null;
 			List<Object> fieldValues = null;
 
-			int exists = 0; 
+			fields = Arrays.asList("username" , "password" , "name" , "birthday" , "address" , "city" , "state" , "pincode" , "mobilNo" , "id");
+			fieldTypes = Arrays.asList("string" , "string" , "string" , "string" , "string" , "string" , "string" , "string"  , "string" , "int");
+			fieldValues = Arrays.asList(user.getUsername() , user.getPassword() , user.getName() , user.getBirthday() , user.getAddress() , user.getCity()
+					, user.getState() , user.getPincode() , user.getMobileNo() , user.getId());
+			
+			int updated = updateEntity(USER , fields , fieldTypes , fieldValues , 1);	
+			
+			return updated;
+		}
+		catch(Exception ex){
+			System.out.println("Exception in updateUser method in UserHandler");
+			throw ex;
+		}
+	}
+
+
+
+
+	//checks if the username already exists in the database and returns true or false
+	public boolean usernameAlreadyExists(String username) throws Exception{
+		try{
+			List<String> fields = null;
+			List<String> fieldTypes = null;
+			List<Object> fieldValues = null;
+
+			boolean alreadyExists = false; 
 			
 			fields = Arrays.asList("username");
-			setFields(fields);
-
 			fieldTypes = Arrays.asList("string");
-			setFieldTypes(fieldTypes);
+			fieldValues = Arrays.asList(username);
 
-			fieldValues = Arrays.asList(user.getUsername());
-			setFieldValues(fieldValues);
 
-			Checker checker = new Checker(Tables.USER , fieldTypes , fieldValues , fields);
-			exists = checker.check();
+			alreadyExists = alreadyExists(USER , fields , fieldTypes , fieldValues);
 
-			if(exists == 1){
-				System.out.println("User already exists");
-				return true;
-			}
-			else{
-				return false;
-			}
-			
+			return alreadyExists;
 		}
 		catch(Exception ex){
-			System.out.println("Exception in alreadyExists method in UserHandler class");
+			System.out.println("Exception in usernameAlreadyExists method in UserHandler class");
 			throw ex;
 		}
 	}
 
 
 
-	public int getIdOfUser(User user) throws Exception {
+	//method for converting entities list to books list
+	public List<User> convertEntitiesToUsers(List<Entity> entities) throws Exception {
 		try{
-			List<String> fields = null;
-			List<String> fieldTypes = null;
-			List<Object> fieldValues = null;
+			List<User> users = new ArrayList<User>();
+			User user;
+			int size = entities.size();
 
-			fields = Arrays.asList("username" , "password");
-			setFields(fields);
+			for(int i=0 ; i<size ; i++){
+				user = (User)entities.get(i);
+				users.add(user);
+			}
 
-			fieldTypes = Arrays.asList("string" , "string");
-			setFieldTypes(fieldTypes);
-
-			fieldValues = Arrays.asList(user.getUsername() , user.getPassword());
-			setFieldValues(fieldValues);
-			//fieldTypes , fieldValues & fields will be null so that we can get all the books
-			Fetcher fetcher = new Fetcher(Tables.USER , Arrays.asList("string" , "string") , Arrays.asList(user.getUsername() , user.getPassword()) , fields);
-			ResultSet rs = (ResultSet)fetcher.fetch(1);
-
-			int id = getIdFromResultSet(rs);
-
-			return id;
-	    }
-	    catch(Exception ex){
-	    	System.out.println("Exception in getIdOfUser method in UserHandler class");
-			throw ex;
-	    }
-	} 
-
-
-
-	public int getIdFromResultSet(ResultSet rs) throws Exception{
-		try{
-			rs.next();
-			int id = rs.getInt("id");
-			
-			return id;
+			return users;
 		}
 		catch(Exception ex){
-			System.out.println("Exception in getIdFromResultSet method in UserHandler class");
+			System.out.println("Exception in convertEntitiesToUsers method in UserHandler class");
 			throw ex;
 		}
 	}
@@ -199,16 +181,34 @@ public class UserHandler {
 
 
 
-	public void setFieldTypes(List<String> fieldTypes){
-		this.fieldTypes = fieldTypes;
-	}
 
-	public void setFieldValues(List<Object> fieldValues){
-		this.fieldValues = fieldValues;
-	}
+	//getting user object from httpServletRequest object
+	public User getUserObjectFromRequest(HttpServletRequest req) throws Exception{
+		try{
+			String id = req.getParameter("id");
+			String username = req.getParameter("username");
+			String password = req.getParameter("password");
+			String name = req.getParameter("name");
+			String birthday = req.getParameter("birthday");
+			String address = req.getParameter("address");
+			String city = req.getParameter("city");
+			String state = req.getParameter("state");
+			String pincode = req.getParameter("pincode");
+			String mobileNo = req.getParameter("mobileNo");
+			String bookIds = req.getParameter("bookIds");
+			String active = req.getParameter("active");
+			String creationTime = req.getParameter("creationTime");
 
-	public void setFields(List<String> fields){
-		this.fields = fields;
+			//creating new user object from values retrieved
+			User user = new User(Integer.parseInt(id) , username , password , name , birthday , address , city , 
+						state , pincode , mobileNo , bookIds , Integer.parseInt(active) , new java.util.Date());
+
+			return user;
+		}
+		catch(Exception ex){
+			System.out.println("Error in getUserObjectFromRequest in UserHandler");
+			throw ex;
+		}
 	}
 
 }

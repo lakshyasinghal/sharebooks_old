@@ -1,0 +1,8 @@
+Create Table availability {
+	id smallInt NOT NULL,
+	type varchar(20) NOT NULL
+}
+
+
+
+Insert into availability (id , type) values (-1 , "Sold") , (0 , "Rented") , (1 , "Available");

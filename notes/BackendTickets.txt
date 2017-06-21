@@ -1,0 +1,41 @@
+#Ticket 1 (High priority)
+Handle all requests on homepage
+
+
+
+
+#Ticket 2  (High priority)
+Session management
+
+
+
+
+
+#Ticket 3
+Write code for deregistering your jdbc driver
+
+
+
+
+
+#Ticket 4
+The age field needs to be changed to birthday field
+
+
+
+
+#Ticket 5
+Create a new modifiedHttpServlet class containing session time out check method
+
+
+
+
+#Ticket 6
+Correct the name of LoginController
+
+
+
+
+
+#Ticket 7   (High priority)
+Modify the response handler class to send status code

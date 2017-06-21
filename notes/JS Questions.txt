@@ -1,0 +1,4 @@
+Q1. let's say that you have a list that contains ten items. You check off the first item. Most JavaScript frameworks would rebuild the entire list. That's ten times more work than necessary! Only one item changed, but the remaining nine get rebuilt exactly how they were before.
+
+Please give examples.
+What does javascript do?

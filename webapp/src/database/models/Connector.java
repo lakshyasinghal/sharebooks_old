@@ -10,13 +10,25 @@ import java.util.*;
 public class Connector {
 
 	private static Connection connection = null;
-	private static String DB_URL = "jdbc:mysql://localhost/EMP";
-	private static String USERNAME = "";
-	private static String PASSWORD = "";
+	private static String DB_URL;
+	private static String USERNAME;
+	private static String PASSWORD;
 
 	//private constructor so no object creation is allowed from the class
 	private Connector(){
 
+	}
+
+
+	//initializing driver class
+	public static void init(){
+		try{
+			Class.forName("com.mysql.jdbc.Driver");
+		}
+		catch(Exception ex){
+			System.out.println("Exception occurred in init method in Connector class");
+			System.out.println(ex);
+		}
 	}
 
 
@@ -34,17 +46,6 @@ public class Connector {
 		}
 	}
 
-
-	//initializing driver class
-	public static void init(){
-		try{
-			Class.forName("com.mysql.jdbc.Driver");
-		}
-		catch(Exception ex){
-			System.out.println("Exception occurred in init method in Connector class");
-			System.out.println(ex);
-		}
-	}
 
 
 	public static void createConnection(){

@@ -4,10 +4,19 @@ import javax.servlet.*;
 import javax.servlet.http.*;
 import java.io.*;
 
-import static com.sharebooks.util.URLConstants.*;
+import com.sharebooks.commonResources.entities.Resources;
+import com.sharebooks.login.models.SignUp;
+import com.sharebooks.response.entities.Response;
+import com.sharebooks.response.models.ResponseHandler;
+import static com.sharebooks.staticClasses.JspPages.*;
+import static com.sharebooks.staticClasses.ResponseTypes.*;
+import static com.sharebooks.staticClasses.JspPages.*;
+import static com.sharebooks.staticClasses.StatusCodes.*;
 import com.sharebooks.user.entities.User;
 import com.sharebooks.user.models.UserHandler;
+
 import com.sharebooks.util.StringParser;
+
 
 
 
@@ -26,25 +35,10 @@ public class SignUpController extends HttpServlet {
 
 	public void doPost(HttpServletRequest req , HttpServletResponse res) throws IOException {
 		try{
-			String name = req.getParameter("name");
-			String username = req.getParameter("email");
-			String password = req.getParameter("password");
-			String mobileNo = req.getParameter("mobileNo");
-			String birthday = req.getParameter("birthday");
-			String address = req.getParameter("address");
-			String city = req.getParameter("city");
-			String state = req.getParameter("state");
+			SignUp signUp = new SignUp(req);
+			int userAdded = signUp.registerUser();
 
-
-			int age = com.sharebooks.util.StringParser.getAgeFromBirthday(birthday);
-
-			User user = new User(name , username , password , mobileNo , age , address , city , state);
-			//the value of validUser will be either 0 or 1
-
-			UserHandler userHandler = new UserHandler();
-			int userAdded = userHandler.addUser(user);
-
-			moveForward(userAdded , req , res);
+			sendResponse(res , userAdded);
 		}
 		catch(Exception ex){
 			System.out.println("Error in SignUpController");
@@ -53,30 +47,37 @@ public class SignUpController extends HttpServlet {
 	}
 
 
-
-	public void moveForward(int userAdded , HttpServletRequest req , HttpServletResponse res) throws Exception{
+	public void sendResponse(HttpServletResponse res , int userAdded) throws Exception{
 		try{
-			RequestDispatcher view = null;
+			int statusCode = -1;
+			boolean success = false;
 
-			//if login credentials are correct
-			if(userAdded == 1){
-				req.setAttribute("userAddedStatusCode" , 1);
-			}
-			else if(userAdded == 2){
-				//redirect to login jsp page with error message
-				req.setAttribute("userAddedStatusCode" , 2);
-			}
-			else{
-				//when the details are incomplete
+			switch(userAdded){
+				case 0:
+					statusCode = USERINFO_INCOMPLETE;
+					success = false;
+					break;
+				case 1:
+					statusCode = ADD_USER_SUCCESSFUL;
+					success = true;
+					break;
+				case 2 :
+				 	statusCode = USERNAME_ALREADY_EXISTS;
+				 	success = false;
+				 	break;
+				default :
+					break;
 			}
 
-			view = req.getRequestDispatcher(LOGIN_JSP);
-			view.forward(req , res);
+			Response response = new Response(JSON , res , success , statusCode);
+			ResponseHandler resHandler = Resources.getResponseHandler();
+			resHandler.sendResponse(response);
 		}
 		catch(Exception ex){
-			System.out.println("Error in moveForward method in SignUpController class");
+			System.out.println("Error in sendResponse in SignUpController class");
 			throw ex;
 		}
 	}
+
 
 }

@@ -10,8 +10,13 @@
 	<!-- servlet names and class -->
 
 	<servlet>
-		<servlet-name>LoginPage</servlet-name>
-		<servlet-class>com.sharebooks.login.controllers.LoginPageController</servlet-class>
+		<servlet-name>Home</servlet-name>
+		<servlet-class>com.sharebooks.login.controllers.LoginController</servlet-class>
+	</servlet>
+
+	<servlet>
+		<servlet-name>Logout</servlet-name>
+		<servlet-class>com.sharebooks.login.controllers.LogoutController</servlet-class>
 	</servlet>
 
 	<servlet>
@@ -25,15 +30,15 @@
 	</servlet>
 
 	<servlet>
-		<servlet-name>AddBook</servlet-name>
-		<servlet-class>com.sharebooks.books.controllers.AddBookController</servlet-class>
+		<servlet-name>HomePage</servlet-name>
+		<servlet-class>com.sharebooks.books.controllers.HomePageController</servlet-class>
 	</servlet>
 
 
-	<servlet>
+	<!-- <servlet>
 		<servlet-name>FilterBooksByCategory</servlet-name>
 		<servlet-class>com.sharebooks.books.controllers.BooksFilterController</servlet-class>
-	</servlet>
+	</servlet> -->
 
 
 
@@ -44,9 +49,17 @@
 	<!-- servlet mappings -->
 
 	<servlet-mapping>
-		<servlet-name>LoginPage</servlet-name>
-		<url-pattern>/loginPage</url-pattern>
+		<servlet-name>Home</servlet-name>
+		<url-pattern>/home</url-pattern>
 	</servlet-mapping>
+
+
+	<servlet-mapping>
+		<servlet-name>Logout</servlet-name>
+		<url-pattern>/logout</url-pattern>
+	</servlet-mapping>
+
+
 
 	<servlet-mapping>
 		<servlet-name>SignIn</servlet-name>
@@ -59,14 +72,24 @@
 	</servlet-mapping>
 
 	<servlet-mapping>
-		<servlet-name>AddBook</servlet-name>
-		<url-pattern>/addBook</url-pattern>
+		<servlet-name>HomePage</servlet-name>
+		<url-pattern>/home/*</url-pattern>
 	</servlet-mapping>
 
 	<servlet-mapping>
+		<servlet-name>HomePage</servlet-name>
+		<url-pattern>/viewBook</url-pattern>
+	</servlet-mapping>
+
+	<servlet-mapping>
+		<servlet-name>HomePage</servlet-name>
+		<url-pattern>/updateUser</url-pattern>
+	</servlet-mapping>
+
+	<!-- <servlet-mapping>
 		<servlet-name>FilterBooks</servlet-name>
 		<url-pattern>/filterBooks</url-pattern>
-	</servlet-mapping>
+	</servlet-mapping> -->
 
 
 
@@ -110,6 +133,10 @@
 		<listener-class>com.sharebooks.listeners.DatabaseListener</listener-class>
 	</listener>
 
+
+	<listener>
+		<listener-class>com.sharebooks.listeners.ResourcesInitializationListener</listener-class>
+	</listener>
 
 
 

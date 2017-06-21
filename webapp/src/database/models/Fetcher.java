@@ -4,7 +4,6 @@ package com.sharebooks.database.models;
 import java.util.*;
 import java.sql.*;
 import com.sharebooks.database.interfaces.*;
-import static com.sharebooks.util.URLConstants.*;
 import static com.sharebooks.util.StringConstants.*;
 import static com.sharebooks.util.ObjectPair.*;
 
@@ -17,26 +16,21 @@ public class Fetcher extends GenericExecutor implements QueryBuilder {
 		//nothing goes here
 	}
 
-	//constructor
-	public Fetcher(String tableName , List<String> fieldTypes , List<Object> fieldValues , List<String> fields){
-		super(tableName , fieldTypes , fieldValues , fields);
-	}
 
-	//this method will be the entry method for this class
-	//resultType 1 will mean we want resultset as it is
-	public Object fetch(int resultType) throws Exception{
+	//this method will fetch all the entries 
+	public ResultSet fetch(String table , List<String> fields , List<String> fieldTypes , List<Object> fieldValues) throws Exception{
 		try{
-			String query = buildQuery();
+			String query = buildQuery(table , fields , 0);
 
-			PreparedStatement stmt = getPreparedStatement(query);
+			PreparedStatement stmt = getPreparedStatement(query , fieldTypes , fieldValues);
 
 			ResultSet rs = executeQuery(stmt);
 
-			Object processedResult = processResult(rs , resultType);
+			//Object processedResult = processResult(rs , resultType);
 
 
 			//return value to be decided from resultType
-			return processedResult;
+			return rs;
 		}
 		catch(Exception ex){
 			System.out.println("Exception in fetch in fetcher class ");
@@ -46,9 +40,9 @@ public class Fetcher extends GenericExecutor implements QueryBuilder {
 
 
 	//this method will return a query string in the form of        select * from tableName where field1=? , field2=? , field3=? ;
-	public String buildQuery() throws Exception{
-		List<String> fields = getFields();
-		String tableName = getTableName();
+	public String buildQuery(String table , List<String> fields , int generic) throws Exception{
+		//List<String> fields = e.getFields();
+		//String tableName = getTableName();
 
 		try{
 			StringBuilder sqlQuery = new StringBuilder();
@@ -59,7 +53,7 @@ public class Fetcher extends GenericExecutor implements QueryBuilder {
 			sqlQuery.append(SPACE);
 			sqlQuery.append("FROM");
 			sqlQuery.append(SPACE);
-			sqlQuery.append(tableName);
+			sqlQuery.append(table);
 
 			if(fields != null){
 
