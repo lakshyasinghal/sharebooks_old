@@ -45,6 +45,23 @@ public class HomePageHandler implements HomePageHandlerInterface {
 
 
 
+	//return response containing the homePage.jsp
+	public Response getHomePage(HttpServletRequest req , HttpServletResponse res) throws Exception{
+		try{
+			Response response = null;
+
+			response = new Response(JSP , req , res , HOMEPAGE_JSP);
+
+			return response;
+		}
+		catch(Exception ex){
+			System.out.println("Error in getHomePage in HomePageHandler");
+			throw ex;
+		}
+	}
+
+
+
 	//get user from the session object and return a response which will contain json containing the user object
 	public Response getUser(HttpServletRequest req , HttpServletResponse res) throws Exception{
 		try{
@@ -102,6 +119,14 @@ public class HomePageHandler implements HomePageHandlerInterface {
 			BooksHandler booksHandler = Resources.getBooksHandler();
 			List<Book> books = booksHandler.fetchAllBooks();
 			//User user = req.getSession().getAttribute("user");
+
+			System.out.println();
+			System.out.println();
+			System.out.println("Inside getAllBooks controller");
+			System.out.println("books list - " + books.toString());
+			System.out.println();
+			System.out.println();
+
 			Collections.sort(books);
 
 			List<Entity> entities = new ArrayList<Entity>();
@@ -192,6 +217,22 @@ public class HomePageHandler implements HomePageHandlerInterface {
 	}
 
 
+	//viewBook method will send a jsp response containing the viewBook.jsp page
+	public Response getNotifications(HttpServletRequest req , HttpServletResponse res) throws Exception {
+		try {
+			Response response = null;
+
+			response = new Response(JSP , req , res , VIEW_BOOK_JSP);
+
+			return response;
+		}
+		catch(Exception ex){
+			System.out.println("Error in viewBook in HomePageHandler");
+			throw ex;
+		}
+	}
+
+
 
 	public Response updateUser(HttpServletRequest req , HttpServletResponse res) throws Exception {
 		try {
@@ -221,20 +262,7 @@ public class HomePageHandler implements HomePageHandlerInterface {
 
 
 
-	public Response sessionTimeOut(HttpServletRequest req , HttpServletResponse res) throws Exception {
-		try {
-			Response response = null;
-			
-			//response = new Response(JSP , req , res , SESSION_TIMEOUT);
-			response = new Response(JSON , res , false , SESSION_TIMEOUT);
-
-			return response;
-		}
-		catch(Exception ex){
-			System.out.println("Error in sessionTimeOut in HomePageHandler");
-			throw ex;
-		}
-	}
+	
 	
 
 }

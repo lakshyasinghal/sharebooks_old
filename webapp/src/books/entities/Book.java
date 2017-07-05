@@ -19,7 +19,7 @@ public final class Book extends Entity implements Comparable<Book> {
 	private String subcategory = "";
 	private int pages = 0;
 	private String image = "";
-	private int available = 0;
+	private int available = 1;
 	private int buy = 0;
 	private int rent = 0;
 	private double buyAmount = 0.0;
@@ -32,7 +32,7 @@ public final class Book extends Entity implements Comparable<Book> {
 	static {
 		fields = new String[]{"id" , "userId" , "name" , "authorName" , "category" , "subcategory" ,"pages" , "image" , "available"
 							 ,"buy" , "rent" , "buyAmount" , "rentAmount"};
-		fieldTypes = new String[]{"int" , "int" , "String" , "String" , "String" , "String" , "int" , "String" , "int" , "int"
+		fieldTypes = new String[]{"int" , "int" , "string" , "string" , "string" , "string" , "int" , "string" , "int" , "int"
 							  , "int" , "double" , "double"};
 	}
 
@@ -61,6 +61,23 @@ public final class Book extends Entity implements Comparable<Book> {
 
 
 
+	public Book(int userId , String name , String authorName , String category , String subcategory , int pages , String image ,
+	 int available , int buy , int rent , double buyAmount , double rentAmount){
+		//this();
+		//this.id = id;
+		this.userId = userId;
+		this.name = name;
+		this.authorName = authorName;
+		this.category = category;
+		this.subcategory = subcategory;
+		this.pages = pages;
+		this.image = image;
+		this.available = available;
+		this.buy = buy;
+		this.rent = rent;
+		this.buyAmount = buyAmount;
+		this.rentAmount = rentAmount;
+	}
 
 
 

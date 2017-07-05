@@ -5,9 +5,9 @@
 
 <%
 	User user = (User)session.getAttribute("user");
-	String imagesFolderPath = request.getContextPath() + "/view/resources/images/";
-	String profileImagePath = request.getContextPath() + "/view/resources/images/users/" + (String)session.getAttribute("profileImage");
-	String booksImagePath = request.getContextPath() + "/view/resources/images/books/";
+	//String imagesFolderPath = request.getContextPath() + "/view/resources/images/";
+	String profileImagePath = request.getContextPath() + "/view/resources/images/users/lakshya.jpg";
+	String imagesFolderPath = request.getContextPath() + "/view/resources/images";
 %>
 
 
@@ -19,14 +19,17 @@
 	<script type="text/javascript">
 		var user = {};
 		user.id = "<%=user.getId()%>";
-		user.name = "<%=user.getUserName()%>";
+		user.name = "<%=user.getUsername()%>";
 		user.password = "<%=user.getPassword()%>";
+
+
+		imagesFolderPath = "<%=imagesFolderPath%>";
 	</script>
 
 	<%@include file="../../include/lib.jsp"%>
 
 	<link rel="stylesheet" href="<%=request.getContextPath()%>/view/home/css/homepage.css">
-
+	<script type="text/javascript" src="<%=request.getContextPath()%>/view/home/js/homepage.js"></script>
 	<script type="text/javascript" src="<%=request.getContextPath()%>/view/home/js/homepageController.js"></script>
 </head>
 
@@ -35,28 +38,35 @@
 
 	<%@include file="addBookPopup.jsp"%>
 
-	<div class="jumbotron full-height" ng-controller="HomePageController" ng-init="init()">
+	<div id="mainContainer" class="jumbotron full-height" ng-controller="HomePageController" ng-init="init()">
 
 		<div id="headContainer" class="row">
-			<div id="profile" class="pointer" ng-click="toggleProfileList()" style="background-image: url('<%=profileImagePath%>')">
-				<div id="profileList" ng-hide="profileListHidden" class="absolute">	
+			<div id="appTitle" class="vertical-center">
+				SHAREBOOKS
+			</div>
+
+			<div id="browseLink" class="vertical-center horizontal-center pointer">
+				<span>Browse</span>
+				<img src="<%=imagesFolderPath%>/downArrow.png" height="15" width="15" >
+			</div>
+
+
+			<%@include file="categories.jsp"%>
+
+
+			<div id="addBookLink" class="pointer vertical-center" ng-click="" data-toggle="modal" data-target="#addBookPopup">
+				<img src="<%=imagesFolderPath%>/add.png" height="20" width="20" id="addImage" class="pointer">
+				<span>ADD BOOK</span> 
+			</div>
+
+			<div id="notificationIcon" class="pointer vertical-center" ng-click="">
+				<img src="<%=imagesFolderPath%>/notificationIcon.png" width="30" height="30">
+			</div>
+
+			<div id="profile" class="pointer vertical-center" ng-click="profileHandler.toggleProfileList()" style="background-image: url('<%=profileImagePath%>')">
+				<div id="profileList" ng-hide="profileHandler.profileListHidden" class="absolute">	
 					<table id="profileListTable">
-						<!-- <tr>
-							<td>Sign out</td>
-						</tr>
-						<tr>
-							<td>Account Settings</td>
-						</tr>
-						<tr>
-							<td>History</td>
-						</tr>
-						<tr>
-							<td>Messages</td>
-						</tr>
-						<tr>
-							<td>Notifications</td>
-						</tr> -->
-						<tr ng-repeat="option in profileListOptions">
+						<tr ng-repeat="option in profileHandler.profileListOptions">
 							<td>{{option}}</td>
 						</tr>
 					</table>
@@ -65,45 +75,24 @@
 		</div>
 
 		<div id="searchContainer" class="row">
-			<div class="col-sm-6 col-md-6">
-				<img src="<%=imagesFolderPath%>/add.png" height="50" width="50" class="pointer" id="addImage" data-toggle="modal" data-target="#addBookPopup">
-			</div>
-			<div class="col-sm-4 col-md-4">
-				<input type="text" id="searchBooks" name="searchBooks" placeholder="Search Books" class="form-control">
+			<div class="col-sm-12 col-md-12">
+				<input type="text" id="searchBooks" name="searchBooks" placeholder="Search books by name, author" class="form-control">
 			</div>
 		</div>
 
-		<div id="mainContainer" class="row component-border-bottom">
-			<div id="categories" class="col-sm-2 col-md-2 full-height component-border-right">
-				<%
-					//List<String> bookCategories = (List<String>)request.getAttribute("bookCategories");
-					for(int i=0 ; i<bookCategories.size() ; i++){
-                            category = bookCategories.get(i);
-				%>
-				<div class="category"><span><%=category%></span></div>
-				<%
-					}
-				%>
-			</div>
+		<div id="bodyContainer" class="row component-border-bottom">
+			<!-- <div id="categories" class="col-sm-2 col-md-2 full-height component-border-right">
+				<div class="category"><span>SCIENCE</span></div>
+			</div> -->
 			
-			<div id="booksContainer" class="col-sm-10 col-md-10 full-height">
-				<%
-					List<Book> books = (List<Book>)request.getAttribute("books");
-					Book book = null;
-					int size = books.size();
-					for(int i=0; i<size ; i++){
-						book = books.get(i);
-				%>
-				<div class="book">
-					<img src="<%=booksImagePath + book.getImage()%>" class="bookImageDiv" width="100" height="120">
-					<div class="bookName"><%=book.getName()%></div>
+			<div id="booksContainer" class="col-sm-12 col-md-12 full-height">
+				<!-- <div class="book" ng-repeat="book in books">
+					<img ng-src="{{getImagesFolderPath() + '/books/' + book.image}}" class="bookImageDiv" width="100" height="120">
+					<div class="bookName">{{book.name}}</div>
 					<span>By</span>
-					<div class="bookAuthorName"><%=book.getAuthorName()%></div>
-				</div>
-
-				<%
-					}
-				%>
+					<div class="bookAuthorName">{{book.authorName}}</div>
+				</div> -->
+				<!-- <div class="message">No Results Found for your search</div> -->
 			</div>
 		</div>
 

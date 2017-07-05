@@ -76,10 +76,11 @@ public abstract class GenericExecutor implements Executor {
 
 	//this method will be used to set the parameter values in the prepared statement based on whether there is int , string etc.
 	public void setFieldValue(PreparedStatement stmt , String fieldType , Object fieldValue , int fieldNumber) throws Exception {
-		System.out.println("fieldType : " + fieldType);
-		System.out.println("fieldValue : " + fieldValue.toString());
-		System.out.println("fieldNumber : " + fieldNumber);
+		
 		try{
+			System.out.println("fieldType : " + fieldType);
+			System.out.println("fieldValue : " + fieldValue.toString());
+			System.out.println("fieldNumber : " + fieldNumber);
 			switch(fieldType){
 				case "int" :
 					stmt.setInt(fieldNumber , (Integer)fieldValue);

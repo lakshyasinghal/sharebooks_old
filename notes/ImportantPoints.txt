@@ -6,3 +6,6 @@
 
 
 4. The filter by category and filter by search can be handled at the frontend side only. There is no need to send request at the backend.
+
+
+5. Book ids in the users table may not be required.

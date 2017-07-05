@@ -154,7 +154,7 @@ public class BooksHandler extends EntityHandler {
 		try{
 			List<String> fields = Arrays.asList("userId" , "name" , "authorName" , "category" , "subcategory" ,"pages" , "image" , "available"
 							 ,"buy" , "rent" , "buyAmount" , "rentAmount");
-			List<String> fieldTypes = Arrays.asList("int" , "String" , "String" , "String" , "String" , "int" , "String" , "int" , "int"
+			List<String> fieldTypes = Arrays.asList("int" , "string" , "string" , "string" , "string" , "int" , "string" , "int" , "int"
 							  , "int" , "double" , "double");
 			List<Object> fieldValues = Arrays.asList(book.getUserId() , book.getName() , book.getAuthorName() , book.getCategory() , 
 										book.getSubcategory() , book.getPages() , book.getImage() , book.getAvailable() , book.getBuy()
@@ -176,7 +176,7 @@ public class BooksHandler extends EntityHandler {
 		try{
 			List<String> fields = Arrays.asList("userId" , "name" , "authorName" , "category" , "subcategory" ,"pages" , "image" , "available"
 							 ,"buy" , "rent" , "buyAmount" , "rentAmount" , "id");
-			List<String> fieldTypes = Arrays.asList("int" , "String" , "String" , "String" , "String" , "int" , "String" , "int" , "int"
+			List<String> fieldTypes = Arrays.asList("int" , "string" , "string" , "string" , "string" , "int" , "string" , "int" , "int"
 							  , "int" , "double" , "double" , "int");
 			List<Object> fieldValues = Arrays.asList(book.getUserId() , book.getName() , book.getAuthorName() , book.getCategory() , 
 										book.getSubcategory() , book.getPages() , book.getImage() , book.getAvailable() , book.getBuy()
@@ -229,17 +229,22 @@ public class BooksHandler extends EntityHandler {
 			String subcategory = req.getParameter("subcategory");
 			String pages = req.getParameter("pages");
 			String image = req.getParameter("image");
+			System.out.println("image ------- " + image);
 			String available = req.getParameter("available");
 			String buy = req.getParameter("buy");
 			String rent = req.getParameter("rent");
 			String buyAmount = req.getParameter("buyAmount");
+			
 			String rentAmount = req.getParameter("rentAmount");
+			
 
 			//creating new book object from values retrieved
 			//id value will be passed as -1
-			Book book = new Book(Integer.parseInt(id) , Integer.parseInt(userId) , name , authorName , category , subcategory , Integer.parseInt(pages) , image
+			Book book = new Book(Integer.parseInt(userId) , name , authorName , category , subcategory , Integer.parseInt(pages) , image
 						, Integer.parseInt(available) , Integer.parseInt(buy) , Integer.parseInt(rent) , Double.parseDouble(buyAmount) ,
 						Double.parseDouble(rentAmount));
+			System.out.println("buyAmount ------- " + book.getBuyAmount());
+			System.out.println("rentAmount ------- " + book.getRentAmount());
 
 			return book;
 		}

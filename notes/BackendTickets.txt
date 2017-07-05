@@ -39,3 +39,9 @@ Correct the name of LoginController
 
 #Ticket 7   (High priority)
 Modify the response handler class to send status code
+
+
+
+
+#Ticket 8 (High priority)
+Add property profileImage to the user class

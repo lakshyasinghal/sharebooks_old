@@ -9,17 +9,22 @@ import com.sharebooks.commonResources.entities.Resources;
 import com.sharebooks.response.entities.Response;
 import com.sharebooks.response.models.ResponseHandler;
 import static com.sharebooks.staticClasses.Requests.*;
+import static com.sharebooks.staticClasses.ResponseTypes.*;
+import static com.sharebooks.staticClasses.JspPages.*;
 
 
 public class HomePageController extends HttpServlet {
+
+	private static int i = 0;
 
 	public void init(){
 		//nothing here
 	}
 
 
-	public void doGet(HttpServletRequest req , HttpServletResponse res) throws IOException {
+	public void doGet(HttpServletRequest req , HttpServletResponse res) {
 		try{
+			System.out.println("Inside doGet method in HomePageController");
 			doPost(req , res);
 		}
 		catch(Exception ex){
@@ -28,46 +33,52 @@ public class HomePageController extends HttpServlet {
 	}
 
 
-	public void doPost(HttpServletRequest req , HttpServletResponse res) throws IOException {
+	public void doPost(HttpServletRequest req , HttpServletResponse res) {
 		try{
+			System.out.println("Inside doPost method in HomePageController");
+
 			ResponseHandler responseHandler = Resources.getResponseHandler();
 			Response response = null;
 			HomePageHandler homePageHandler = new HomePageHandler();
-			String servletPath = req.getServletPath();
+			String requestedURL = req.getRequestURL().toString();
 
-			System.out.println("Servlet path : " + servletPath);
+			requestedURL = requestedURL.split("sharebooks")[1];
+
+			System.out.println("Requested URL : " + requestedURL);
 
 			//if seesion expires take to the session timeout jsp page
 			if(isSessionTimedOut(req)){
-				response = homePageHandler.sessionTimeOut(req , res);
-				return;
+				System.out.println();
+				System.out.println();
+				System.out.println("Session has timed out");
+				response = getSessionTimeOutResponse(req , res);
 			}
-
-
-			switch(servletPath){
-				case GET_USER :
-					response = homePageHandler.getUser(req , res);
-					break;
-				case ADD_BOOK :
-					response = homePageHandler.addBook(req , res);
-					break;
-				// case FILTER_BY_CATEGORY :
-				// 	response = homePageHandler.filterByCategory(req , res);
-				// 	break;
-				// case FILTER_BY_SEARCH :
-				// 	response = homePageHandler.filterBySearch(req , res);
-				// 	break;
-				case GET_ALL_BOOKS :
-					response = homePageHandler.getAllBooks(req , res);
-					break;
-				case UPDATE_USER :
-					response = homePageHandler.updateUser(req , res);
-					break;
-				case VIEW_BOOK :
-					response = homePageHandler.viewBook(req , res);
-					break;
-				default :
-					break;
+			else{
+				switch(requestedURL){
+					case HOME :
+						response = homePageHandler.getHomePage(req , res);
+						break;
+					case GET_USER :
+						response = homePageHandler.getUser(req , res);
+						break;
+					case ADD_BOOK :
+						response = homePageHandler.addBook(req , res);
+						break;
+					case GET_ALL_BOOKS :
+						response = homePageHandler.getAllBooks(req , res);
+						break;
+					case UPDATE_USER :
+						response = homePageHandler.updateUser(req , res);
+						break;
+					case VIEW_BOOK :
+						response = homePageHandler.viewBook(req , res);
+						break;
+					case GET_NOTIFICATIONS :
+						response = homePageHandler.getNotifications(req , res);
+						break;
+					default :
+						break;
+				}
 			}
 
 			responseHandler.sendResponse(response);
@@ -92,6 +103,24 @@ public class HomePageController extends HttpServlet {
 		}
 		catch(Exception ex){
 			System.out.println("Error in isSeesionTimedOut in HomePageController");
+			throw ex;
+		}
+	}
+
+
+
+
+	public Response getSessionTimeOutResponse(HttpServletRequest req , HttpServletResponse res) throws Exception {
+		try {
+			Response response = null;
+			
+			//response = new Response(JSP , req , res , SESSION_TIMEOUT);
+			response = new Response(JSP , req , res , SESSIONEXPIRED_JSP);
+
+			return response;
+		}
+		catch(Exception ex){
+			System.out.println("Error in getSessionTimeOutResponse in HomePageController");
 			throw ex;
 		}
 	}

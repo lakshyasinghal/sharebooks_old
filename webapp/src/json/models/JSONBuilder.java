@@ -56,7 +56,11 @@ public class JSONBuilder implements JSONBuilderInterface {
 	public String getJSONObjectsArray(List<Entity> entities) throws Exception {
 		try{
 			StringBuilder jsonObjectsArray = new StringBuilder();
-			int length = entities.size();
+			int length = 0;
+			if(entities != null){
+				length = entities.size();
+			}
+
 			Entity entity = null;
 
 			jsonObjectsArray.append("[");
@@ -100,7 +104,7 @@ public class JSONBuilder implements JSONBuilderInterface {
 				fieldType = fieldTypes[i];
 
 				switch(fieldType){
-					case "String" :
+					case "string" :
 						jsonObj.append("\"" + fields[i] + "\"" + ":" + "\"" + (String)fieldValues[i] + "\"");
 						break;
 					case "int" :

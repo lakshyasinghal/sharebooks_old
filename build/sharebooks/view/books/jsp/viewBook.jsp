@@ -14,13 +14,13 @@
 
 	<%@include file="../../include/lib.jsp"%>
 
-	<link rel="stylesheet" href="<%=request.getContextPath()%>/view/books/css/ViewBook.css">
+	<link rel="stylesheet" href="<%=request.getContextPath()%>/view/books/css/viewBook.css">
 
 	<script type="text/javascript" src="<%=request.getContextPath()%>/view/books/js/viewBookController.js"></script>
 </head>
 
 
-<body ng-app="viewBook">
+<body>
 
 	<!-- <div class="jumbotron full-height" ng-controller="ViewBookController" ng-init="init()"></div> -->
 	<h1>WELCOME TO VIEW BOOK PAGE</h1>

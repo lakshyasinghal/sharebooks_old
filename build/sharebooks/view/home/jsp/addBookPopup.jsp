@@ -16,35 +16,42 @@
 
 
         <div class="modal-body">
-            <!-- <form class="form-signin" method="POST" action="signUp"> -->
-            <!-- <h2 class="form-signin-heading">Create a new account</h2> -->
+  
             <input type="text" id="name" class="form-control margin-top-10" name="name" placeholder="Name" required>
+
             <input type="text" id="authorName" class="form-control margin-top-10" name="authorName" placeholder="Author Name" required>
-            <div id="categoryDropdown" class="dropdown">
-                <input type="text" id="category" class="form-control margin-top-10 dropdown-toggle" name="category" data-toggle="dropdown" placeholder="Category">
-                <ul class="dropdown-menu">
-                    <%
-                        List<String> bookCategories = (List<String>)request.getAttribute("bookCategories");
-                        // categories = new ArrayList<String>();
-                        // categories.add("Maths");
-                        // categories.add("Physics");
-                        // categories.add("Science");
-                        // categories.add("Computer Science");
-                        // categories.add("Psychology");
-                        // categories.add("Novel");
-                        String category = null;
-                        for(int i=0 ; i<bookCategories.size() ; i++){
-                            category = bookCategories.get(i);
-                    %>
-                            <li><%=category%></li>
-                    <%
-                        }
-                    %>
-                </ul>
+
+
+            <div id="categoryDropdown" class="margin-top-10"">
+                <input type="text" id="category" class="form-control" name="category" placeholder="Category">
+                <div id="categoriesList">
+                    <div class="category" ng-click="selectCategory()" ng-repeat="category in categories">
+                        <span>{{category}}</span>
+                    </div>
+                </div>
             </div>
+            <div id="subcategoryDropdown" class="margin-top-10"">
+                <input type="text" id="subcategory" class="form-control" name="subcategory" placeholder="subcategory">
+                <div id="subcategoriesList">
+                    <div class="subcategory" ng-click="selectSubCategory()" ng-repeat="subcategory in subcategories[selectedCategory]">
+                        <span>{{subcategory}}</span>
+                    </div>
+                </div>
+            </div>
+
+
             <input type="number" id="pages" class="form-control margin-top-10" name="pages" placeholder="Pages" required>
-            <input type="text" id="imagePath" class="form-control margin-top-10" name="image" placeholder="Add image">
-            <button id="addBookButton" class="btn btn-lg btn-danger btn-block margin-top-20">ADD</button>
+
+            <input type="text" id="image" class="form-control margin-top-10" name="image" placeholder="Add image">
+
+            <input type="text" id="available" class="form-control margin-top-10 hidden" name="available" value="1">
+
+            <div class="margin-top-10"><input type="checkbox" ng-click="toggleBuyChecked()" id="buy"  name="buyout"> Buyout <input type="text" id="buyAmount" class="form-control margin-top-10" ng-show="buyChecked" name="buyAmount" placeholder="Enter the buyout amount"></div>
+
+            <div class="margin-top-10"><input type="checkbox" ng-click="toggleRentChecked()" id="rent"  name="rent"> Rent <input type="text" id="rentAmount" class="form-control margin-top-10" ng-show="rentChecked" name="rentAmount" placeholder="Enter the rent amount"></div>
+
+
+            <button type="button" id="addBookButton" class="btn btn-lg btn-danger btn-block margin-top-20">ADD</button>
             <!-- </form> -->
         </div>
 

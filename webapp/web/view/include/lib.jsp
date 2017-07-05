@@ -13,4 +13,6 @@
 <script src="view/common/js/angular/angular.min.js"></script>
 
 <script src="view/common/js/urls.js"></script>
+<script src="view/common/js/statusCodes.js"></script>
+<script src="view/common/js/util.js"></script>
 <script src="view/common/js/common.js"></script>

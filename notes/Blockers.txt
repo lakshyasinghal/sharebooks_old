@@ -1,0 +1,4 @@
+1. Ajax requests not working properly.
+
+
+2. Photo upload functionality needs to be implemented in the backend.

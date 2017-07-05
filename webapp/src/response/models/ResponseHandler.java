@@ -68,7 +68,7 @@ public class ResponseHandler {
 			out.flush();
 		}
 		catch(Exception ex){
-			System.out.println("Error in sendJsonResponse in ResponseHandler");
+			System.out.println("Error in sendJson in ResponseHandler");
 			throw ex;
 		}
 	}

@@ -10,8 +10,8 @@
 	<!-- servlet names and class -->
 
 	<servlet>
-		<servlet-name>Home</servlet-name>
-		<servlet-class>com.sharebooks.login.controllers.LoginController</servlet-class>
+		<servlet-name>LoginPage</servlet-name>
+		<servlet-class>com.sharebooks.login.controllers.LoginPageController</servlet-class>
 	</servlet>
 
 	<servlet>
@@ -31,7 +31,7 @@
 
 	<servlet>
 		<servlet-name>HomePage</servlet-name>
-		<servlet-class>com.sharebooks.books.controllers.HomePageController</servlet-class>
+		<servlet-class>com.sharebooks.home.controllers.HomePageController</servlet-class>
 	</servlet>
 
 
@@ -49,17 +49,14 @@
 	<!-- servlet mappings -->
 
 	<servlet-mapping>
-		<servlet-name>Home</servlet-name>
-		<url-pattern>/home</url-pattern>
+		<servlet-name>LoginPage</servlet-name>
+		<url-pattern>/loginPage</url-pattern>
 	</servlet-mapping>
-
 
 	<servlet-mapping>
 		<servlet-name>Logout</servlet-name>
 		<url-pattern>/logout</url-pattern>
 	</servlet-mapping>
-
-
 
 	<servlet-mapping>
 		<servlet-name>SignIn</servlet-name>
@@ -69,6 +66,11 @@
 	<servlet-mapping>
 		<servlet-name>SignUp</servlet-name>
 		<url-pattern>/signUp</url-pattern>
+	</servlet-mapping>
+
+	<servlet-mapping>
+		<servlet-name>HomePage</servlet-name>
+		<url-pattern>/home</url-pattern>
 	</servlet-mapping>
 
 	<servlet-mapping>
@@ -144,7 +146,7 @@
 	<!-- session configuration -->
 
 	<session-config>
-		<session-timeout>3</session-timeout>
+		<session-timeout>30</session-timeout>
 	</session-config>
 	
 

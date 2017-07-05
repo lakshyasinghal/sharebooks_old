@@ -33,6 +33,9 @@ public class SignIn {
 			String username = request.getParameter("username");
 			String password = request.getParameter("password");
 
+			System.out.println("username - " + username);
+			System.out.println("password - " + password);
+
 			List<String> fields = Arrays.asList("username" , "password");
 			List<String> fieldTypes = Arrays.asList("string" , "string"); 
 			List<Object> fieldValues = Arrays.asList(username , password); 
@@ -47,28 +50,6 @@ public class SignIn {
 			throw ex;
 		}
 	}
-	
-
-
-
-
-	// public void setInitialResources(HttpServletRequest req , ServletContext servletContext) throws Exception {
-	// 	try{
-	// 		//getting some books and passing them with request parameter
-	// 		BooksHandler booksHandler = new BooksHandler();
-	// 		int booksCount = Integer.parseInt(servletContext.getInitParameter("BOOKSCOUNT"));
-	// 		List<Book> someBooks = booksHandler.fetchBooksByNumber(booksCount);
-	// 		req.setAttribute("books" , someBooks);
-
-	// 		//setting bookCategories
-	// 		List<String> bookCategories = booksHandler.fetchBookCategories();
-	// 		req.setAttribute("bookCategories" , bookCategories);
-	// 	}
-	// 	catch(Exception ex){
-	// 		System.out.println("Exception in getInitialResources method in SignIn class");
-	// 		throw ex;
-	// 	}
-	// }
 
 
 

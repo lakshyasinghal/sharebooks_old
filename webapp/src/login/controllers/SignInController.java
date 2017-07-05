@@ -29,12 +29,19 @@ public class SignInController extends HttpServlet {
 
 
 	public void doGet(HttpServletRequest req , HttpServletResponse res){
-		doPost(req , res);
+		try{
+			System.out.println("Inside doGet in SignInController");
+			doPost(req , res);
+		}
+		catch(Exception ex){
+			System.out.println("Error in doGet in SignInController : " + ex);
+		}
 	}
 
 
 	public void doPost(HttpServletRequest req , HttpServletResponse res){
 		try{
+			System.out.println("Inside doPost in SignInController");
 			//Use SignIn class to validate user
 			SignIn signIn = new SignIn(req);
 			
@@ -43,7 +50,7 @@ public class SignInController extends HttpServlet {
 			moveForward(req , res , user);
 		}
 		catch(Exception ex){
-			System.out.println("Error in SignInController : " + ex);
+			System.out.println("Error in doPost SignInController : " + ex);
 		}
 	}
 
