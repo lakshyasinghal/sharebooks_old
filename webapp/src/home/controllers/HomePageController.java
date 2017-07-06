@@ -15,7 +15,6 @@ import static com.sharebooks.staticClasses.JspPages.*;
 
 public class HomePageController extends HttpServlet {
 
-	private static int i = 0;
 
 	public void init(){
 		//nothing here

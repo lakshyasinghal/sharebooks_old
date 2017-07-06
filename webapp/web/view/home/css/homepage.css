@@ -129,6 +129,11 @@
 	border: 2px solid #545f63;
 }
 
+#notificationContainer img {
+	position: absolute;
+	bottom: 100%;
+}
+
 
 #profile {
 	position: absolute;
@@ -288,7 +293,7 @@
 }
 
 #addBookPopup .modal-body {
-	height: 500px;
+	height: 420px;
 }
 
 #addBookMessageDiv {

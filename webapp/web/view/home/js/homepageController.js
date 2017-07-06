@@ -194,6 +194,7 @@ homepageApp.controller("HomePageController" , ['$scope' , '$http' , function($sc
 	$scope.booksHandler = {
 
 		books : [],
+		selectedBooks : [],
 
 		init : function(){
 			try{
@@ -251,6 +252,7 @@ homepageApp.controller("HomePageController" , ['$scope' , '$http' , function($sc
 					else{
 						sessionStorage.setItem("selectedBook" , JSON.stringify(book));
 					}
+					sessionStorage.setItem("books" , JSON.stringify(self.books));
 				}
 
 				window.location.href = urls.VIEW_BOOK;

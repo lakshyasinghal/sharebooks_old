@@ -63,7 +63,7 @@
 				<img src="<%=imagesFolderPath%>/notificationIcon.png" width="30" height="30">
 
 				<div id="notificationContainer" class="horizontal-center">
-
+					<img src="<%=imagesFolderPath%>/pointer.png" width="15" height="15" class="horizontal-center">
 				</div>
 			</div>
 
@@ -78,11 +78,18 @@
 			</div>
 		</div>
 
+
+
+
 		<div id="searchContainer" class="row">
 			<div class="col-sm-12 col-md-12">
 				<input type="text" id="searchBooks" name="searchBooks" placeholder="Search books by name, author" class="form-control">
 			</div>
 		</div>
+
+
+
+		
 
 		<div id="bodyContainer" class="row component-border-bottom">
 			<!-- <div id="categories" class="col-sm-2 col-md-2 full-height component-border-right">
