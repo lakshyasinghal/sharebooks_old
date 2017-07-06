@@ -59,8 +59,12 @@
 				<span>ADD BOOK</span> 
 			</div>
 
-			<div id="notificationIcon" class="pointer vertical-center" ng-click="">
+			<div id="notificationIcon" class="pointer vertical-center" ng-click="notificationHandler.showNotifications()">
 				<img src="<%=imagesFolderPath%>/notificationIcon.png" width="30" height="30">
+
+				<div id="notificationContainer" class="horizontal-center">
+
+				</div>
 			</div>
 
 			<div id="profile" class="pointer vertical-center" ng-click="profileHandler.toggleProfileList()" style="background-image: url('<%=profileImagePath%>')">

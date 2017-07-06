@@ -68,12 +68,47 @@ homepageApp.controller("HomePageController" , ['$scope' , '$http' , function($sc
 
 
 	$scope.notificationHandler = {
+		notificationContainerId: "notificationContainer",
+
 		init : function(){
 
 		},
 
-		closeAll : function(){
+		showNotifications : function(){
+			try{
+				var self = $scope.notificationHandler;
 
+				event.preventDefault();
+				event.stopPropagation();
+				$scope.windowHandler.closeAllOpenPanels();
+
+				$("#" + self.notificationContainerId).fadeToggle("fast");
+			}
+			catch(err){
+				console.log("Error in showNotifications in notificationHandler --- " + err.message);
+			}
+		},
+
+		getNotifications : function(){
+			try{
+				var self = $scope.notificationHandler;
+				getRequest(urls.GET_NOTIFICATIONS , null , function(){
+
+				});
+			}
+			catch(err){
+				console.log("Error in getNotifications in notificationHandler --- " + err.message);
+			}
+		},
+
+		closeAll : function(){
+			try{
+				var self = $scope.notificationHandler;
+				$("#" + self.notificationContainerId).hide();
+			}
+			catch(err){
+				console.log("Error in closeAll in notificationHandler --- " + err.message);
+			}
 		}
 	};
 
@@ -100,6 +135,7 @@ homepageApp.controller("HomePageController" , ['$scope' , '$http' , function($sc
 			try{
 				e.preventDefault();
 				e.stopPropagation();
+				$scope.windowHandler.closeAllOpenPanels();
 
 				$("#categoriesContainer").slideDown("medium");
 			}

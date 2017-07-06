@@ -11,4 +11,5 @@ var urls = {
 	VIEW_BOOK : "viewBook",
 	UPDATE_USER : "updateUser",
 	VIEW_HISTORY : "viewHistory",
+	GET_NOTIFICATIONS : "getNotifications"
 }
