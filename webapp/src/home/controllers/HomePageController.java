@@ -34,7 +34,7 @@ public class HomePageController extends HttpServlet {
 
 	public void doPost(HttpServletRequest req , HttpServletResponse res) {
 		try{
-			System.out.println("Inside doPost method in HomePageController");
+			System.out.println("\nInside doPost method in HomePageController");
 
 			ResponseHandler responseHandler = Resources.getResponseHandler();
 			Response response = null;
@@ -47,25 +47,23 @@ public class HomePageController extends HttpServlet {
 
 			//if seesion expires take to the session timeout jsp page
 			if(isSessionTimedOut(req)){
-				System.out.println();
-				System.out.println();
-				System.out.println("Session has timed out");
+				System.out.println("Session has timed out\n\n");
 				response = getSessionTimeOutResponse(req , res);
 			}
 			else{
 				switch(requestedURL){
-					case HOME :
-						response = homePageHandler.getHomePage(req , res);
-						break;
-					case GET_USER :
-						response = homePageHandler.getUser(req , res);
-						break;
+					// case HOME :
+					// 	response = homePageHandler.getHomePage(req , res);
+					// 	break;
+					// case GET_USER :
+					// 	response = homePageHandler.getUser(req , res);
+					// 	break;
 					case ADD_BOOK :
 						response = homePageHandler.addBook(req , res);
 						break;
-					case GET_ALL_BOOKS :
-						response = homePageHandler.getAllBooks(req , res);
-						break;
+					// case GET_ALL_BOOKS :
+					// 	response = homePageHandler.getAllBooks(req , res);
+					// 	break;
 					case UPDATE_USER :
 						response = homePageHandler.updateUser(req , res);
 						break;

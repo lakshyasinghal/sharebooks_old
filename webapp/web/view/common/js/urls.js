@@ -3,13 +3,14 @@ var urls = {
 	ADD_USER : "signUp",
 	LOGOUT : "logout",
 	HOME : "home",
+	GET_BOOK : "getBook",
+	GET_ALL_BOOKS : "getAllBooks",
 	GET_USER : "getUser",
 	FILTER_BY_CATEGORY : "home/filterByCategory",
 	FILTER_BY_SEARCH : "home/filterBySearch",
-	GET_ALL_BOOKS : "home/getAllBooks",
 	ADD_BOOK : "home/addBook",
-	VIEW_BOOK : "viewBook",
-	UPDATE_USER : "updateUser",
-	VIEW_HISTORY : "viewHistory",
-	GET_NOTIFICATIONS : "getNotifications"
+	VIEW_BOOK : "home/viewBook",
+	UPDATE_USER : "home/updateUser",
+	VIEW_HISTORY : "home/viewHistory",
+	GET_NOTIFICATIONS : "home/getNotifications"
 }

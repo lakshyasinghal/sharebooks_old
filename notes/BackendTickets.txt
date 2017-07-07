@@ -1,47 +1,35 @@
-#Ticket 1 (High priority)
-Handle all requests on homepage
-
-
-
-
-#Ticket 2  (High priority)
+#Ticket 1  (High priority)
 Session management
 
 
-
-
-
-#Ticket 3
+#Ticket 2
 Write code for deregistering your jdbc driver
 
 
-
-
-
-#Ticket 4
+#Ticket 3
 The age field needs to be changed to birthday field
 
 
 
 
-#Ticket 5
+#Ticket 4
 Create a new modifiedHttpServlet class containing session time out check method
 
 
-
-
-#Ticket 6
+#Ticket 5
 Correct the name of LoginController
 
 
-
-
-
-#Ticket 7   (High priority)
+#Ticket 6   (High priority)
 Modify the response handler class to send status code
 
 
 
 
-#Ticket 8 (High priority)
+#Ticket 7 (High priority)
 Add property profileImage to the user class
+
+
+
+#Ticket 8
+Complete the interfaces

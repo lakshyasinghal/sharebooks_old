@@ -31,6 +31,22 @@ public class GenericRequestHandler implements GenericRequestInterface {
 
 
 
+	//return response containing the homePage.jsp
+	public Response getHomePage(HttpServletRequest req , HttpServletResponse res) throws Exception{
+		try{
+			Response response = null;
+
+			response = new Response(JSP , req , res , HOMEPAGE_JSP);
+
+			return response;
+		}
+		catch(Exception ex){
+			System.out.println("Error in getHomePage in HomePageHandler");
+			throw ex;
+		}
+	}
+
+
 
 	//get user from the session object and return a response which will contain json containing the user object
 	public Response getUser(HttpServletRequest req , HttpServletResponse res) throws Exception{
@@ -66,11 +82,11 @@ public class GenericRequestHandler implements GenericRequestInterface {
 
 			int bookId = Integer.parseInt(req.getParameter("bookId"));
 
-			User user = booksHandler.fetchBookById(bookId);
+			Book book = booksHandler.fetchBookById(bookId);
 
 			List<Entity> entities = new ArrayList<Entity>();
 
-			entities.add(user);
+			entities.add(book);
 			
 			response = new Response(JSON , res , true , GET_USER_SUCCESSFUL , entities);
 

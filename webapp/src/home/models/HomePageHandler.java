@@ -30,41 +30,41 @@ public class HomePageHandler implements HomePageHandlerInterface {
 
 
 
-	//return response containing the homePage.jsp
-	public Response getHomePage(HttpServletRequest req , HttpServletResponse res) throws Exception{
-		try{
-			Response response = null;
+	// //return response containing the homePage.jsp
+	// public Response getHomePage(HttpServletRequest req , HttpServletResponse res) throws Exception{
+	// 	try{
+	// 		Response response = null;
 
-			response = new Response(JSP , req , res , HOMEPAGE_JSP);
+	// 		response = new Response(JSP , req , res , HOMEPAGE_JSP);
 
-			return response;
-		}
-		catch(Exception ex){
-			System.out.println("Error in getHomePage in HomePageHandler");
-			throw ex;
-		}
-	}
+	// 		return response;
+	// 	}
+	// 	catch(Exception ex){
+	// 		System.out.println("Error in getHomePage in HomePageHandler");
+	// 		throw ex;
+	// 	}
+	// }
 
 
 
 	//get user from the session object and return a response which will contain json containing the user object
-	public Response getUser(HttpServletRequest req , HttpServletResponse res) throws Exception{
-		try{
-			Response response = null;
-			User user = (User)req.getSession().getAttribute("user");
+	// public Response getUser(HttpServletRequest req , HttpServletResponse res) throws Exception{
+	// 	try{
+	// 		Response response = null;
+	// 		User user = (User)req.getSession().getAttribute("user");
 
-			List<Entity> entities = new ArrayList<Entity>();
-			entities.add(user);
+	// 		List<Entity> entities = new ArrayList<Entity>();
+	// 		entities.add(user);
 
-			response = new Response(JSON , res , true , GET_USER_SUCCESSFUL , entities);
+	// 		response = new Response(JSON , res , true , GET_USER_SUCCESSFUL , entities);
 
-			return response;
-		}
-		catch(Exception ex){
-			System.out.println("Error in getUser in HomePageHandler");
-			throw ex;
-		}
-	}
+	// 		return response;
+	// 	}
+	// 	catch(Exception ex){
+	// 		System.out.println("Error in getUser in HomePageHandler");
+	// 		throw ex;
+	// 	}
+	// }
 
 
 	//json response type Response will be sent back stating whether book was added or not
@@ -98,34 +98,34 @@ public class HomePageHandler implements HomePageHandlerInterface {
 
 	
 
-	public Response getAllBooks(HttpServletRequest req , HttpServletResponse res) throws Exception {
-		try {
-			Response response = null;
-			BooksHandler booksHandler = Resources.getBooksHandler();
-			List<Book> books = booksHandler.fetchAllBooks();
-			//User user = req.getSession().getAttribute("user");
+	// public Response getAllBooks(HttpServletRequest req , HttpServletResponse res) throws Exception {
+	// 	try {
+	// 		Response response = null;
+	// 		BooksHandler booksHandler = Resources.getBooksHandler();
+	// 		List<Book> books = booksHandler.fetchAllBooks();
+	// 		//User user = req.getSession().getAttribute("user");
 
 		
-			System.out.println("\n\nInside getAllBooks controller");
-			System.out.println("books list - " + books.toString() + "\n\n");
+	// 		System.out.println("\n\nInside getAllBooks controller");
+	// 		System.out.println("books list - " + books.toString() + "\n\n");
 		
-			Collections.sort(books);
+	// 		Collections.sort(books);
 
-			List<Entity> entities = new ArrayList<Entity>();
+	// 		List<Entity> entities = new ArrayList<Entity>();
 
-			for(Book book : books){
-				entities.add(book);
-			}
+	// 		for(Book book : books){
+	// 			entities.add(book);
+	// 		}
 			
-			response = new Response(JSON , res , true , GET_BOOKS_SUCCESSFUL , entities);
+	// 		response = new Response(JSON , res , true , GET_BOOKS_SUCCESSFUL , entities);
 
-			return response;
-		}
-		catch(Exception ex){
-			System.out.println("Error in getAllBooks in HomePageHandler");
-			throw ex;
-		}
-	}
+	// 		return response;
+	// 	}
+	// 	catch(Exception ex){
+	// 		System.out.println("Error in getAllBooks in HomePageHandler");
+	// 		throw ex;
+	// 	}
+	// }
 
 
 

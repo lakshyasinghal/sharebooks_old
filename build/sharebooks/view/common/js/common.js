@@ -15,24 +15,6 @@ var messageColors = {
 
 
 
-// function postRequest(url , data , dataType , successHandler , failureHandler){ 
-//     //$.post(url , paramsObject , handler);
-
-//     // var request = $.ajax({
-//     // 				  method: "POST",
-// 				// 	  url: url,
-// 				// 	  data: data,
-// 				// 	  dataType: dataType,
-// 				// 	  headers : {'Content-Type':'application/x-www-form-urlencoded'}
-// 				//   });
-
-//     // request.done(successHandler);
-//     // request.fail(failureHandler);
-
-//     $.post(url , data , successHandler , dataType);
-// }
-
-
 
 function postRequest(url , data , successHandler , failureHandler){
 	try{

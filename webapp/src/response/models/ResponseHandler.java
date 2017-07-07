@@ -22,18 +22,29 @@ public class ResponseHandler {
 
 	public void sendResponse(Response response) throws Exception{
 		try{
+
+			System.out.println("\nInside sendResponse\n");
+
+			System.out.println("Point 0");
+
 			String responseType = response.getResponseType();
+
+			System.out.println("Point 1");
 
 			switch(responseType){
 				case JSON :
 					sendJson(response);
+					System.out.println("Point 2");
 					break;
 				case JSP :
 					sendJsp(response);
+					System.out.println("Point 3");
 					break;
 				default :
 					break;
 			}
+
+			System.out.println("Point 4");
 
 		}
 		catch(Exception ex){

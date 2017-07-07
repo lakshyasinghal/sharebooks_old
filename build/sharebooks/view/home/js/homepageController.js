@@ -68,12 +68,47 @@ homepageApp.controller("HomePageController" , ['$scope' , '$http' , function($sc
 
 
 	$scope.notificationHandler = {
+		notificationContainerId: "notificationContainer",
+
 		init : function(){
 
 		},
 
-		closeAll : function(){
+		showNotifications : function(){
+			try{
+				var self = $scope.notificationHandler;
 
+				event.preventDefault();
+				event.stopPropagation();
+				$scope.windowHandler.closeAllOpenPanels();
+
+				$("#" + self.notificationContainerId).fadeToggle("fast");
+			}
+			catch(err){
+				console.log("Error in showNotifications in notificationHandler --- " + err.message);
+			}
+		},
+
+		getNotifications : function(){
+			try{
+				var self = $scope.notificationHandler;
+				getRequest(urls.GET_NOTIFICATIONS , null , function(){
+
+				});
+			}
+			catch(err){
+				console.log("Error in getNotifications in notificationHandler --- " + err.message);
+			}
+		},
+
+		closeAll : function(){
+			try{
+				var self = $scope.notificationHandler;
+				$("#" + self.notificationContainerId).hide();
+			}
+			catch(err){
+				console.log("Error in closeAll in notificationHandler --- " + err.message);
+			}
 		}
 	};
 
@@ -100,6 +135,7 @@ homepageApp.controller("HomePageController" , ['$scope' , '$http' , function($sc
 			try{
 				e.preventDefault();
 				e.stopPropagation();
+				$scope.windowHandler.closeAllOpenPanels();
 
 				$("#categoriesContainer").slideDown("medium");
 			}
@@ -158,6 +194,7 @@ homepageApp.controller("HomePageController" , ['$scope' , '$http' , function($sc
 	$scope.booksHandler = {
 
 		books : [],
+		selectedBooks : [],
 
 		init : function(){
 			try{
@@ -215,6 +252,7 @@ homepageApp.controller("HomePageController" , ['$scope' , '$http' , function($sc
 					else{
 						sessionStorage.setItem("selectedBook" , JSON.stringify(book));
 					}
+					sessionStorage.setItem("books" , JSON.stringify(self.books));
 				}
 
 				window.location.href = urls.VIEW_BOOK;
@@ -466,6 +504,8 @@ homepageApp.controller("BookPopupController" , ['$scope' , '$http' , function($s
 
 	$scope.buyChecked = false;
 	$scope.rentChecked = false;
+
+	$scope.messageContainer = "addBookMessageContainer";
 	
 	$scope.init = function(){
 		try{
@@ -616,12 +656,13 @@ homepageApp.controller("BookPopupController" , ['$scope' , '$http' , function($s
 	};
 
 	$scope.addBookCallBackHandler = function(data){
-
+		data = JSON.parse(data);
 		if(data.success){
-			$scope.addBookSuccessMessage = data.message;
+			//$scope.addBookSuccessMessage = messages[data.statusCode - 1];
+			displayMessage($scope.messageContainer , messages[data.statusCode - 1] , messageColors.SUCCESS);
 		}
 		else{
-			$scope.addBookErrorMessage = data.message;
+			displayMessage($scope.messageContainer , messages[data.statusCode - 1] , messageColors.ERROR);
 		}
 	};
 

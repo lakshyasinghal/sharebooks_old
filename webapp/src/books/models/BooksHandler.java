@@ -70,6 +70,18 @@ public class BooksHandler extends EntityHandler {
 	}
 
 
+	//this method will fetch a book for a given id 
+	public Book fetchBookById(int bookId) throws Exception{
+		try{
+			return null;
+		}
+		catch(Exception ex){
+			System.out.println("Exception in fetchBookById method in BooksHandler class");
+			throw ex;
+		}
+	}
+
+
 
 	//this method will fetch books for given categories and subcategories
 	// public List<Book> fetchBooksByCategory(HttpServletRequest req) throws Exception{

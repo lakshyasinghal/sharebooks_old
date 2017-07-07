@@ -5,7 +5,7 @@ import javax.servlet.http.*;
 import com.sharebooks.response.entities.Response;
 
 
-public interface GenericRequestsInterface {
+public interface GenericRequestInterface {
 
 	public abstract Response getUser(HttpServletRequest req , HttpServletResponse res) throws Exception;
 

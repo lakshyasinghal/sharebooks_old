@@ -52,6 +52,9 @@ public class GenericRequestController extends HttpServlet {
 			}
 			else{
 				switch(requestedURL){
+					case HOME :
+						response = genericRequestHandler.getHomePage(req , res);
+						break;
 					case GET_USER :
 						response = genericRequestHandler.getUser(req , res);
 						break;
