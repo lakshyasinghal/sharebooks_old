@@ -34,6 +34,11 @@
 		<servlet-class>com.sharebooks.home.controllers.HomePageController</servlet-class>
 	</servlet>
 
+	<servlet>
+		<servlet-name>GenericRequestController</servlet-name>
+		<servlet-class>com.sharebooks.genericRequests.controllers.GenericRequestController</servlet-class>
+	</servlet>
+
 
 	<!-- <servlet>
 		<servlet-name>FilterBooksByCategory</servlet-name>
@@ -82,6 +87,13 @@
 		<servlet-name>HomePage</servlet-name>
 		<url-pattern>/viewBook</url-pattern>
 	</servlet-mapping>
+
+
+	<servlet-mapping>
+		<servlet-name>GenericRequestController</servlet-name>
+		<url-pattern>/getUser</url-pattern>
+	</servlet-mapping>
+
 
 	<servlet-mapping>
 		<servlet-name>HomePage</servlet-name>

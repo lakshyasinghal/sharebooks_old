@@ -29,21 +29,6 @@ public class HomePageHandler implements HomePageHandlerInterface {
 	}
 
 
-	public void doGet(HttpServletRequest req , HttpServletResponse res) throws IOException {
-
-	}
-
-
-	public void doPost(HttpServletRequest req , HttpServletResponse res) throws IOException {
-		try{
-			
-		}
-		catch(Exception ex){
-			System.out.println("Error in doPost HomePageController : " + ex);
-		}
-	}
-
-
 
 	//return response containing the homePage.jsp
 	public Response getHomePage(HttpServletRequest req , HttpServletResponse res) throws Exception{
@@ -120,13 +105,10 @@ public class HomePageHandler implements HomePageHandlerInterface {
 			List<Book> books = booksHandler.fetchAllBooks();
 			//User user = req.getSession().getAttribute("user");
 
-			System.out.println();
-			System.out.println();
-			System.out.println("Inside getAllBooks controller");
-			System.out.println("books list - " + books.toString());
-			System.out.println();
-			System.out.println();
-
+		
+			System.out.println("\n\nInside getAllBooks controller");
+			System.out.println("books list - " + books.toString() + "\n\n");
+		
 			Collections.sort(books);
 
 			List<Entity> entities = new ArrayList<Entity>();
