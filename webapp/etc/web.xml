@@ -9,7 +9,7 @@
 
 	<!-- servlet names and class -->
 
-	<servlet>
+	<!-- <servlet>
 		<servlet-name>LoginPage</servlet-name>
 		<servlet-class>com.sharebooks.login.controllers.LoginPageController</servlet-class>
 	</servlet>
@@ -27,7 +27,7 @@
 	<servlet>
 		<servlet-name>SignUp</servlet-name>
 		<servlet-class>com.sharebooks.login.controllers.SignUpController</servlet-class>
-	</servlet>
+	</servlet> -->
 
 	<servlet>
 		<servlet-name>HomePage</servlet-name>
@@ -54,35 +54,24 @@
 	<!-- servlet mappings -->
 
 	<servlet-mapping>
-		<servlet-name>LoginPage</servlet-name>
-		<url-pattern>/loginPage</url-pattern>
+		<servlet-name>GenericRequestController</servlet-name>
+		<url-pattern>/in</url-pattern>
 	</servlet-mapping>
 
 	<servlet-mapping>
-		<servlet-name>Logout</servlet-name>
-		<url-pattern>/logout</url-pattern>
+		<servlet-name>GenericRequestController</servlet-name>
+		<url-pattern>/signOut</url-pattern>
 	</servlet-mapping>
 
 	<servlet-mapping>
-		<servlet-name>SignIn</servlet-name>
+		<servlet-name>GenericRequestController</servlet-name>
 		<url-pattern>/signIn</url-pattern>
 	</servlet-mapping>
 
 	<servlet-mapping>
-		<servlet-name>SignUp</servlet-name>
+		<servlet-name>GenericRequestController</servlet-name>
 		<url-pattern>/signUp</url-pattern>
 	</servlet-mapping>
-
-	<!-- <servlet-mapping>
-		<servlet-name>HomePage</servlet-name>
-		<url-pattern>/home</url-pattern>
-	</servlet-mapping> -->
-
-	<servlet-mapping>
-		<servlet-name>HomePage</servlet-name>
-		<url-pattern>/home/*</url-pattern>
-	</servlet-mapping>
-
 
 
 	<servlet-mapping>
@@ -100,15 +89,21 @@
 		<url-pattern>/getBook</url-pattern>
 	</servlet-mapping>
 
-
 	<servlet-mapping>
 		<servlet-name>GenericRequestController</servlet-name>
 		<url-pattern>/getAllBooks</url-pattern>
 	</servlet-mapping>
 
+	<!-- <servlet-mapping>
+		<servlet-name>HomePage</servlet-name>
+		<url-pattern>/home</url-pattern>
+	</servlet-mapping> -->
 
+	<servlet-mapping>
+		<servlet-name>HomePage</servlet-name>
+		<url-pattern>/home/*</url-pattern>
+	</servlet-mapping>
 
-	
 
 	<!-- <servlet-mapping>
 		<servlet-name>FilterBooks</servlet-name>

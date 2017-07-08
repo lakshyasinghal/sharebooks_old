@@ -25,8 +25,114 @@ import static com.sharebooks.staticClasses.JspPages.*;
 
 public class GenericRequestHandler implements GenericRequestInterface {
 
-	public void init(){
-		//nothing here
+
+	//return response containing cover page jsp
+	public Response getCoverPage(HttpServletRequest req , HttpServletResponse res) throws Exception{
+		try{
+			Response response = new Response(JSP , req , res , COVERPAGE_JSP);
+			
+			return response;
+		}
+		catch(Exception ex){
+			System.out.println("Error in getCoverPage in GenericRequestHandler");
+			throw ex;
+		}
+	}
+
+	public Response signIn(HttpServletRequest req , HttpServletResponse res) throws Exception{
+		try{
+			Response response = null;
+			ResponseHandler responseHandler = Resources.getResponseHandler();
+			UserHandler userHandler = Resources.getUserHandler();
+
+			String username = req.getParameter("username");
+			String password = req.getParameter("password");
+
+			System.out.println("username - " + username);
+			System.out.println("password - " + password);
+
+			List<String> fields = Arrays.asList("username" , "password");
+			List<String> fieldTypes = Arrays.asList("string" , "string"); 
+			List<Object> fieldValues = Arrays.asList(username , password); 
+
+			
+			User user = userHandler.fetchUser(fields , fieldTypes , fieldValues);
+
+			//when there is no user for the given login credentials
+			if(user == null){
+				response = new Response(JSON , res , false , LOGIN_FAILED);
+			}
+			//when there is a user for the given login credentials
+			else{
+				//start the session 
+				HttpSession session = req.getSession();
+				//add user object to the session
+				session.setAttribute("user" , user);
+
+				response = new Response(JSON , res , true , LOGIN_SUCCESSFUL);
+			}
+
+			return response;
+		}
+		catch(Exception ex){
+			System.out.println("Error in signIn in GenericRequestHandler");
+			throw ex;
+		}
+	}
+
+	
+
+	public Response signUp(HttpServletRequest req , HttpServletResponse res) throws Exception{
+		try{	
+			Response response = null;
+			ResponseHandler responseHandler = Resources.getResponseHandler();
+			UserHandler userHandler = Resources.getUserHandler();
+
+			User user = User.getUserObjectFromRequest(req);
+
+			//the value should be 0 or 1 depending on whether the user has been registered or not
+			int userAdded = userHandler.addUser(user);
+
+			int statusCode = -1;
+			boolean success = false;
+
+			switch(userAdded){
+				case 0:
+					statusCode = USERINFO_INCOMPLETE;
+					success = false;
+					break;
+				case 1:
+					statusCode = ADD_USER_SUCCESSFUL;
+					success = true;
+					break;
+				case 2 :
+				 	statusCode = USERNAME_ALREADY_EXISTS;
+				 	success = false;
+				 	break;
+				default :
+					break;
+			}
+
+			response = new Response(JSON , res , success , statusCode);
+
+			return response;
+		}
+		catch(Exception ex){
+			System.out.println("Error in signUp in GenericRequestHandler");
+			throw ex;
+		}
+	}
+
+
+
+	public Response signOut(HttpServletRequest req , HttpServletResponse res) throws Exception{
+		try{
+			return null;
+		}
+		catch(Exception ex){
+			System.out.println("Error in signOut in GenericRequestHandler");
+			throw ex;
+		}
 	}
 
 
@@ -34,14 +140,12 @@ public class GenericRequestHandler implements GenericRequestInterface {
 	//return response containing the homePage.jsp
 	public Response getHomePage(HttpServletRequest req , HttpServletResponse res) throws Exception{
 		try{
-			Response response = null;
-
-			response = new Response(JSP , req , res , HOMEPAGE_JSP);
+			Response response = new Response(JSP , req , res , HOMEPAGE_JSP);
 
 			return response;
 		}
 		catch(Exception ex){
-			System.out.println("Error in getHomePage in HomePageHandler");
+			System.out.println("Error in getHomePage in GenericRequestHandler");
 			throw ex;
 		}
 	}
@@ -129,7 +233,7 @@ public class GenericRequestHandler implements GenericRequestInterface {
 			return response;
 		}
 		catch(Exception ex){
-			System.out.println("Error in getAllBooks in HomePageHandler");
+			System.out.println("Error in getAllBooks in GenericRequestHandler");
 			throw ex;
 		}
 	}

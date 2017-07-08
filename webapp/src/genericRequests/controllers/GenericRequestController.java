@@ -45,13 +45,27 @@ public class GenericRequestController extends HttpServlet {
 
 			System.out.println("Requested URL : " + requestedURL);
 
+			//!requestedURL.equals(IN) && !requestedURL.equals(SIGN_IN) && !requestedURL.equals(SIGN_UP) && !requestedURL.equals(SIGN_OUT) &&
+
 			//if seesion expires take to the session timeout jsp page
-			if(isSessionTimedOut(req)){
+			if(!requestedURL.equals(IN) && !requestedURL.equals(SIGN_IN) && !requestedURL.equals(SIGN_UP) && !requestedURL.equals(SIGN_OUT) && isSessionTimedOut(req)){
 				System.out.println("\n\nSession has timed out\n\n");
 				response = getSessionTimeOutResponse(req , res);
 			}
 			else{
 				switch(requestedURL){
+					case IN :
+						response = genericRequestHandler.getCoverPage(req , res);
+						break;
+					case SIGN_IN :
+						response = genericRequestHandler.signIn(req , res);
+						break;
+					case SIGN_UP :
+						response = genericRequestHandler.signUp(req , res);
+						break;
+					case SIGN_OUT :
+						response = genericRequestHandler.signOut(req , res);
+						break;
 					case HOME :
 						response = genericRequestHandler.getHomePage(req , res);
 						break;
@@ -79,6 +93,7 @@ public class GenericRequestController extends HttpServlet {
 
 	public boolean isSessionTimedOut(HttpServletRequest req) throws Exception {
 		try{
+			System.out.println("Inside isSessionTimedOut in GenericRequestController");
 			//req.getSession(false) will return null if there isn't an active session already
 			HttpSession session = req.getSession(false);
 
@@ -86,6 +101,7 @@ public class GenericRequestController extends HttpServlet {
 				return true;
 			}
 			else{
+				System.out.println("\nSession --- " + session.toString());
 				return false;
 			}
 		}

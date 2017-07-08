@@ -2,6 +2,7 @@ package com.sharebooks.user.entities;
 
 
 import com.sharebooks.commonEntity.entities.Entity;
+import javax.servlet.http.*;
 import java.util.*;
 import java.sql.*;
 
@@ -41,6 +42,22 @@ public final class User extends Entity implements Comparable<User> {
 		//creationTime = new Date();
 	}
 
+	public User(String username , String password , String name , String birthday , String address , String city , String state , String pincode , 
+		String mobileNo){
+		
+		this.username = username;
+		this.password = password;
+		this.name = name;
+		this.birthday = birthday;
+		this.address = address;
+		this.city = city;
+		this.state = state;
+		this.pincode = pincode;
+		this.mobileNo = mobileNo;
+	}
+
+
+
 	public User(int id , String username , String password , String name , String birthday , String address , String city , String state , String pincode , 
 		String mobileNo , String bookIds , int active , java.util.Date creationTime){
 		
@@ -58,6 +75,7 @@ public final class User extends Entity implements Comparable<User> {
 		this.active = active;
 		this.creationTime = creationTime;
 	}
+
 
 
 
@@ -261,15 +279,39 @@ public final class User extends Entity implements Comparable<User> {
 	}
 
 
+
+	//getting user object from httpServletRequest object
+	public static User getUserObjectFromRequest(HttpServletRequest req) throws Exception{
+		try{
+			String id = req.getParameter("id");
+			String username = req.getParameter("username");
+			String password = req.getParameter("password");
+			String name = req.getParameter("name");
+			String birthday = req.getParameter("birthday");
+			String address = req.getParameter("address");
+			String city = req.getParameter("city");
+			String state = req.getParameter("state");
+			String pincode = req.getParameter("pincode");
+			String mobileNo = req.getParameter("mobileNo");
+			String bookIds = req.getParameter("bookIds");
+			String active = req.getParameter("active");
+			//String creationTime = req.getParameter("creationTime");
+
+			//creating new user object from values retrieved
+			User user = new User(username , password , name , birthday , address , city , 
+						state , pincode , mobileNo);
+
+			return user;
+		}
+		catch(Exception ex){
+			System.out.println("Error in getUserObjectFromRequest in User");
+			throw ex;
+		}
+	}
+
+
 	
 }
 
 
 
-// Timestamp timestamp = rs.getTimestamp(columnName);
-// java.util.Date date = null;
-// if (timestamp != null){
-// 	date = new java.util.Date(timestamp.getTime());
-// }
-// obj = date;
-// break;

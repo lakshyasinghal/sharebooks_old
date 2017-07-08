@@ -52,18 +52,9 @@ public class HomePageController extends HttpServlet {
 			}
 			else{
 				switch(requestedURL){
-					// case HOME :
-					// 	response = homePageHandler.getHomePage(req , res);
-					// 	break;
-					// case GET_USER :
-					// 	response = homePageHandler.getUser(req , res);
-					// 	break;
 					case ADD_BOOK :
 						response = homePageHandler.addBook(req , res);
 						break;
-					// case GET_ALL_BOOKS :
-					// 	response = homePageHandler.getAllBooks(req , res);
-					// 	break;
 					case UPDATE_USER :
 						response = homePageHandler.updateUser(req , res);
 						break;

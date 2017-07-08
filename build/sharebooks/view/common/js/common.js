@@ -5,10 +5,14 @@ var responseTypes = {
 }
 
 
+var validationMessages = {
+	EMPTY_FIELDS : "Please enter values in all the fields."
+}
+
 
 var messageColors = {
 	ERROR : "red",
-	WARNING : "black",
+	WARNING : "#e2ab30",
 	SUCCESS : "green"
 }
 
@@ -131,7 +135,7 @@ function removeMessages(messageContainerIds){
 		}
 	}
 	catch(err){
-		console.log("Error occurred in removeMessages function - " + err.message);
+		console.log("Error occurred in removeMessages function in common.js --- " + err.message);
 	}
 }
 

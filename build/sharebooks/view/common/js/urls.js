@@ -1,7 +1,8 @@
 var urls = {
-	SIGNIN : "signIn",
-	ADD_USER : "signUp",
-	LOGOUT : "logout",
+	IN : "in",
+	SIGN_IN : "signIn",
+	SIGN_UP : "signUp",
+	SIGN_OUT : "logout",
 	HOME : "home",
 	GET_BOOK : "getBook",
 	GET_ALL_BOOKS : "getAllBooks",

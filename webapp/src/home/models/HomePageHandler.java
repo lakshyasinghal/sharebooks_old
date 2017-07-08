@@ -72,7 +72,7 @@ public class HomePageHandler implements HomePageHandlerInterface {
 		try{
 			Response response = null;
 			BooksHandler booksHandler = Resources.getBooksHandler();
-			Book book = booksHandler.getBookObjectFromRequest(req);
+			Book book = Book.getBookObjectFromRequest(req);
 
 			int added = booksHandler.addBook(book);
 
@@ -97,35 +97,6 @@ public class HomePageHandler implements HomePageHandlerInterface {
 
 
 	
-
-	// public Response getAllBooks(HttpServletRequest req , HttpServletResponse res) throws Exception {
-	// 	try {
-	// 		Response response = null;
-	// 		BooksHandler booksHandler = Resources.getBooksHandler();
-	// 		List<Book> books = booksHandler.fetchAllBooks();
-	// 		//User user = req.getSession().getAttribute("user");
-
-		
-	// 		System.out.println("\n\nInside getAllBooks controller");
-	// 		System.out.println("books list - " + books.toString() + "\n\n");
-		
-	// 		Collections.sort(books);
-
-	// 		List<Entity> entities = new ArrayList<Entity>();
-
-	// 		for(Book book : books){
-	// 			entities.add(book);
-	// 		}
-			
-	// 		response = new Response(JSON , res , true , GET_BOOKS_SUCCESSFUL , entities);
-
-	// 		return response;
-	// 	}
-	// 	catch(Exception ex){
-	// 		System.out.println("Error in getAllBooks in HomePageHandler");
-	// 		throw ex;
-	// 	}
-	// }
 
 
 
@@ -186,9 +157,7 @@ public class HomePageHandler implements HomePageHandlerInterface {
 	//viewBook method will send a jsp response containing the viewBook.jsp page
 	public Response viewBook(HttpServletRequest req , HttpServletResponse res) throws Exception {
 		try {
-			Response response = null;
-
-			response = new Response(JSP , req , res , VIEW_BOOK_JSP);
+			Response response = new Response(JSP , req , res , VIEW_BOOK_JSP);
 
 			return response;
 		}
@@ -204,7 +173,7 @@ public class HomePageHandler implements HomePageHandlerInterface {
 		try {
 			Response response = null;
 
-			response = new Response(JSP , req , res , VIEW_BOOK_JSP);
+			//response = new Response(JSP , req , res , VIEW_BOOK_JSP);
 
 			return response;
 		}
@@ -221,7 +190,7 @@ public class HomePageHandler implements HomePageHandlerInterface {
 			Response response = null;
 
 			UserHandler userHandler = Resources.getUserHandler();
-			User user = userHandler.getUserObjectFromRequest(req);
+			User user = User.getUserObjectFromRequest(req);
 
 			int updated = userHandler.updateUser(user);
 

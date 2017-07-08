@@ -16,9 +16,6 @@ json/models
 response/entities
 response/models
 commonResources/entities
-login/interfaces
-login/models
-login/controllers
 home/interfaces
 home/models
 home/controllers

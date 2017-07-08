@@ -89,8 +89,8 @@ public class UserHandler extends EntityHandler {
 				return 2;
 			}
 
-			fields = Arrays.asList("username" , "password" , "name" , "birthday" , "address" , "city" , "state" , "pincode" , "mobilNo" , "bookIds" , "active" , "creationTime");
-			fieldTypes = Arrays.asList("string" , "string" , "string" , "string" , "string" , "string" , "string" , "string"  , "String" , "string" , "int" , "dateTime");
+			fields = Arrays.asList("username" , "password" , "name" , "birthday" , "address" , "city" , "state" , "pincode" , "mobileNo" , "bookIds" , "active" , "creationTime");
+			fieldTypes = Arrays.asList("string" , "string" , "string" , "string" , "string" , "string" , "string" , "string"  , "string" , "string" , "int" , "dateTime");
 			fieldValues = Arrays.asList(user.getUsername() , user.getPassword() , user.getName() , user.getBirthday() , user.getAddress() , user.getCity()
 					, user.getState() , user.getPincode() , user.getMobileNo() , user.getBookIds() , user.getActive() , user.getCreationTime());
 			
@@ -182,33 +182,33 @@ public class UserHandler extends EntityHandler {
 
 
 
-	//getting user object from httpServletRequest object
-	public User getUserObjectFromRequest(HttpServletRequest req) throws Exception{
-		try{
-			String id = req.getParameter("id");
-			String username = req.getParameter("username");
-			String password = req.getParameter("password");
-			String name = req.getParameter("name");
-			String birthday = req.getParameter("birthday");
-			String address = req.getParameter("address");
-			String city = req.getParameter("city");
-			String state = req.getParameter("state");
-			String pincode = req.getParameter("pincode");
-			String mobileNo = req.getParameter("mobileNo");
-			String bookIds = req.getParameter("bookIds");
-			String active = req.getParameter("active");
-			String creationTime = req.getParameter("creationTime");
+	// //getting user object from httpServletRequest object
+	// public User getUserObjectFromRequest(HttpServletRequest req) throws Exception{
+	// 	try{
+	// 		String id = req.getParameter("id");
+	// 		String username = req.getParameter("username");
+	// 		String password = req.getParameter("password");
+	// 		String name = req.getParameter("name");
+	// 		String birthday = req.getParameter("birthday");
+	// 		String address = req.getParameter("address");
+	// 		String city = req.getParameter("city");
+	// 		String state = req.getParameter("state");
+	// 		String pincode = req.getParameter("pincode");
+	// 		String mobileNo = req.getParameter("mobileNo");
+	// 		String bookIds = req.getParameter("bookIds");
+	// 		String active = req.getParameter("active");
+	// 		String creationTime = req.getParameter("creationTime");
 
-			//creating new user object from values retrieved
-			User user = new User(Integer.parseInt(id) , username , password , name , birthday , address , city , 
-						state , pincode , mobileNo , bookIds , Integer.parseInt(active) , new java.util.Date());
+	// 		//creating new user object from values retrieved
+	// 		User user = new User(Integer.parseInt(id) , username , password , name , birthday , address , city , 
+	// 					state , pincode , mobileNo , bookIds , Integer.parseInt(active) , new java.util.Date());
 
-			return user;
-		}
-		catch(Exception ex){
-			System.out.println("Error in getUserObjectFromRequest in UserHandler");
-			throw ex;
-		}
-	}
+	// 		return user;
+	// 	}
+	// 	catch(Exception ex){
+	// 		System.out.println("Error in getUserObjectFromRequest in UserHandler");
+	// 		throw ex;
+	// 	}
+	// }
 
 }

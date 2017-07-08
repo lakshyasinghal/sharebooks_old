@@ -6,3 +6,26 @@
 6. Correct age functionality for user registration
 7. Provide validations on login page
 8. Create json serializer
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// Timestamp timestamp = rs.getTimestamp(columnName);
+// java.util.Date date = null;
+// if (timestamp != null){
+// 	date = new java.util.Date(timestamp.getTime());
+// }
+// obj = date;
+// break;

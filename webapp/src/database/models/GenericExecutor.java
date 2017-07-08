@@ -46,19 +46,27 @@ public abstract class GenericExecutor implements Executor {
 		PreparedStatement stmt = null;
 
 		try{
+			System.out.println("Inside getPreparedStatement");
+
 			stmt = connection.prepareStatement(sqlQuery);
 			String fieldType = "";
 			Object fieldValue = null;
 
 
+			System.out.println("Point 0");
+
 			if(fieldTypes != null){
 				int size = fieldTypes.size();
+
+				System.out.println("Point 1");
 
 				for(int i=1 ; i<=size ; i++){
 					fieldType = fieldTypes.get(i-1);
 					fieldValue = fieldValues.get(i-1);
 					setFieldValue(stmt , fieldType , fieldValue , i);
 				}
+
+				System.out.println("Point 2");
 			}
 
 			System.out.println("SQL statement - " + stmt.toString());

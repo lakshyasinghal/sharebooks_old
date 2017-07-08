@@ -230,40 +230,40 @@ public class BooksHandler extends EntityHandler {
 	}
 
 
-	//getting book object from httpServletRequest object
-	public Book getBookObjectFromRequest(HttpServletRequest req) throws Exception{
-		try{
-			String id = req.getParameter("id");
-			String userId = req.getParameter("userId");
-			String name = req.getParameter("name");
-			String authorName = req.getParameter("authorName");
-			String category = req.getParameter("category");
-			String subcategory = req.getParameter("subcategory");
-			String pages = req.getParameter("pages");
-			String image = req.getParameter("image");
-			System.out.println("image ------- " + image);
-			String available = req.getParameter("available");
-			String buy = req.getParameter("buy");
-			String rent = req.getParameter("rent");
-			String buyAmount = req.getParameter("buyAmount");
+	// //getting book object from httpServletRequest object
+	// public Book getBookObjectFromRequest(HttpServletRequest req) throws Exception{
+	// 	try{
+	// 		String id = req.getParameter("id");
+	// 		String userId = req.getParameter("userId");
+	// 		String name = req.getParameter("name");
+	// 		String authorName = req.getParameter("authorName");
+	// 		String category = req.getParameter("category");
+	// 		String subcategory = req.getParameter("subcategory");
+	// 		String pages = req.getParameter("pages");
+	// 		String image = req.getParameter("image");
+	// 		System.out.println("image ------- " + image);
+	// 		String available = req.getParameter("available");
+	// 		String buy = req.getParameter("buy");
+	// 		String rent = req.getParameter("rent");
+	// 		String buyAmount = req.getParameter("buyAmount");
 			
-			String rentAmount = req.getParameter("rentAmount");
+	// 		String rentAmount = req.getParameter("rentAmount");
 			
 
-			//creating new book object from values retrieved
-			//id value will be passed as -1
-			Book book = new Book(Integer.parseInt(userId) , name , authorName , category , subcategory , Integer.parseInt(pages) , image
-						, Integer.parseInt(available) , Integer.parseInt(buy) , Integer.parseInt(rent) , Double.parseDouble(buyAmount) ,
-						Double.parseDouble(rentAmount));
-			System.out.println("buyAmount ------- " + book.getBuyAmount());
-			System.out.println("rentAmount ------- " + book.getRentAmount());
+	// 		//creating new book object from values retrieved
+	// 		//id value will be passed as -1
+	// 		Book book = new Book(Integer.parseInt(userId) , name , authorName , category , subcategory , Integer.parseInt(pages) , image
+	// 					, Integer.parseInt(available) , Integer.parseInt(buy) , Integer.parseInt(rent) , Double.parseDouble(buyAmount) ,
+	// 					Double.parseDouble(rentAmount));
+	// 		System.out.println("buyAmount ------- " + book.getBuyAmount());
+	// 		System.out.println("rentAmount ------- " + book.getRentAmount());
 
-			return book;
-		}
-		catch(Exception ex){
-			System.out.println("Error in getBookObjectFromRequest in BooksHandler");
-			throw ex;
-		}
-	}
+	// 		return book;
+	// 	}
+	// 	catch(Exception ex){
+	// 		System.out.println("Error in getBookObjectFromRequest in BooksHandler");
+	// 		throw ex;
+	// 	}
+	// }
 
 }
