@@ -238,4 +238,20 @@ public class GenericRequestHandler implements GenericRequestInterface {
 		}
 	}
 
+
+
+
+	//viewBook method will send a jsp response containing the viewBook.jsp page
+	public Response viewBook(HttpServletRequest req , HttpServletResponse res) throws Exception {
+		try {
+			Response response = new Response(JSP , req , res , VIEW_BOOK_JSP);
+
+			return response;
+		}
+		catch(Exception ex){
+			System.out.println("Error in viewBook in HomePageHandler");
+			throw ex;
+		}
+	}
+
 }

@@ -78,6 +78,10 @@ public class GenericRequestController extends HttpServlet {
 					case GET_ALL_BOOKS :
 						response = genericRequestHandler.getAllBooks(req , res);
 						break;
+					case VIEW_BOOK :
+						response = genericRequestHandler.viewBook(req , res);
+						System.out.println("Response object --- " + response);
+						break;
 					default :
 						break;
 				}

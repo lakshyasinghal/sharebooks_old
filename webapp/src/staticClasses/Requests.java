@@ -16,7 +16,7 @@ public class Requests {
 	public static final String FILTER_BY_SEARCH = "/home/filterBySearch";
 	public static final String ADD_BOOK = "/home/addBook";
 	public static final String GET_NOTIFICATIONS = "/home/getNotifications";
-	public static final String VIEW_BOOK = "/home/viewBook";
+	public static final String VIEW_BOOK = "/viewBook";
 	public static final String UPDATE_USER = "/home/updateUser";
 	public static final String VIEW_HISTORY = "/home/viewHistory";
 	

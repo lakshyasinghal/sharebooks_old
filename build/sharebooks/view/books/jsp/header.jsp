@@ -4,7 +4,7 @@
 	</div>
 
 
-	<div id="profile" class="pointer vertical-center" ng-click="profileHandler.toggleProfileList()" style="background-image: url('<%=profileImagePath%>')">
+	<div id="profile" class="pointer vertical-center" ng-click="profileHandler.toggleProfileList()" style="background-image: url('<%=imagesFolderPath%>/userProfile.png%>')">
 		<!-- <div id="profileList" ng-hide="profileHandler.profileListHidden" class="absolute">	
 			<table id="profileListTable">
 				<tr ng-repeat="option in profileHandler.profileListOptions">

@@ -10,7 +10,7 @@ var urls = {
 	FILTER_BY_CATEGORY : "home/filterByCategory",
 	FILTER_BY_SEARCH : "home/filterBySearch",
 	ADD_BOOK : "home/addBook",
-	VIEW_BOOK : "home/viewBook",
+	VIEW_BOOK : "viewBook",
 	UPDATE_USER : "home/updateUser",
 	VIEW_HISTORY : "home/viewHistory",
 	GET_NOTIFICATIONS : "home/getNotifications"

@@ -94,6 +94,11 @@
 		<url-pattern>/getAllBooks</url-pattern>
 	</servlet-mapping>
 
+	<servlet-mapping>
+		<servlet-name>GenericRequestController</servlet-name>
+		<url-pattern>/viewBook</url-pattern>
+	</servlet-mapping>
+
 	<!-- <servlet-mapping>
 		<servlet-name>HomePage</servlet-name>
 		<url-pattern>/home</url-pattern>
@@ -101,8 +106,20 @@
 
 	<servlet-mapping>
 		<servlet-name>HomePage</servlet-name>
-		<url-pattern>/home/*</url-pattern>
+		<url-pattern>/home/addBook</url-pattern>
 	</servlet-mapping>
+
+
+	<servlet-mapping>
+		<servlet-name>HomePage</servlet-name>
+		<url-pattern>/home/updateUser</url-pattern>
+	</servlet-mapping>
+
+<!-- 
+	<servlet-mapping>
+		<servlet-name>HomePage</servlet-name>
+		<url-pattern>/home/viewBook</url-pattern>
+	</servlet-mapping> -->
 
 
 	<!-- <servlet-mapping>

@@ -225,6 +225,8 @@ homepageApp.controller("HomePageController" , ['$scope' , '$http' , function($sc
 				e.preventDefault();
 				e.stopPropagation();
 
+
+				//get the book id from the bookId attribute
 				var elem = e.target;
 				var elemClassTokens = elem.getAttribute("class").split(' ');
 				var token;

@@ -58,9 +58,9 @@ public class HomePageController extends HttpServlet {
 					case UPDATE_USER :
 						response = homePageHandler.updateUser(req , res);
 						break;
-					case VIEW_BOOK :
-						response = homePageHandler.viewBook(req , res);
-						break;
+					// case VIEW_BOOK :
+					// 	response = homePageHandler.viewBook(req , res);
+					// 	break;
 					case GET_NOTIFICATIONS :
 						response = homePageHandler.getNotifications(req , res);
 						break;

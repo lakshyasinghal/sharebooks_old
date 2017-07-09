@@ -23,7 +23,7 @@
 #apptitle {
 	position: absolute;
 	font-size: 34px;
-	color: red;
+	color: #FFFFFF;
 	/*color: #3d80e6;*/
 	left: 20px;
 }
@@ -144,6 +144,15 @@
 	background-size: 50px 50px;
     background-repeat: no-repeat;
 }
+
+
+#profile img {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50% , -50%);
+}
+
 
 #profileList {
 	width: 120px;

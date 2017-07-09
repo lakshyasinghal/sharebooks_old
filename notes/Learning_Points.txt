@@ -1,0 +1,12 @@
+When you make a request like localhost:8000/sharebooks/home/viewBook  and you are expecting a jsp(view/books/jsp/viewBook.jsp)  in return, the path localhost:8000/sharebooks/home/  will be appended to the path of jsp. 
+The requested jsp will be localhost:8000/sharebooks/home/view/books/jsp/viewBook.jsp and not localhost:8000/sharebooks/view/books/jsp/viewBook.jsp
+
+So construct your requests carefully
+
+
+------------------------------------------------------------------------------------------------
+
+Tomcat stores the session id even when it is closed and you can resume your session when the tomcat is switched on
+
+
+-------------------------------------------------------------------------------------------------
