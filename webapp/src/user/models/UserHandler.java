@@ -65,6 +65,8 @@ public class UserHandler extends EntityHandler {
 			Entity entity = fetchEntity(USER , fields , fieldTypes , fieldValues);
 			User user = (User)entity;
 
+			System.out.println("\n\nUser object -------- " + user + "\n\n");
+
 			return user;
 		}
 		catch(Exception ex){

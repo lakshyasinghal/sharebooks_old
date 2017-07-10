@@ -121,11 +121,11 @@
 
 #notificationContainer {
 	position: absolute;
-	top: 130%;
+	top: 170%;
 	display: none;
 	background-color: #FFFFFF;
-	width: 300px;
-	height: 100px;
+	width: 250px;
+	height: 250px;
 	border: 2px solid #545f63;
 }
 

@@ -24,3 +24,7 @@ http://jsfiddle.net/simpulton/XqDxG/
 
 Advance javascript
 http://www.htmldog.com/guides/javascript/advanced/
+
+
+cookies
+https://www.quirksmode.org/js/cookies.html

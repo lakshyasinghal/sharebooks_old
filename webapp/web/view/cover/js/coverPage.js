@@ -62,7 +62,7 @@ var windowHandler = {
             var self = windowHandler;
 
             $("#signUpPanel").hide();
-            $("#signInPanel").css("opacity" , 0);
+            //$("#signInPanel").css("opacity" , 0);
         }
         catch(err){
             console.log("Error in closeAll in windowHandler --- " + err.message);
@@ -84,11 +84,30 @@ var signInForm = {
     init : function(){
         var self = window.signInForm;
 
-        $("#" + self.id).hover(self.togglePanel);
-        //$("#" + self.id).mouseout(self.hidePanel);
+        //$("#" + self.id).hover(self.togglePanel);
 
         $("#" + self.buttonId).click(self.signIn);
-        console.log("Sign in form button registered");
+
+        self.setDefaultValues();
+    },
+
+    setDefaultValues : function(){
+        try{
+            var userName = cookieHandler.readCookie("sharebooks_username");
+
+            if(userName){
+                $("#signIn_username").val(userName);
+            }
+
+            var password = cookieHandler.readCookie("sharebooks_password");
+
+            if(password){
+                $("#signIn_password").val(password);
+            }
+        }
+        catch(err){
+            console.log("Error in setDefaultValues in signInForm --- " + err.message);
+        }
     },
 
     cleanUp : function(){
@@ -121,6 +140,7 @@ var signInForm = {
         data = JSON.parse(data);
 
         if(data.success){
+            self.modifyCookies();
             window.location.href = urls.HOME;
         }
         else{
@@ -152,28 +172,30 @@ var signInForm = {
         }
     },
 
-    // showPanel : function(){
-    //     try{
-    //         var self = window.signInForm;
 
-    //         $("#" + self.id).animate({opacity : 1});
-    //     }
-    //     catch(err){
-    //         console.log("Error in showPanel in signInForm --- " + err.message);
-    //     }
-    // },
+    modifyCookies : function(){
+        try{
+            var userName = cookieHandler.readCookie("sharebooks_username");
 
-    // hidePanel : function(){
-    //     try{
-    //         var self = window.signInForm;
+            if($("#signIn_username").val() != userName){
+                cookieHandler.createCookie("sharebooks_username" , $("#signIn_username").val() , 1 , "sharebooks");
+            }
 
-    //         $("#" + self.id).css("opacity" , 0);
-    //     }
-    //     catch(err){
-    //         console.log("Error in hidePanel in signInForm --- " + err.message);
-    //     }
-    // }
-}
+            var password = cookieHandler.readCookie("sharebooks_password");
+
+            if( $("#signIn_password").val() != password){
+                cookieHandler.createCookie("sharebooks_password" , $("#signIn_password").val() , 1 , "sharebooks");
+            }
+        }
+        catch(err){
+            console.log("Error in modifyCookies in signInForm --- " + err.message);
+        }
+    }
+
+
+};
+
+
 
 
 
@@ -280,7 +302,7 @@ var registrationForm = {
     failure : function(){
         var self = window.registrationForm;
     }
-}
+};
 
 
 window.onload = init;
