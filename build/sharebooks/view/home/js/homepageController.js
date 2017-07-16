@@ -80,6 +80,12 @@ homepageApp.controller("HomePageController" , ['$scope' , '$http' , function($sc
 
 				event.preventDefault();
 				event.stopPropagation();
+
+				if($("#" + self.notificationContainerId).css("display") == "block"){
+					$("#" + self.notificationContainerId).fadeToggle("fast");
+					return;
+				}
+
 				$scope.windowHandler.closeAllOpenPanels();
 
 				$("#" + self.notificationContainerId).fadeToggle("fast");
@@ -122,7 +128,7 @@ homepageApp.controller("HomePageController" , ['$scope' , '$http' , function($sc
 			try{
 				var self = $scope.browsingHandler;
 
-				$("#browseLink").hover(self.showCategoriesPanel);
+				$("#browseLink").click(self.showCategoriesPanel);
 				$(".category").hover(self.showSubCategoriesPanel);
 
 			}
@@ -135,6 +141,12 @@ homepageApp.controller("HomePageController" , ['$scope' , '$http' , function($sc
 			try{
 				e.preventDefault();
 				e.stopPropagation();
+
+				if($("#categoriesContainer").css("display") == "block"){
+					$("#categoriesContainer").slideUp();
+					return;
+				}
+
 				$scope.windowHandler.closeAllOpenPanels();
 
 				$("#categoriesContainer").slideDown("medium");
@@ -401,6 +413,9 @@ homepageApp.controller("HomePageController" , ['$scope' , '$http' , function($sc
 		toggleProfileList : function(){
 			try{
 				var self = $scope.profileHandler;
+
+				event.preventDefault();
+				event.stopPropagation();
 
 				if(self.profileListHidden){
 					self.profileListHidden = false;

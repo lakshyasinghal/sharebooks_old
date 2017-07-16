@@ -232,7 +232,7 @@ public final class User extends Entity implements Comparable<User> {
 	}
 
 	public String[] getFieldTypes(){
-		return fields; 
+		return fieldTypes;
 	}
 
 

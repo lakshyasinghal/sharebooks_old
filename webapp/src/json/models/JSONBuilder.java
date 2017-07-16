@@ -95,6 +95,10 @@ public class JSONBuilder implements JSONBuilderInterface {
 			String[] fieldTypes = e.getFieldTypes();
 			Object[] fieldValues = e.getFieldValues();
 
+			//System.out.println("Inside getJsonObject\n object --- " + e);
+
+			//System.out.println();
+
 			int length = fields.length;
 			String fieldType = null;
 
@@ -103,15 +107,24 @@ public class JSONBuilder implements JSONBuilderInterface {
 			for(int i=0 ; i<length ; i++){
 				fieldType = fieldTypes[i];
 
+				//System.out.println("Field Type ---- " + fieldType);
+
 				switch(fieldType){
 					case "string" :
 						jsonObj.append("\"" + fields[i] + "\"" + ":" + "\"" + (String)fieldValues[i] + "\"");
+						//System.out.println(fields[i] + " , " + (String)fieldValues[i]);
 						break;
 					case "int" :
 						jsonObj.append("\"" + fields[i] + "\"" + ":" + (Integer)fieldValues[i]);
+						//System.out.println(fields[i] + " , " + (Integer)fieldValues[i]);
 						break;
 					case "double" :
 						jsonObj.append("\"" + fields[i] + "\"" + ":" + (Double)fieldValues[i]);
+						//System.out.println(fields[i] + " , " + (Double)fieldValues[i]);
+						break;
+					case "datetime" :
+						jsonObj.append("\"" + fields[i] + "\"" + ":" + "\"" + ((java.util.Date)fieldValues[i]).toString() + "\"");
+						//System.out.println(fields[i] + " , " + (java.util.Date)fieldValues[i]);
 						break;
 					default :
 						break;

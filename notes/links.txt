@@ -28,3 +28,7 @@ http://www.htmldog.com/guides/javascript/advanced/
 
 cookies
 https://www.quirksmode.org/js/cookies.html
+
+
+HashMap
+https://dzone.com/articles/how-hashmap-works-in-java

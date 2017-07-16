@@ -121,11 +121,11 @@
 
 #notificationContainer {
 	position: absolute;
-	top: 130%;
+	top: 170%;
 	display: none;
 	background-color: #FFFFFF;
-	width: 300px;
-	height: 100px;
+	width: 250px;
+	height: 250px;
 	border: 2px solid #545f63;
 }
 
@@ -144,6 +144,15 @@
 	background-size: 50px 50px;
     background-repeat: no-repeat;
 }
+
+
+#profile img {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50% , -50%);
+}
+
 
 #profileList {
 	width: 120px;

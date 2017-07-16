@@ -23,13 +23,13 @@ public class ResponseHandler {
 	public void sendResponse(Response response) throws Exception{
 		try{
 
-			System.out.println("\nInside sendResponseHandler\n");
+			//System.out.println("\nInside sendResponseHandler\n");
 
-			System.out.println("Point 0");
+			//System.out.println("Point 0");
 
 			String responseType = response.getResponseType();
 
-			System.out.println("Point 1");
+			//System.out.println("Point 1");
 
 			switch(responseType){
 				case JSON :
@@ -42,7 +42,7 @@ public class ResponseHandler {
 					break;
 			}
 
-			System.out.println("Point 2");
+			//System.out.println("Point 2");
 
 		}
 		catch(Exception ex){
@@ -85,22 +85,22 @@ public class ResponseHandler {
 
 	public void sendJsp(Response response) throws Exception{
 		try{
-			System.out.println("Inside sendJsp");
+			//System.out.println("Inside sendJsp");
 
-			System.out.println("\nPoint 0");
+			//System.out.println("\nPoint 0");
 
 			HttpServletRequest req = response.getHttpServletRequest();
 			HttpServletResponse res = response.getHttpServletResponse();
 			String jspPath = response.getJspPath();
 
-			System.out.println("jspPath --- " + jspPath);
+			//System.out.println("jspPath --- " + jspPath);
 
-			System.out.println("\nPoint 1");
+			//System.out.println("\nPoint 1");
 
 			RequestDispatcher view = req.getRequestDispatcher(jspPath);
 			view.forward(req , res);
 
-			System.out.println("\nPoint 2");
+			//System.out.println("\nPoint 2");
 		}
 		catch(Exception ex){
 			System.out.println("Error in sendJsp in ResponseHandler");

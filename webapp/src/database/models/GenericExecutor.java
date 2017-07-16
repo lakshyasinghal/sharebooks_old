@@ -18,9 +18,16 @@ public abstract class GenericExecutor implements Executor {
 	}
 
 
+
 	public ResultSet executeQuery(PreparedStatement stmt) throws Exception {
 		try {
-			ResultSet rs = stmt.executeQuery();
+			ResultSet rs = null;
+
+			System.out.println("Thread " + Thread.currentThread().getName() + " inside executeQuery");
+
+			synchronized(connection){
+				rs = stmt.executeQuery();
+			}
 			return rs;
 		}
 		catch(Exception ex){
@@ -29,9 +36,17 @@ public abstract class GenericExecutor implements Executor {
 		}
 	}
 
+
+
 	public int executeUpdate(PreparedStatement stmt) throws Exception {
 		try {
-			int rowsAffected = stmt.executeUpdate();
+			int rowsAffected = -1;
+
+			System.out.println("Thread " + Thread.currentThread().getName() + " inside executeUpdate");
+			
+			synchronized(connection){
+				rowsAffected = stmt.executeUpdate();
+			}
 			return rowsAffected;
 		}
 		catch(Exception ex){
@@ -41,19 +56,20 @@ public abstract class GenericExecutor implements Executor {
 	}
 
 
+
 	//this method will take the sqlquery and will get a prepared statement for it by inserting the parameters
 	public PreparedStatement getPreparedStatement(String sqlQuery , List<String> fieldTypes , List<Object> fieldValues) throws Exception {
 		PreparedStatement stmt = null;
 
 		try{
-			System.out.println("Inside getPreparedStatement");
+			//System.out.println("Inside getPreparedStatement");
 
 			stmt = connection.prepareStatement(sqlQuery);
 			String fieldType = "";
 			Object fieldValue = null;
 
 
-			System.out.println("Point 0");
+			//System.out.println("Point 0");
 
 			if(fieldTypes != null){
 				int size = fieldTypes.size();
@@ -82,13 +98,14 @@ public abstract class GenericExecutor implements Executor {
 	}
 
 
+
 	//this method will be used to set the parameter values in the prepared statement based on whether there is int , string etc.
 	public void setFieldValue(PreparedStatement stmt , String fieldType , Object fieldValue , int fieldNumber) throws Exception {
 		
 		try{
-			System.out.println("fieldType : " + fieldType);
-			System.out.println("fieldValue : " + fieldValue.toString());
-			System.out.println("fieldNumber : " + fieldNumber);
+			//System.out.println("fieldType : " + fieldType);
+			//System.out.println("fieldValue : " + fieldValue.toString());
+			//System.out.println("fieldNumber : " + fieldNumber);
 			switch(fieldType){
 				case "int" :
 					stmt.setInt(fieldNumber , (Integer)fieldValue);

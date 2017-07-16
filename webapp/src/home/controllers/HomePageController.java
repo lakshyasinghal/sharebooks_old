@@ -34,7 +34,7 @@ public class HomePageController extends HttpServlet {
 
 	public void doPost(HttpServletRequest req , HttpServletResponse res) {
 		try{
-			System.out.println("\nInside doPost method in HomePageController");
+			System.out.println("\nThread " + Thread.currentThread().getName() + " inside doPost method in HomePageController");
 
 			ResponseHandler responseHandler = Resources.getResponseHandler();
 			Response response = null;

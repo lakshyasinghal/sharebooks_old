@@ -26,9 +26,6 @@ public class Response {
 
 
 
-
-
-
 	
 	public Response(){
 		//no code
@@ -75,15 +72,6 @@ public class Response {
 		this.httpServletResponse = httpServletResponse;
 		this.jspPath = jspPath;
 	}
-
-
-
-
-
-
-
-
-
 
 
 

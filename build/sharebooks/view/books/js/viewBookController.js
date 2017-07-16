@@ -6,10 +6,10 @@ viewBookApp.controller("ViewBookController" , ["$scope" , "$http" , function($sc
 
 	$scope.init = function(){
 		try{
-			$scope.booksHandler.init();
+			$scope.resultsHandler.init();
 		}
 		catch(err){
-			console.log("Error in main init");
+			console.log("Error in main init --- " + err.message);
 		}
 	}
 
@@ -38,7 +38,7 @@ viewBookApp.controller("ViewBookController" , ["$scope" , "$http" , function($sc
 				self.loadMoreResultsLinkShow = false;
 				self.lessResultsLinkShow = true;
 
-				$scope.booksHandler.loadMoreBooks();
+				$scope.resultsHandler.loadMoreBooks();
 			}
 			catch(err){
 				console.log("Error in loadMoreResults in optionsPanelHandler --- " + err.message);
@@ -52,7 +52,7 @@ viewBookApp.controller("ViewBookController" , ["$scope" , "$http" , function($sc
 				self.lessResultsLinkShow = false;
 				self.loadMoreResultsLinkShow = true;
 
-				$scope.booksHandler.showOriginallySelectedBook();
+				$scope.resultsHandler.showOriginallySelectedBook();
 			}
 			catch(err){
 				console.log("Error in loadLessResults in optionsPanelHandler --- " + err.message);
@@ -72,14 +72,14 @@ viewBookApp.controller("ViewBookController" , ["$scope" , "$http" , function($sc
 
 		init : function(){
 			try{
-				var self = $scope.booksHandler;
+				var self = $scope.resultsHandler;
 
 				if(window.sessionStorage){
 					self.books = JSON.parse(sessionStorage.books);
 					self.selectedBook = JSON.parse(sessionStorage.selectedBook);
 				}
 				else{
-					console.log("session object not available in init in booksHandler");
+					console.log("session object not available in init in resultsHandler");
 				}
 
 				var selectedBooks = self.getSimilarBooks(self.books , self.selectedBook);
@@ -117,7 +117,7 @@ viewBookApp.controller("ViewBookController" , ["$scope" , "$http" , function($sc
 				}
 			}
 			catch(err){
-				console.log("Error in init in booksHandler --- " + err.message);
+				console.log("Error in init in resultsHandler --- " + err.message);
 			}
 		},
 
@@ -125,25 +125,25 @@ viewBookApp.controller("ViewBookController" , ["$scope" , "$http" , function($sc
 
 		loadMoreBooks : function(){
 			try{
-				var self = $scope.booksHandler;
+				var self = $scope.resultsHandler;
 
 				self.selectedResults = self.otherResults;
 			}
 			catch(err){
-				console.log("Error in loadMoreBooks in booksHandler --- " + err.message);
+				console.log("Error in loadMoreBooks in resultsHandler --- " + err.message);
 			}
 		},
 
 
 		showOriginallySelectedBook : function(){
 			try{
-				var self = $scope.booksHandler;
+				var self = $scope.resultsHandler;
 
 				self.selectedResults = [];
 				self.selectedResults.push(self.selectedResult);
 			}
 			catch(err){
-				console.log("Error in loadOriginallySelectedBook in booksHandler --- " + err.message);
+				console.log("Error in loadOriginallySelectedBook in resultsHandler --- " + err.message);
 			}
 		},
 
@@ -154,7 +154,7 @@ viewBookApp.controller("ViewBookController" , ["$scope" , "$http" , function($sc
 				return books;
 			}
 			catch(err){
-				console.log("Error in getSimilarBooks in booksHandler --- " + err.message);
+				console.log("Error in getSimilarBooks in resultsHandler --- " + err.message);
 			}
 		}
 	}

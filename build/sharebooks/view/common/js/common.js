@@ -143,3 +143,72 @@ function removeMessages(messageContainerIds){
 function showErrorMessage(message){
 	$("#errorMessage").text(message);
 }
+
+
+
+
+/* Cookies handler */
+
+var cookieHandler = {
+	readCookie : function(cookieName){
+		try{
+			var name = cookieName + "=";
+			var cookiesArray = document.cookie.split(';');
+			var currentCookie;
+
+			for(var i=0 ; i<cookiesArray.length ; i++){
+				currentCookie = cookiesArray[i];
+				var tokens = currentCookie.split('=');
+				if(tokens[0].trim() == cookieName){
+					return tokens[1].trim();
+				}
+			}
+
+			return null;
+		}
+		catch(err){
+			console.log("Error in readCookie in cookiesHandler --- " + err.message);
+		}
+	},
+
+	createCookie : function(cookieName , cookieValue , days , path){
+		try{
+			var expires = "";
+			if(days != undefined){
+				var date = new Date();
+				date.setTime(date.getTime() + (days*24*60*60*1000));
+				expires = date.toGMTString();
+			}
+			else{
+				expires = "";
+			}
+
+			document.cookie = cookieName + "=" + cookieValue + "; expires=" + expires + "; path=/" + path;
+		}
+		catch(err){
+			console.log("Error in createCookie in cookiesHandler --- " + err.message);
+		}
+	},
+
+	eraseCookie : function(cookieName){
+		try{
+			var self = cookieHandler;
+			cookieHandler.createCookie(cookieName , "" , -1);
+		}
+		catch(err){
+			console.log("Error in eraseCookie in cookiesHandler --- " + err.message);
+		}
+	}
+};
+
+
+
+
+
+
+
+
+
+
+
+

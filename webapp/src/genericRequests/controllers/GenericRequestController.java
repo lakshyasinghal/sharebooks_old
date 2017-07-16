@@ -34,7 +34,7 @@ public class GenericRequestController extends HttpServlet {
 
 	public void doPost(HttpServletRequest req , HttpServletResponse res) {
 		try{
-			System.out.println("Inside doPost method in GenericRequestController");
+			System.out.println("\n\n Thread " + Thread.currentThread().getName() + " inside doPost method in GenericRequestController");
 
 			ResponseHandler responseHandler = Resources.getResponseHandler();
 			Response response = null;
@@ -97,7 +97,7 @@ public class GenericRequestController extends HttpServlet {
 
 	public boolean isSessionTimedOut(HttpServletRequest req) throws Exception {
 		try{
-			System.out.println("Inside isSessionTimedOut in GenericRequestController");
+			//System.out.println("Inside isSessionTimedOut in GenericRequestController");
 			//req.getSession(false) will return null if there isn't an active session already
 			HttpSession session = req.getSession(false);
 

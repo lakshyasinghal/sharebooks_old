@@ -213,12 +213,8 @@ public class GenericRequestHandler implements GenericRequestInterface {
 			List<Book> books = booksHandler.fetchAllBooks();
 			//User user = req.getSession().getAttribute("user");
 
-			System.out.println();
-			System.out.println();
-			System.out.println("Inside getAllBooks controller");
-			System.out.println("books list - " + books.toString());
-			System.out.println();
-			System.out.println();
+			// System.out.println("Inside getAllBooks controller");
+			// System.out.println("books list - " + books.toString());
 
 			Collections.sort(books);
 

@@ -63,11 +63,13 @@
 				<img src="<%=imagesFolderPath%>/notificationIcon.png" width="30" height="30">
 
 				<div id="notificationContainer" class="horizontal-center">
-					<img src="<%=imagesFolderPath%>/pointer.png" width="15" height="15" class="horizontal-center">
+					<img src="<%=imagesFolderPath%>/pointer.ico" width="15" height="15" class="horizontal-center">
 				</div>
 			</div>
 
-			<div id="profile" class="pointer vertical-center" ng-click="profileHandler.toggleProfileList()" style="background-image: url('<%=imagesFolderPath%>/userProfile.png%>')">
+			<div id="profile" class="pointer vertical-center" ng-click="profileHandler.toggleProfileList()">
+				<img src="<%=imagesFolderPath%>/userProfile.png" width="40" height="40">
+
 				<div id="profileList" ng-hide="profileHandler.profileListHidden" class="absolute">	
 					<table id="profileListTable">
 						<tr ng-repeat="option in profileHandler.profileListOptions">

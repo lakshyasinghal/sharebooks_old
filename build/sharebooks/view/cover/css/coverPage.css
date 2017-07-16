@@ -107,7 +107,6 @@ body {
 /*----------------------------*/
 #signInPanel {
 	position: absolute;
-	opacity: 0;
 	width: 350px;
 	height: 250px;
 	background-color: #000000;
