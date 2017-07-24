@@ -16,21 +16,27 @@
 <head>
 	<title>Sign into sharebooks</title>
 
-	<script type="text/javascript">
-		var user = {};
-		user.id = "<%=user.getId()%>";
-		user.name = "<%=user.getUsername()%>";
-		user.password = "<%=user.getPassword()%>";
-
-
-		imagesFolderPath = "<%=imagesFolderPath%>";
-	</script>
-
 	<%@include file="../../include/lib.jsp"%>
 
 	<link rel="stylesheet" href="<%=request.getContextPath()%>/view/home/css/homepage.css">
 	<script type="text/javascript" src="<%=request.getContextPath()%>/view/home/js/homepage.js"></script>
 	<script type="text/javascript" src="<%=request.getContextPath()%>/view/home/js/homepageController.js"></script>
+
+	<script type="text/javascript">
+		var user = {};
+		<% if(user == null){ %>
+			location.href = urls.IN;
+		<% }
+		else{ %>
+			user.id = "<%=user.getId()%>";
+			user.name = "<%=user.getUsername()%>";
+			user.password = "<%=user.getPassword()%>";
+		<% } %>
+
+		imagesFolderPath = "<%=imagesFolderPath%>";
+
+	</script>
+
 </head>
 
 
@@ -38,14 +44,24 @@
 
 	<%@include file="addBookPopup.jsp"%>
 
-	<div id="mainContainer" class="jumbotron full-height" ng-controller="HomePageController" ng-init="init()">
+	<div id="mainContainer" class="jumbotron full-height" ng-click="windowHandler.closeAllOpenPanels()" ng-controller="HomePageController" ng-init="init()">
+
+
+		<!-- <div id="pageLoaderContainer">
+			<div id="pageLoader" class="loader">
+			</div>
+		</div> -->
+
+		<div id="pageLoader" class="loader-big" ng-show="showPageLoader">
+		</div>
+
 
 		<div id="headContainer" class="row">
 			<div id="appTitle" class="vertical-center">
 				SHAREBOOKS
 			</div>
 
-			<div id="browseLink" class="vertical-center horizontal-center pointer">
+			<div id="browseLink" class="vertical-center horizontal-center pointer" ng-click="browsingHandler.showCategoriesPanel()">
 				<span>Browse</span>
 				<img src="<%=imagesFolderPath%>/downArrow.png" height="15" width="15" >
 			</div>
@@ -59,7 +75,7 @@
 				<span>ADD BOOK</span> 
 			</div>
 
-			<div id="notificationIcon" class="pointer vertical-center" ng-click="notificationHandler.showNotifications()">
+			<div id="notification" class="pointer vertical-center" ng-click="notificationHandler.showNotifications()">
 				<img src="<%=imagesFolderPath%>/notificationIcon.png" width="30" height="30">
 
 				<div id="notificationContainer" class="horizontal-center">
@@ -70,10 +86,10 @@
 			<div id="profile" class="pointer vertical-center" ng-click="profileHandler.toggleProfileList()">
 				<img src="<%=imagesFolderPath%>/userProfile.png" width="40" height="40">
 
-				<div id="profileList" ng-hide="profileHandler.profileListHidden" class="absolute">	
+				<div id="profileList" ng-hide="profileHandler.profileListHidden">	
 					<table id="profileListTable">
 						<tr ng-repeat="option in profileHandler.profileListOptions">
-							<td>{{option}}</td>
+							<td ng-click="profileHandler.handleRequest(this)">{{option}}</td>
 						</tr>
 					</table>
 				</div>
@@ -85,7 +101,7 @@
 
 		<div id="searchContainer" class="row">
 			<div class="col-sm-12 col-md-12">
-				<input type="text" id="searchBooks" name="searchBooks" placeholder="Search books by name, author" class="form-control">
+				<input type="text" id="searchBooks" name="searchBooks" ng-keypress="booksHandler.getBooksBySearch()" placeholder="Search books by name, author" class="form-control">
 			</div>
 		</div>
 
@@ -99,12 +115,12 @@
 			</div> -->
 			
 			<div id="booksContainer" class="col-sm-12 col-md-12 full-height">
-				<!-- <div class="book" ng-repeat="book in books">
+				<div class="book" ng-repeat="book in booksHandler.selectedBooks" ng-click="booksHandler.viewBook()">
 					<img ng-src="{{getImagesFolderPath() + '/books/' + book.image}}" class="bookImageDiv" width="100" height="120">
 					<div class="bookName">{{book.name}}</div>
 					<span>By</span>
 					<div class="bookAuthorName">{{book.authorName}}</div>
-				</div> -->
+				</div>
 				<!-- <div class="message">No Results Found for your search</div> -->
 			</div>
 		</div>

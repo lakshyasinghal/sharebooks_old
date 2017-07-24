@@ -127,7 +127,14 @@ public class GenericRequestHandler implements GenericRequestInterface {
 
 	public Response signOut(HttpServletRequest req , HttpServletResponse res) throws Exception{
 		try{
-			return null;
+			Response response = null;
+			HttpSession session = req.getSession(false);
+
+			//invalidate the session
+			session.invalidate();
+			response = new Response(JSP , req , res , SIGNOUT_JSP);
+
+			return response;
 		}
 		catch(Exception ex){
 			System.out.println("Error in signOut in GenericRequestHandler");
@@ -211,10 +218,7 @@ public class GenericRequestHandler implements GenericRequestInterface {
 			Response response = null;
 			BooksHandler booksHandler = Resources.getBooksHandler();
 			List<Book> books = booksHandler.fetchAllBooks();
-			//User user = req.getSession().getAttribute("user");
-
-			// System.out.println("Inside getAllBooks controller");
-			// System.out.println("books list - " + books.toString());
+			//User user = req.2getSession().getAttribute("user");
 
 			Collections.sort(books);
 

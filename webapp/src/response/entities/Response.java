@@ -47,7 +47,7 @@ public class Response {
 		this.responseType = responseType;
 		this.httpServletResponse = httpServletResponse;
 		this.success = success;
-		this.message = message;
+		//this.message = message;
 		this.statusCode = statusCode;
 	}
 
@@ -57,7 +57,7 @@ public class Response {
 		this.responseType = responseType;
 		this.httpServletResponse = httpServletResponse;
 		this.success = success;
-		this.message = message;
+		//this.message = message;
 		this.statusCode = statusCode;
 		this.entities = entities;
 	}

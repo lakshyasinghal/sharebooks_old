@@ -15,6 +15,7 @@ import static com.sharebooks.staticClasses.JspPages.*;
 
 public class GenericRequestController extends HttpServlet {
 
+	private static boolean debugging = true;
 
 	public void init(){
 		//nothing here
@@ -34,7 +35,9 @@ public class GenericRequestController extends HttpServlet {
 
 	public void doPost(HttpServletRequest req , HttpServletResponse res) {
 		try{
-			System.out.println("\n\n Thread " + Thread.currentThread().getName() + " inside doPost method in GenericRequestController");
+			if(debugging){
+				System.out.println("\n\n Thread " + Thread.currentThread().getName() + " inside doPost method in GenericRequestController");
+			}
 
 			ResponseHandler responseHandler = Resources.getResponseHandler();
 			Response response = null;
@@ -43,13 +46,17 @@ public class GenericRequestController extends HttpServlet {
 
 			requestedURL = requestedURL.split("sharebooks")[1];
 
-			System.out.println("Requested URL : " + requestedURL);
+			if(debugging){
+				System.out.println("Requested URL : " + requestedURL);
+			}
 
 			//!requestedURL.equals(IN) && !requestedURL.equals(SIGN_IN) && !requestedURL.equals(SIGN_UP) && !requestedURL.equals(SIGN_OUT) &&
 
-			//if seesion expires take to the session timeout jsp page
-			if(!requestedURL.equals(IN) && !requestedURL.equals(SIGN_IN) && !requestedURL.equals(SIGN_UP) && !requestedURL.equals(SIGN_OUT) && isSessionTimedOut(req)){
-				System.out.println("\n\nSession has timed out\n\n");
+			//if session expires take to the session timeout jsp page
+			if(!requestedURL.equals(IN) && !requestedURL.equals(SIGN_IN) && !requestedURL.equals(SIGN_UP) && isSessionTimedOut(req)){
+				if(debugging){
+					System.out.println("\n\nSession has timed out or doesn't exist\n\n");
+				}
 				response = getSessionTimeOutResponse(req , res);
 			}
 			else{
@@ -76,6 +83,7 @@ public class GenericRequestController extends HttpServlet {
 						response = genericRequestHandler.getBook(req , res);
 						break;
 					case GET_ALL_BOOKS :
+						Thread.sleep(1000);
 						response = genericRequestHandler.getAllBooks(req , res);
 						break;
 					case VIEW_BOOK :
@@ -97,15 +105,23 @@ public class GenericRequestController extends HttpServlet {
 
 	public boolean isSessionTimedOut(HttpServletRequest req) throws Exception {
 		try{
-			//System.out.println("Inside isSessionTimedOut in GenericRequestController");
+			if(debugging){
+				System.out.println("Inside isSessionTimedOut in GenericRequestController");
+			}
 			//req.getSession(false) will return null if there isn't an active session already
 			HttpSession session = req.getSession(false);
+
+			if(debugging){
+				System.out.println("\n\nSession ---- " + session);
+			}
 
 			if(session == null){
 				return true;
 			}
 			else{
-				System.out.println("\nSession --- " + session.toString());
+				if(debugging){
+					System.out.println("\n\nSession --- " + session.toString() + "\n");
+				}
 				return false;
 			}
 		}

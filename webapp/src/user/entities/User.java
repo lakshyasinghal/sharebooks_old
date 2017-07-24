@@ -6,12 +6,12 @@ import javax.servlet.http.*;
 import java.util.*;
 import java.sql.*;
 
-
+//immutable class
 public final class User extends Entity implements Comparable<User> {
 
 	private static final long serialVersionUID = 1L;
 
-	private int id = -1;
+	private int id;
 	private String username;
 	private String password;
 	private String name;
@@ -42,22 +42,8 @@ public final class User extends Entity implements Comparable<User> {
 		//creationTime = new Date();
 	}
 
-	public User(String username , String password , String name , String birthday , String address , String city , String state , String pincode , 
-		String mobileNo){
-		
-		this.username = username;
-		this.password = password;
-		this.name = name;
-		this.birthday = birthday;
-		this.address = address;
-		this.city = city;
-		this.state = state;
-		this.pincode = pincode;
-		this.mobileNo = mobileNo;
-	}
 
-
-
+	//this constructor will be used when fetching user from datatbase
 	public User(int id , String username , String password , String name , String birthday , String address , String city , String state , String pincode , 
 		String mobileNo , String bookIds , int active , java.util.Date creationTime){
 		
@@ -74,6 +60,30 @@ public final class User extends Entity implements Comparable<User> {
 		this.bookIds = bookIds;
 		this.active = active;
 		this.creationTime = creationTime;
+	}
+
+
+
+	//this is being used to create new user request 
+	public User(int id , String username , String password , String name , String birthday , String address , String city , String state , String pincode , 
+		String mobileNo){
+		
+		try{
+			this.id = id;
+			this.username = username;
+			this.password = password;
+			this.name = name;
+			this.birthday = birthday;
+			this.address = address;
+			this.city = city;
+			this.state = state;
+			this.pincode = pincode;
+			this.mobileNo = mobileNo;
+		}
+		catch(Exception ex){
+			System.out.println("Exception in User constructor 2 method in User class");
+			throw ex;
+		}
 	}
 
 
@@ -171,57 +181,57 @@ public final class User extends Entity implements Comparable<User> {
 
 	//setter methods
 
-	public void setId(int id){
-		this.id = id;
-	}
+	// public void setId(int id){
+	// 	this.id = id;
+	// }
 
-	public void setUsername(String username){
-		this.username = username;
-	}
+	// public void setUsername(String username){
+	// 	this.username = username;
+	// }
 
-	public void setPassword(String password){
-		this.password = password;
-	}
+	// public void setPassword(String password){
+	// 	this.password = password;
+	// }
 
-	public void setName(String name){
-		this.name = name;
-	}
+	// public void setName(String name){
+	// 	this.name = name;
+	// }
 
-	public void setBirthday(String birthday){
-		this.birthday = birthday;
-	}
+	// public void setBirthday(String birthday){
+	// 	this.birthday = birthday;
+	// }
 
-	public void setAddress(String address){
-		this.address = address;
-	}
+	// public void setAddress(String address){
+	// 	this.address = address;
+	// }
 
-	public void setCity(String city){
-		this.city = city;
-	}
+	// public void setCity(String city){
+	// 	this.city = city;
+	// }
 
-	public void setState(String state){
-		this.state = state;
-	} 
+	// public void setState(String state){
+	// 	this.state = state;
+	// } 
 
-	public void setPincode(String pincode){
-		this.pincode = pincode;
-	} 
+	// public void setPincode(String pincode){
+	// 	this.pincode = pincode;
+	// } 
 
-	public void setMobileNo(String mobileNo){
-		this.mobileNo = mobileNo;
-	}
+	// public void setMobileNo(String mobileNo){
+	// 	this.mobileNo = mobileNo;
+	// }
 
-	public void setBookIds(String bookIds){
-		this.bookIds = bookIds;
-	}
+	// public void setBookIds(String bookIds){
+	// 	this.bookIds = bookIds;
+	// }
 
-	public void setActive(int active){
-		this.active = active;
-	}
+	// public void setActive(int active){
+	// 	this.active = active;
+	// }
 
-	public void setCreationTime(java.util.Date creationTime){
-		this.creationTime = creationTime;
-	}
+	// public void setCreationTime(java.util.Date creationTime){
+	// 	this.creationTime = creationTime;
+	// }
 
 
 
@@ -281,6 +291,7 @@ public final class User extends Entity implements Comparable<User> {
 
 
 	//getting user object from httpServletRequest object
+	//getting user object from httpServletRequest object
 	public static User getUserObjectFromRequest(HttpServletRequest req) throws Exception{
 		try{
 			String id = req.getParameter("id");
@@ -298,7 +309,7 @@ public final class User extends Entity implements Comparable<User> {
 			//String creationTime = req.getParameter("creationTime");
 
 			//creating new user object from values retrieved
-			User user = new User(username , password , name , birthday , address , city , 
+			User user = new User(Integer.parseInt(id) , username , password , name , birthday , address , city , 
 						state , pincode , mobileNo);
 
 			return user;
@@ -308,6 +319,7 @@ public final class User extends Entity implements Comparable<User> {
 			throw ex;
 		}
 	}
+
 
 
 	

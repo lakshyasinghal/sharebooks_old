@@ -17,12 +17,15 @@ import com.sharebooks.response.entities.Response;
 import static com.sharebooks.staticClasses.ResponseTypes.*;
 import static com.sharebooks.staticClasses.StatusCodes.*;
 import static com.sharebooks.staticClasses.JspPages.*;
+import static com.sharebooks.util.StringHandler.*;
 //import static com.sharebooks.staticClasses.JSONResultTypes.*;
 
 
 
 
 public class HomePageHandler implements HomePageHandlerInterface {
+
+	private static boolean debugging = true;
 
 	public void init(){
 		//nothing here
@@ -100,56 +103,136 @@ public class HomePageHandler implements HomePageHandlerInterface {
 
 
 
-	//will return the json type response containing the ids of the books in the array
-	// public Response filterByCategory(HttpServletRequest req , HttpServletResponse res) throws Exception {
-	// 	try {
-	// 		Response response = null;
-	// 		List<Entity> entities = new ArrayList<Entity>();
-	// 		BooksHandler booksHandler = Resources.getBooksHandler();
+	//will return the json type response containing the books for the required category and subcategory
+	public Response filterByCategory(HttpServletRequest req , HttpServletResponse res) throws Exception {
+		try {
+			if(debugging){
+				System.out.println("\n\nInside filterByCategory in HomePageHandler\n\n");
+			}
 
-	// 		List<Book> booksList = booksHandler.fetchBooksByCategory(req);
-	// 		Collections.sort(booksList);
-	// 		for(Book book : booksList){
-	// 			entities.add(book);
-	// 		}
+			Response response = null;
+
+			String category = req.getParameter("category");
+			String subcategory = req.getParameter("subcategory");
+
+			if(category == null){
+				response = new Response(JSON , res , false , INCORRECT_REQUEST);
+				return response;
+			}
+
+			if(debugging){
+				System.out.println("\n\ncategory --- " + category);
+				System.out.println("\n\nsubcategory --- " + category);
+			}
+
+			List<String> fields = new ArrayList<String>();
+			List<String> fieldTypes = new ArrayList<String>();
+			List<Object> fieldValues = new ArrayList<Object>();
+
+			fields.add("category");
+			fieldTypes.add("string");
+			fieldValues.add(category);
+
+			if(subcategory != null){
+				fields.add("subcategory");
+				fieldTypes.add("string");
+				fieldValues.add(subcategory);
+			}
+
+			List<Entity> entities = new ArrayList<Entity>();
+			BooksHandler booksHandler = Resources.getBooksHandler();
+
+			List<Book> booksList = booksHandler.fetchBooks(fields , fieldTypes , fieldValues);
+
+			if(debugging){
+				System.out.println("\n\nbooksList --- " + booksList.toString());
+			}
+
+			Collections.sort(booksList);
+
+			if(debugging){
+				System.out.println("\n\nsorted booksList --- " + booksList.toString());
+			}
+
+			for(Book book : booksList){
+				entities.add(book);
+			}
 			
-	// 		response = new Response(JSON , res , true , GET_BOOKS_BY_CATEGORY_SUCCESSFUL , entities);
+			response = new Response(JSON , res , true , GET_BOOKS_BY_CATEGORY_SUCCESSFUL , entities);
 
-	// 		return response;
-	// 	}
-	// 	catch(Exception ex){
-	// 		System.out.println("Error in filterByCategory in HomePageHandler");
-	// 		throw ex;
-	// 	}
-	// }
+			return response;
+		}
+		catch(Exception ex){
+			System.out.println("Error in filterByCategory in HomePageHandler");
+			throw ex;
+		}
+	}
 
 
 
 
 	//will return the json type response containing the ids of the books in the array
-	// public Response filterBySearch(HttpServletRequest req , HttpServletResponse res) throws Exception {
-	// 	try {
-	// 		Response response = null;
-	// 		List<Entity> entities = new ArrayList<Entity>();
-	// 		BooksHandler booksHandler = Resources.getBooksHandler();
+	public Response filterBySearch(HttpServletRequest req , HttpServletResponse res) throws Exception {
+		try {
+			if(debugging){
+				System.out.println("\n\nInside filterBySearch in HomePageHandler\n\n");
+			}
 
-	// 		List<Book> booksList = booksHandler.fetchBooksBySearch(req);
-
-	// 		Collections.sort(booksList);
-
-	// 		for(Book book : booksList){
-	// 			entities.add(book);
-	// 		}
+			Response response = null;
 			
-	// 		response = new Response(JSON , res , true , GET_BOOKS_BY_SEARCH_SUCCESSFUL , entities);
+			String searchString = req.getParameter("searchString");
 
-	// 		return response;
-	// 	}
-	// 	catch(Exception ex){
-	// 		System.out.println("Error in filterByCategory in HomePageHandler");
-	// 		throw ex;
-	// 	}
-	// }
+			if(searchString == null){
+				response = new Response(JSON , res , false , INCORRECT_REQUEST);
+				return response;
+			}
+
+			if(debugging){
+				System.out.println("\n\nsearchString --- " + searchString);
+			}
+
+			List<Entity> entities = new ArrayList<Entity>();
+			BooksHandler booksHandler = Resources.getBooksHandler();
+
+			List<Book> booksList = booksHandler.fetchAllBooks();
+			List<Book> requiredBooksList = new ArrayList<Book>();
+
+			String bookString = null;
+			boolean required = false;
+
+			//will iterate through all the books and filter out the required books
+			for(Book book : booksList){
+				bookString = book.getBookString();
+				
+				if(debugging){
+					System.out.println("\n\nlower case bookString --- " + bookString.toLowerCase());
+					System.out.println("\n\nlower case searchString --- " + searchString.toLowerCase());
+				}
+
+				//check if the search string is a subsequence of the book string
+				required = isSubSequence(bookString.toLowerCase() , searchString.toLowerCase());
+				if(required){
+					requiredBooksList.add(book);
+				}
+			}
+
+			if(debugging){
+				System.out.println("\n\nrequiredBooksList --- " + requiredBooksList);
+			}
+
+			for(Book book : requiredBooksList){
+				entities.add(book);
+			}
+			
+			response = new Response(JSON , res , true , GET_BOOKS_BY_SEARCH_SUCCESSFUL , entities);
+
+			return response;
+		}
+		catch(Exception ex){
+			System.out.println("Error in filterByCategory in HomePageHandler");
+			throw ex;
+		}
+	}
 
 
 

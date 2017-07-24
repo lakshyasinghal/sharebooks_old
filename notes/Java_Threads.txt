@@ -1,0 +1,15 @@
+Thread.currentThread().wait()
+
+Thread.currentThread().notify()
+
+
+
+
+t1.join()
+t2.join()
+
+
+
+
+t1.suspend()
+t1.resume()

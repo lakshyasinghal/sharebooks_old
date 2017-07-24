@@ -16,7 +16,7 @@
 
 	<h1>Your Session Has Expired</h1>
 
-	<h4>Click <a href="loginPage">here</a> to go to login page.</h4>
+	<h4>Click <a href="in">here</a> to go to login page.</h4>
 	
 
 </body>

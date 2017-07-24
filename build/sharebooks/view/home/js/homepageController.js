@@ -1,4 +1,4 @@
-var homepageApp = angular.module("homepage" , []);
+ var homepageApp = angular.module("homepage" , []);
 
 
 //controller for homepage
@@ -7,6 +7,7 @@ homepageApp.controller("HomePageController" , ['$scope' , '$http' , function($sc
 
 	
 	$scope.categories = [];
+	$scope.showPageLoader = true;
 	
 	$scope.imagesFolderPath = imagesFolderPath;
 	$scope.messages = {
@@ -45,8 +46,8 @@ homepageApp.controller("HomePageController" , ['$scope' , '$http' , function($sc
 	$scope.windowHandler = {
 		init : function(){
 			try{
-				var self = $scope.windowHandler;
-				$(window).click(self.closeAllOpenPanels);
+				//var self = $scope.windowHandler;
+				//$(window).click(self.closeAllOpenPanels);
 			}
 			catch(err){
 				console.log("Error in init in windowHandler --- " + err.message);
@@ -64,6 +65,92 @@ homepageApp.controller("HomePageController" , ['$scope' , '$http' , function($sc
 			}
 		}
 	};
+
+
+
+
+
+
+
+	$scope.profileHandler = {
+		profileListOptions : ["Sign out"],
+		//["Sign out" , "Account settings" , "History" , "Messages"]
+		profileListHidden : true,
+
+		init : function(){
+
+		},
+
+
+		toggleProfileList : function(){
+			try{
+				var self = $scope.profileHandler;
+
+				event.preventDefault();
+				event.stopPropagation();
+
+				$scope.windowHandler.closeAllOpenPanels();
+
+				if(self.profileListHidden){
+					self.profileListHidden = false;
+				}
+				else{
+					self.profileListHidden = true;
+				}
+			}
+			catch(err){
+				console.log("Error in toggleProfileList in profileHandler --- " + err.message);
+			}
+		},
+
+		handleRequest : function(target){
+			try{
+				var self = $scope.profileHandler;
+				var option = target.option;
+				
+				switch(option){
+					case "Sign out":
+						self.signOut();
+						break;
+					default :
+						break;
+				}
+			}
+			catch(err){
+				console.log("Error in handleRequest in profileHandler --- " + err.message);
+			}
+		},
+
+
+		signOut : function(){
+			try{
+				location.href = urls.SIGN_OUT;
+			}
+			catch(err){
+				console.log("Error in signOut in profileHandler --- " + err.message);
+			}
+		},
+
+		closeAll : function(){
+			try{
+				var self = $scope.profileHandler;
+
+				// $scope.$apply(function(){
+				// 	self.profileListHidden = true;
+				// });
+
+				self.profileListHidden = true;
+			}
+			catch(err){
+				console.log("Error in closaAll in profileHandler --- " + err.message);
+			}
+		}
+	};
+
+
+
+
+
 	
 
 
@@ -128,21 +215,37 @@ homepageApp.controller("HomePageController" , ['$scope' , '$http' , function($sc
 			try{
 				var self = $scope.browsingHandler;
 
-				$("#browseLink").click(self.showCategoriesPanel);
-				$(".category").hover(self.showSubCategoriesPanel);
+				//$("#browseLink").click(self.showCategoriesPanel);
+				$(".category").click(function(e){
+					self.showSubCategoriesPanel(e);
+				});
 
+				// $(".category").dblclick(function(){
+				// 	alert("Double click");
+				// });
+				$(".subcategory").click(function(e){
+					e.preventDefault();
+					e.stopPropagation();
+					var elem = e.target;
+					var subcategory = $(elem).text().trim();
+					var category = $(elem).parents(".category")[0].getElementsByTagName("span")[0].innerText.trim();
+					$scope.booksHandler.getBooksByCategory(category , subcategory);
+				});
 			}
 			catch(err){
 				console.log("Error in init in browsingHandler --- " + err.message);
 			}
 		},
 
-		showCategoriesPanel : function(e){
+
+
+		showCategoriesPanel : function(){
 			try{
-				e.preventDefault();
-				e.stopPropagation();
+				event.preventDefault();
+				event.stopPropagation();
 
 				if($("#categoriesContainer").css("display") == "block"){
+					$(".category").css("top" , "0px");
 					$("#categoriesContainer").slideUp();
 					return;
 				}
@@ -161,26 +264,36 @@ homepageApp.controller("HomePageController" , ['$scope' , '$http' , function($sc
 				e.preventDefault();
 				e.stopPropagation();
 
+				var categoryElem = e.target;
+				if(categoryElem.nodeName === "SPAN"){
+					categoryElem = categoryElem.parentElement;
+				}
+				var subcategoryPanel = categoryElem.getElementsByClassName("subcategoriesContainer")[0];
 
-				var subcategoriesContainers = $(".subcategoriesContainer");
 
-				for(var i=0 ; i<subcategoriesContainers.length ; i++){
-					if(subcategoriesContainers[i].style.display == "block"){
-						subcategoriesContainers[i].style.display = "none";
-					}
+				if($(subcategoryPanel).css("display") == "block"){
+					$(subcategoryPanel).slideUp("medium" , function(){
+						$(categoryElem).animate({top : "0px"});
+					});
+					return;
 				}
 
-				// $(".subcategoriesContainer").clearQueue();
+				
+				$(".subcategoriesContainer").hide();
+				$(".category").css("top" , "0px");
 
-				// $(".subcategoriesContainer").slideUp("medium" , function(){
-				// 	var categoryElem = e.target;
-				// 	var subcategoryPanel = categoryElem.getElementsByClassName("subcategoriesContainer")[0];
-				// 	$(subcategoryPanel).slideDown("medium");
-				// });
+				$(categoryElem).animate({top : "10px"} , function(){
+					//$(subcategoryPanel).css("top" , "100%");
+					var elems = subcategoryPanel.getElementsByClassName("subcategory");
+					for(var i=0,len = elems.length ; i<len ; i++){
+						$(elems[i]).css("top" , "0px");
+					} 
 
-				var categoryElem = e.target;
-				var subcategoryPanel = categoryElem.getElementsByClassName("subcategoriesContainer")[0];
-				$(subcategoryPanel).slideDown("medium");
+					$(subcategoryPanel).slideDown("medium");
+				});
+
+				//$(subcategoryPanel).slideDown("medium");
+				
 			}
 			catch(err){
 				console.log("Error in showSubCategoriesPanel in browsingHandler --- " + err.message);
@@ -190,6 +303,7 @@ homepageApp.controller("HomePageController" , ['$scope' , '$http' , function($sc
 		closeAll : function(){
 			try{
 				$(".subcategoriesContainer").hide();
+				$(".category").css("top" , "0px");
 				$("#categoriesContainer").hide();
 			}
 			catch(err){
@@ -207,6 +321,8 @@ homepageApp.controller("HomePageController" , ['$scope' , '$http' , function($sc
 
 		books : [],
 		selectedBooks : [],
+		sortingRequired : false,
+		requiredSearchLength : 5,
 
 		init : function(){
 			try{
@@ -218,28 +334,17 @@ homepageApp.controller("HomePageController" , ['$scope' , '$http' , function($sc
 			}
 		},
 
-		initBookEvents : function(){
-			try{
-				var self = $scope.booksHandler;
-				$(".book").click(self.handleBookClick);
-			}
-			catch(err){
-				console.log("Error in initBookEvents in booksHandler --- " + err.message);
-			}
-		},
 
-
-
-		handleBookClick : function(e){
+		viewBook : function(e){
 			try{
 				var self = $scope.booksHandler;
 
-				e.preventDefault();
-				e.stopPropagation();
+				event.preventDefault();
+				event.stopPropagation();
 
 
 				//get the book id from the bookId attribute
-				var elem = e.target;
+				var elem = event.target;
 				var elemClassTokens = elem.getAttribute("class").split(' ');
 				var token;
 				var elemIsBook = false;
@@ -295,22 +400,22 @@ homepageApp.controller("HomePageController" , ['$scope' , '$http' , function($sc
 			}
 		},
 
+
 		getAllBooks : function(){
 			try{
 				var self = $scope.booksHandler;
-				console.log("Get all books request sent");
-				getRequest(urls.GET_ALL_BOOKS , null , function(data){
-					data = JSON.parse(data);
 
-					if(data.success){
-						self.books = data.results;
-						self.displayBooks(self.books);
-						self.initBookEvents();
-					}
-					else{
-						displayMessage($scope.messageContainerId , messages[data.statusCode - 1] , messageColors.WARNING);
-					}
+				$http({
+					url: urls.GET_ALL_BOOKS,
+					method: "GET",
+				}).then(function(response){
+					$scope.showPageLoader = false;
+					self.handleBooksData(response);
+					} , function(response){
+					$scope.showPageLoader = false;
+					console.log("Get books response --- " + response);
 				});
+
 			}
 			catch(err){
 				showErrorMessage(err.message);
@@ -320,19 +425,39 @@ homepageApp.controller("HomePageController" , ['$scope' , '$http' , function($sc
 		getBooksByCategory : function(category , subcategory){
 			try{
 				var self = $scope.booksHandler;
-				var books = self.books;
-				var tempBooks = [];
-				var book = undefined;
-				var length = books.length;
 
-				for(var i=0 ; i<length ; i++){
-					book = books[i];
-					if(book.category === category && book.subcategory === subcategory){
-						tempBooks.push(book);
-					}
+				//self.selectedBooks = [];
+				$scope.showPageLoader = true;
+
+				var params = {};
+
+				params["category"] = category;
+				if(subcategory != undefined){
+					params["subcategory"] = subcategory;
 				}
 
-				self.displayBooks(tempBooks);
+				var paramString = getParamString(params);
+				
+				$http({
+					url: urls.FILTER_BY_CATEGORY + "?" + paramString,
+					method: "GET",
+				}).then(function(response){
+					$scope.showPageLoader = false;
+					var data = response.data;
+					if(data.success){
+						var books = data.results;
+						self.selectedBooks = books;
+					}
+					else{
+						if(data.statusCode == statusCodes.SESSION_DOES_NOT_EXIST){
+							location.reload();
+						}
+						//displayMessage($scope.messageContainerId , messages[data.statusCode - 1] , messageColors.WARNING);
+					}
+				} , function(response){
+					$scope.showPageLoader = false;
+					console.log("Get books response --- " + response);
+				});
 			}
 			catch(err){
 				console.log("Error in getBooksByCategory ---- " + err.message);
@@ -340,106 +465,102 @@ homepageApp.controller("HomePageController" , ['$scope' , '$http' , function($sc
 		},
 
 
+		handleBooksData : function(response){
+			try{
+				var self = $scope.booksHandler;
+				var data = response.data;
+				if(data.success){
+					var books = data.results;
+
+					if(self.sortingRequired){
+						books.sort(function(book1 , book2){
+							if(book1.name < book2.name){
+								return -1;
+							}
+							else if(book1.name > book2.name){
+								return 1;
+							}
+							else
+								return 0;
+						});
+					}
+
+					self.books = books;
+					self.selectedBooks = books;
+				}
+				else{
+					if(data.statusCode == statusCodes.SESSION_DOES_NOT_EXIST){
+						location.reload();
+					}
+					//displayMessage($scope.messageContainerId , messages[data.statusCode - 1] , messageColors.WARNING);
+				}
+			}
+			catch(err){
+				console.log("Error in handleBooksData ---- " + err.message);
+			}
+		},
+
+
 		//improvement required in this method
 		//searching can be done using binary search
 		getBooksBySearch : function(){
-
-		},
-
-		displayBooks : function(books){
 			try{
 				var self = $scope.booksHandler;
-				//var books = $scope.books;
-				var book;
-				var bookDiv;
-				var booksContainer = $("#booksContainer")[0];
-				var length = books.length;
-				booksContainer.innerHTML = "";
 
-				if(length == 0){
-					displayMessage("booksContainer" , $scope.messages.NO_BOOKS_FOUND , messageColors.WARNING);
+				var key = event.key;
+
+				if(key != "Enter"){
 					return;
 				}
 
-				for(var i=0 ; i<length ; i++){
-					book = books[i];
-					bookDiv = self.getBookDiv(book);
-					booksContainer.appendChild(bookDiv);
+				var elem = event.target;
+				var searchString = elem.value.trim();
+
+				//return if search string length is less than required length to prevent useless searches
+				if(searchString.length < self.requiredSearchLength){
+					return;
 				}
+
+				$scope.showPageLoader = true;
+
+				var params = {};
+				params["searchString"] = searchString;
+
+				var paramString = getParamString(params);
+				
+				$http({
+					url: urls.FILTER_BY_SEARCH + "?" + paramString,
+					method: "GET",
+				}).then(function(response){
+					$scope.showPageLoader = false;
+					var data = response.data;
+					if(data.success){
+						var books = data.results;
+						self.selectedBooks = books;
+					}
+					else{
+						if(data.statusCode == statusCodes.SESSION_DOES_NOT_EXIST){
+							location.reload();
+						}
+						//displayMessage($scope.messageContainerId , messages[data.statusCode - 1] , messageColors.WARNING);
+					}
+				} , function(response){
+					$scope.showPageLoader = false;
+					console.log("Get books response --- " + response);
+				});
 			}
 			catch(err){
-				console.log("Error in displayBooks -- " + err.message);
-			}
-		},
-
-		getBookDiv : function(book){
-			try{
-				var self = $scope.booksHandler;
-				var bookDiv = document.createElement("div");
-				bookDiv.setAttribute("class" , "book");
-				bookDiv.setAttribute("bookId" , book.id);
-
-				var bookImage = createElement("img" , {"src" : $scope.getImagesFolderPath() + "/books/" + book.image , 
-				"class" : "bookImage" , "width" : "100" , "height" : "100"});
-				
-				var bookNameDiv = createElement("div" , {"class" : "bookName"} , book.name);
-				
-				var auxillarySpan = createElement("span" , null , "By");
-				
-				var bookAuthorNameDiv = createElement("div" , {"class" : "bookAuthorName"} , book.authorName);
-				
-				appendChildren(bookDiv , [bookImage , bookNameDiv , auxillarySpan , bookAuthorNameDiv]);
-
-				return bookDiv;
-			}
-			catch(err){
-				console.log("Error in getBookDiv -- " + err.message);
+				console.log("Error in getBooksByCategory ---- " + err.message);
 			}
 		}
+
 	};
 	
 
 
 
 
-	$scope.profileHandler = {
-		profileListOptions : ["Sign out" , "Account settings" , "History" , "Messages"],
-		profileListHidden : true,
-
-		init : function(){
-
-		},
-
-		toggleProfileList : function(){
-			try{
-				var self = $scope.profileHandler;
-
-				event.preventDefault();
-				event.stopPropagation();
-
-				if(self.profileListHidden){
-					self.profileListHidden = false;
-				}
-				else{
-					self.profileListHidden = true;
-				}
-			}
-			catch(err){
-				console.log("Error in toggleProfileList in profileHandler --- " + err.message);
-			}
-		},
-
-		closeAll : function(){
-			try{
-				var self = $scope.profileHandler;
-
-				self.profileListHidden = true;
-			}
-			catch(err){
-				console.log("Error in toggleProfileList in profileHandler --- " + err.message);
-			}
-		}
-	}
+	
 
 
 }]);

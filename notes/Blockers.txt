@@ -2,3 +2,7 @@
 
 
 2. Photo upload functionality needs to be implemented in the backend.
+
+
+3. $http post method not working properly
+   $http get is being used instead

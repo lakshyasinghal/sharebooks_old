@@ -50,11 +50,7 @@ function processPackages {
 		echo
 		echo
 		echo
-		echo
-		echo
 		javaCompile $javaFilesPath/$t
-		echo
-		echo
 		echo
 		echo
 		echo

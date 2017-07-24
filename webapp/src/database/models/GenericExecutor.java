@@ -74,7 +74,7 @@ public abstract class GenericExecutor implements Executor {
 			if(fieldTypes != null){
 				int size = fieldTypes.size();
 
-				System.out.println("Point 1");
+				//System.out.println("Point 1");
 
 				for(int i=1 ; i<=size ; i++){
 					fieldType = fieldTypes.get(i-1);
@@ -82,7 +82,7 @@ public abstract class GenericExecutor implements Executor {
 					setFieldValue(stmt , fieldType , fieldValue , i);
 				}
 
-				System.out.println("Point 2");
+				//System.out.println("Point 2");
 			}
 
 			System.out.println("SQL statement - " + stmt.toString());

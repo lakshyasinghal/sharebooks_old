@@ -1,20 +1,20 @@
 function init(){
-	//cleanInputBoxes();
-	putCalendarForDOB();
-    signInForm.init();
-    registrationForm.init();
+    //cleanInputBoxes();
+    putCalendarForDOB();
+    signInPanel.init();
+    signUpPanel.init();
     windowHandler.init();
 }
 
 
 // function cleanInputBoxes(){
-// 	$("input").val("");
+//  $("input").val("");
 // }
 
 
 function putCalendarForDOB(){
     console.log("Inside calender function");
-	$( "#birthday" ).datepicker({
+    $( "#birthday" ).datepicker({
         dateFormat: 'dd/mm/yy',
         minDate: '-100y',
         maxDate: '-1d',
@@ -43,12 +43,18 @@ var windowHandler = {
                 e.stopPropagation();
             });
 
+            // $("#signUpPanel").on("click" , ".ui-datepicker", function(e){
+            //     e.preventDefault();
+            //     e.stopPropagation();
+            // });
+
+
             $("#signInPanel input").click(function(e){
                 e.preventDefault();
                 e.stopPropagation();
             });
 
-            $(window).click(function(){
+            $(window).click(function(e){
                 self.closeAll();
             });
         }
@@ -73,7 +79,7 @@ var windowHandler = {
 
 
 
-var signInForm = {
+var signInPanel = {
     url : urls.SIGN_IN ,
     id : "signInPanel",
     parameterIds : ["signIn_username" , "signIn_password"],
@@ -82,7 +88,7 @@ var signInForm = {
     messageContainerId : "signInMessageContainer",
 
     init : function(){
-        var self = window.signInForm;
+        var self = window.signInPanel;
 
         //$("#" + self.id).hover(self.togglePanel);
 
@@ -106,19 +112,19 @@ var signInForm = {
             }
         }
         catch(err){
-            console.log("Error in setDefaultValues in signInForm --- " + err.message);
+            console.log("Error in setDefaultValues in signInPanel --- " + err.message);
         }
     },
 
     cleanUp : function(){
         try{
-            var self = window.signInForm;
+            var self = window.signInPanel;
 
             $("#" + self.id + " input").val("");
             $("#" + self.messageContainerId).text("");
         }
         catch(err){
-            console.log("Error in cleanUp in signInForm --- " + err.message);
+            console.log("Error in cleanUp in signInPanel --- " + err.message);
         }
     },
 
@@ -126,7 +132,7 @@ var signInForm = {
         e.preventDefault();
         e.stopPropagation();
 
-        var self = window.signInForm;
+        var self = window.signInPanel;
 
         var data = getDataObject(self.parameterNames , self.parameterIds);
 
@@ -136,7 +142,7 @@ var signInForm = {
 
 
     success : function(data){
-        var self = window.signInForm;
+        var self = window.signInPanel;
         data = JSON.parse(data);
 
         if(data.success){
@@ -149,12 +155,12 @@ var signInForm = {
     },
 
     failure : function(){
-        var self = window.signInForm;
+        var self = window.signInPanel;
     },
 
     togglePanel : function(){
         try{
-            var self = window.signInForm;
+            var self = window.signInPanel;
 
             var opacity = $("#" + self.id).css("opacity");
 
@@ -168,7 +174,7 @@ var signInForm = {
             
         }
         catch(err){
-            console.log("Error in showPanel in signInForm --- " + err.message);
+            console.log("Error in showPanel in signInPanel --- " + err.message);
         }
     },
 
@@ -188,7 +194,7 @@ var signInForm = {
             }
         }
         catch(err){
-            console.log("Error in modifyCookies in signInForm --- " + err.message);
+            console.log("Error in modifyCookies in signInPanel --- " + err.message);
         }
     }
 
@@ -202,17 +208,33 @@ var signInForm = {
 
 
 
-var registrationForm = {
+var signUpPanel = {
     url : urls.SIGN_UP ,
     id : "signUpPanel",
-    parameterIds : [ "username" , "password" , "name" , "birthday" , "address" , "city" , "state" , "pincode" , "mobileNo"],
-    parameterNames : ["username" , "password" , "name" , "birthday" , "address" , "city" , "state" , "pincode" , "mobileNo"],
-    buttonId : "userRegistrationButton",
+    parameterIds : ["id" , "username" , "password" , "name" , "birthday" , "address" , "city" , "state" , "pincode" , "mobileNo"],
+    parameterNames : ["id" , "username" , "password" , "name" , "birthday" , "address" , "city" , "state" , "pincode" , "mobileNo"],
+    buttonId : "userSignUpButton",
     messageContainerId : "userRegistrationMessageContainer",
 
 
     init : function(){
-        var self = window.registrationForm;
+        var self = window.signUpPanel;
+
+        $("#signUpPanel #id").val(-1);
+
+        $("#birthday").click(function(e){
+            setTimeout(function(){
+                $(".ui-datepicker").on("click" , function(e){
+                    e.preventDefault();
+                    e.stopPropagation();
+                });
+            } , 100);
+        });
+
+        $("#signUpPanel").click(function(e){
+            e.preventDefault();
+            e.stopPropagation();
+        });
 
         $("#signUpButton").click(function(e){
             e.preventDefault();
@@ -230,26 +252,27 @@ var registrationForm = {
             }
         });
 
-        $("#" + self.buttonId).click(self.registerUser);
+        $("#" + self.buttonId).click(self.signUpUser);
 
         console.log("Registration form button registered");
     },
 
     cleanUp : function(){
         try{
-            var self = window.registrationForm;
+            var self = window.signUpPanel;
 
             $("#" + self.id + " input").val("");
             $("#" + self.messageContainerId).text("");
+            $("#signUpPanel #id").val(-1);
         }
         catch(err){
-            console.log("Error in cleanUp in registrationForm --- " + err.message);
+            console.log("Error in cleanUp in signUpPanel --- " + err.message);
         }
     },
 
     validate : function(){
         try{
-            var self = window.registrationForm;
+            var self = window.signUpPanel;
             var proceed = true;
             //var inputFields = $("#" + self.id + " input");
 
@@ -264,15 +287,15 @@ var registrationForm = {
             return proceed;
         }
         catch(err){
-            console.log("Error in validate in registrationForm --- " + err.message);
+            console.log("Error in validate in signUpPanel --- " + err.message);
         }
     },
 
-    registerUser : function(e){
+    signUpUser : function(e){
         e.preventDefault();
         e.stopPropagation();
 
-        var self = window.registrationForm;
+        var self = window.signUpPanel;
         
         var proceed = self.validate();
 
@@ -288,7 +311,7 @@ var registrationForm = {
 
 
     success : function(data){
-        var self = window.registrationForm;
+        var self = window.signUpPanel;
         data = JSON.parse(data);
 
         if(data.success){
@@ -300,12 +323,10 @@ var registrationForm = {
     },
 
     failure : function(){
-        var self = window.registrationForm;
+        var self = window.signUpPanel;
     }
 };
 
 
 window.onload = init;
-
-
 

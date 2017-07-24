@@ -15,6 +15,8 @@ import static com.sharebooks.staticClasses.ResponseTypes.*;
 
 public class ResponseHandler {
 
+	private static boolean debugging = false;
+
 	public ResponseHandler(){
 		//no code
 	}
@@ -22,14 +24,7 @@ public class ResponseHandler {
 
 	public void sendResponse(Response response) throws Exception{
 		try{
-
-			//System.out.println("\nInside sendResponseHandler\n");
-
-			//System.out.println("Point 0");
-
 			String responseType = response.getResponseType();
-
-			//System.out.println("Point 1");
 
 			switch(responseType){
 				case JSON :
@@ -41,8 +36,6 @@ public class ResponseHandler {
 				default :
 					break;
 			}
-
-			//System.out.println("Point 2");
 
 		}
 		catch(Exception ex){
@@ -67,8 +60,9 @@ public class ResponseHandler {
 			//get json by using JSONBuilder object
 			json = new JSONBuilder().getJSON(success , statusCode , entities);
 			
-			
-			System.out.println("Json - " + json);
+			if(debugging){
+				System.out.println("Json - " + json);
+			}
 
 			res.setContentType("application/json");
 			PrintWriter out = res.getWriter();
@@ -85,17 +79,10 @@ public class ResponseHandler {
 
 	public void sendJsp(Response response) throws Exception{
 		try{
-			//System.out.println("Inside sendJsp");
-
-			//System.out.println("\nPoint 0");
-
+			
 			HttpServletRequest req = response.getHttpServletRequest();
 			HttpServletResponse res = response.getHttpServletResponse();
 			String jspPath = response.getJspPath();
-
-			//System.out.println("jspPath --- " + jspPath);
-
-			//System.out.println("\nPoint 1");
 
 			RequestDispatcher view = req.getRequestDispatcher(jspPath);
 			view.forward(req , res);

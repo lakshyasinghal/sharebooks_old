@@ -18,7 +18,9 @@ var statusCodes = {
 	GET_BOOKS_BY_CATEGORY_SUCCESSFUL : 16,
 	GET_BOOKS_BY_CATEGORY_FAILED : 17,
 	GET_BOOKS_BY_SEARCH_SUCCESSFUL : 18,
-	GET_BOOKS_BY_SEARCH_FAILED : 19
+	GET_BOOKS_BY_SEARCH_FAILED : 19,
+	INCORRECT_REQUEST : 20,
+	SESSION_DOES_NOT_EXIST : 21
 };
 
 
@@ -43,5 +45,7 @@ var messages = [
 	"Books fetched successfully by category",                                //16
 	"Books request by category failed",                                      //17
 	"Books request by search string successful",                             //18
-	"Books request by search string failed"                                  //19
+	"Books request by search string failed",                                  //19
+	"Something is wrong with the request. Please check",                     //20
+	"Session doesn't exist",                                                 //21
 ];

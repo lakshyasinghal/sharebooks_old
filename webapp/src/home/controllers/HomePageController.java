@@ -11,6 +11,7 @@ import com.sharebooks.response.models.ResponseHandler;
 import static com.sharebooks.staticClasses.Requests.*;
 import static com.sharebooks.staticClasses.ResponseTypes.*;
 import static com.sharebooks.staticClasses.JspPages.*;
+import static com.sharebooks.staticClasses.StatusCodes.*;
 
 
 public class HomePageController extends HttpServlet {
@@ -58,6 +59,12 @@ public class HomePageController extends HttpServlet {
 					case UPDATE_USER :
 						response = homePageHandler.updateUser(req , res);
 						break;
+					case FILTER_BY_CATEGORY :
+						response = homePageHandler.filterByCategory(req , res);
+						break;
+					case FILTER_BY_SEARCH :
+						response = homePageHandler.filterBySearch(req , res);
+						break;
 					// case VIEW_BOOK :
 					// 	response = homePageHandler.viewBook(req , res);
 					// 	break;
@@ -103,7 +110,7 @@ public class HomePageController extends HttpServlet {
 			Response response = null;
 			
 			//response = new Response(JSP , req , res , SESSION_TIMEOUT);
-			response = new Response(JSP , req , res , SESSIONEXPIRED_JSP);
+			response = new Response(JSON , res , false , SESSION_DOES_NOT_EXIST);
 
 			return response;
 		}

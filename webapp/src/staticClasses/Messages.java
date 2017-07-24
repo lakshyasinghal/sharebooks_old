@@ -18,5 +18,6 @@ public final class Messages {
 	public static final String ADD_BOOK_FAILED = "Book not added. Some error occurred";
 	public static final String ADD_BOOK_SUCCESSFUL = "Book added successfully";
 	public static final String BOOKS_RETRIEVED_SUCCESSFULLY = "Books retrieved successfully";
-
+	public static final String INCORRECT_REQUEST = "Something is wrong with the request. Please check";
+	public static final String SESSION_DOES_NOT_EXIST = "Session doesn't exist";
 }

@@ -254,6 +254,24 @@ public final class Book extends Entity implements Comparable<Book> {
 
 
 
+	public String toString(){
+		StringBuilder stringBuilder = new StringBuilder();
+
+		stringBuilder.append("Name : " + this.name);
+		stringBuilder.append(" ");
+		stringBuilder.append("Author name : " + this.authorName);
+		stringBuilder.append(" ");
+		stringBuilder.append("Category : " + this.category);
+		stringBuilder.append(" ");
+		stringBuilder.append("Subcategory : " + this.subcategory);
+		stringBuilder.append(" ");
+		stringBuilder.append("Pages : " + this.pages);
+
+		return stringBuilder.toString();
+	}
+
+
+
 
 	//method for getting a book object from the result set
 	public static Book getBookFromResultSet(ResultSet rs) throws Exception {
@@ -315,6 +333,25 @@ public final class Book extends Entity implements Comparable<Book> {
 		}
 		catch(Exception ex){
 			System.out.println("Error in getBookObjectFromRequest in BooksHandler");
+			throw ex;
+		}
+	}
+
+
+	//getting string representation of book for fields name , authorname , category , subcategory
+	public String getBookString(){
+		try{
+			StringBuilder bookString = new StringBuilder();
+
+			bookString.append(this.name);
+			bookString.append(this.authorName);
+			bookString.append(this.category);
+			bookString.append(this.subcategory);
+
+			return bookString.toString();
+		}
+		catch(Exception ex){
+			System.out.println("Error in getBookString in Books");
 			throw ex;
 		}
 	}

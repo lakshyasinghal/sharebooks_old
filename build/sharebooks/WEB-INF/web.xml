@@ -104,16 +104,26 @@
 		<url-pattern>/home</url-pattern>
 	</servlet-mapping> -->
 
-	<servlet-mapping>
+	<!-- <servlet-mapping>
 		<servlet-name>HomePage</servlet-name>
 		<url-pattern>/home/addBook</url-pattern>
-	</servlet-mapping>
+	</servlet-mapping> -->
 
 
 	<servlet-mapping>
 		<servlet-name>HomePage</servlet-name>
-		<url-pattern>/home/updateUser</url-pattern>
+		<url-pattern>/home/*</url-pattern>
 	</servlet-mapping>
+
+	<!-- <servlet-mapping>
+		<servlet-name>HomePage</servlet-name>
+		<url-pattern>/home/filterByCategory</url-pattern>
+	</servlet-mapping>
+
+	<servlet-mapping>
+		<servlet-name>HomePage</servlet-name>
+		<url-pattern>/home/filterBySearch</url-pattern>
+	</servlet-mapping> -->
 
 <!-- 
 	<servlet-mapping>
@@ -180,7 +190,7 @@
 	<!-- session configuration -->
 
 	<session-config>
-		<session-timeout>30</session-timeout>
+		<session-timeout>1</session-timeout>
 	</session-config>
 	
 

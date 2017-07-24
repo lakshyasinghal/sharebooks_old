@@ -5,7 +5,30 @@
 
 
 #mainContainer {
+	position: relative;
 	/*background-color: #000000;*/
+}
+
+
+#pageLoaderContainer {
+	position: absolute;
+	display: none;
+	width: 100%;
+	height: 100%;
+	z-index: 10;
+	background-color: #797878;
+	opacity: .6;
+}
+
+
+
+#pageLoader {
+	position: absolute;
+	display: block;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50% , -50%);
+	z-index: 10;
 }
 
 
@@ -57,7 +80,7 @@
 	font-size: 14px;
 	width: 100px;
 	height: 100px;
-	border-top: 1px solid #FFFFFF;
+	/*border-top: 1px solid #FFFFFF;*/
 	margin: 0;
 	padding: 0;
 	cursor: pointer;
@@ -75,18 +98,23 @@
 	position: absolute;
 	display: none;
 	top: 100%;
+	width: 1000px;
+	left: 50%;
+	transform: translateX(-50%);
+	border-top: 1px solid #FFFFFF;
 }
 
 
 .subcategoriesContainer .subcategory {
 	position: relative;
+	display: inline-block;
 	text-align: center;
-	background-color: #286090;
+	background-color: #000000;
 	color: #FFFFFF;
 	font-size: 12px;
 	width: 100px;
 	height: 100px;
-	margin-top: 1px;
+	/*margin-top: 1px;*/
 	cursor: pointer;
 }
 
@@ -110,7 +138,7 @@
 }
 
 
-#notificationIcon {
+#notification {
 	position: absolute;
 	width: 30px;
 	height: 30px;
@@ -155,19 +183,22 @@
 
 
 #profileList {
-	width: 120px;
-	height: 200px;
-	top: 60px;
-	right: -25px;
-	background-color: #EEEEEE;
-	border-radius: 5px;
+	position: absolute;
+	width: 150px;
+	top: 120%;
+	right: -40%;
+	background-color: #FFFFFF;
+	border: 2px solid black;
 	z-index: 100;
 }
 
 #profileListTable {
 	width: 100%;
-	height: 100%;
-	
+	height: 100%;	
+}
+
+#profileListTable tr {
+	height: 50px;
 }
 
 #profileListTable td {

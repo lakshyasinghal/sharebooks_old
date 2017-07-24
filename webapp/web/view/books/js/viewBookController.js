@@ -105,6 +105,7 @@ viewBookApp.controller("ViewBookController" , ["$scope" , "$http" , function($sc
 
 								if(userId == self.selectedBook.userId){
 									self.selectedResult = result;
+									self.selectedResults.push(self.selectedResult);
 								}
 							}
 							else{
@@ -113,7 +114,6 @@ viewBookApp.controller("ViewBookController" , ["$scope" , "$http" , function($sc
 						});
 					})();
 
-					self.selectedResults.push(self.selectedResult);
 				}
 			}
 			catch(err){

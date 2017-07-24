@@ -53,7 +53,7 @@
 
 			<div id="resultsContainer">
 
-				<div class="result" ng-repeat="result in resultsHandler.selectedResults">
+				<div class="result" ng-repeat="result in resultsHandler.selectedResults track by $index">
 					<div class="bookInfo">
 
 						<div class="imageContainer">

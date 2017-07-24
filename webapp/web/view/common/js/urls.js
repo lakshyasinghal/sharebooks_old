@@ -2,7 +2,7 @@ var urls = {
 	IN : "in",
 	SIGN_IN : "signIn",
 	SIGN_UP : "signUp",
-	SIGN_OUT : "logout",
+	SIGN_OUT : "signOut",
 	HOME : "home",
 	GET_BOOK : "getBook",
 	GET_ALL_BOOKS : "getAllBooks",
