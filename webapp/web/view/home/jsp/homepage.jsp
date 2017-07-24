@@ -6,7 +6,7 @@
 <%
 	User user = (User)session.getAttribute("user");
 	//String imagesFolderPath = request.getContextPath() + "/view/resources/images/";
-	String profileImagePath = request.getContextPath() + "/view/resources/images/users/lakshya.jpg";
+	//String profileImagePath = request.getContextPath() + "/view/resources/images/users/lakshya.jpg";
 	String imagesFolderPath = request.getContextPath() + "/view/resources/images";
 %>
 
@@ -115,7 +115,7 @@
 			</div> -->
 			
 			<div id="booksContainer" class="col-sm-12 col-md-12 full-height">
-				<div class="book" ng-repeat="book in booksHandler.selectedBooks" ng-click="booksHandler.viewBook()">
+				<div class="book" ng-repeat="book in booksHandler.selectedBooks" ng-click="booksHandler.viewBook(book.id)">
 					<img ng-src="{{getImagesFolderPath() + '/books/' + book.image}}" class="bookImageDiv" width="100" height="120">
 					<div class="bookName">{{book.name}}</div>
 					<span>By</span>

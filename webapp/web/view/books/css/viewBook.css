@@ -94,7 +94,7 @@ body {
 }
 
 
-#optionsPanel {
+#optionsContainer {
 	position: relative;
 	width: 100%;
 	height: 20%;
@@ -162,6 +162,7 @@ body {
 
 
 .bookInfo {
+	position: relative;
 	display: inline-block;
 	height: 100%;
 	width: 50%;
@@ -175,7 +176,44 @@ body {
 	cursor: pointer;*/
 }
 
+
+.bookInfo .container {
+	position: absolute;
+	width: 100%;
+	height: 180px;
+	top: 50%;
+	transform: translateY(-50%);
+}
+
+.bookInfo .container img {
+	position: absolute;
+	left: 20px;
+}
+
+.bookInfo .container .infoPanel {
+	position: absolute;
+	left: 180px;
+}
+
+.bookInfo .container .buttonPanel {
+	position: absolute;
+	/*top: 50%;
+	transform: translateY(-50%);*/
+	left: 180px;
+	bottom: 0px;
+}
+
+.bookInfo .container .buttonPanel button {
+	width: 100px;
+	margin-right: 20px;
+	cursor: pointer;
+}
+
+
+
+
 .userInfo {
+	position: relative;
 	display: inline-block;
 	height: 100%;
 	width: 50%;
@@ -183,6 +221,27 @@ body {
 	background-color: #CCCCCC;
 }
 
+
+.userInfo .container {
+	position: absolute;
+	width: 100%;
+	height: 180px;
+	top: 50%;
+	transform: translateY(-50%);
+}
+
+
+.userInfo .container .infoPanel {
+	position: absolute;
+	left: 20px;
+}
+
+.userInfo .container .buttonPanel {
+	position: absolute;
+	top: 50%;
+	transform: translateY(-50%);
+	right: 30px;
+}
 
 
 /*-----------------*/

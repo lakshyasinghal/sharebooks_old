@@ -11,29 +11,59 @@ viewBookApp.controller("ViewBookController" , ["$scope" , "$http" , function($sc
 		catch(err){
 			console.log("Error in main init --- " + err.message);
 		}
-	}
+	};
 
 
 
-	$scope.optionsPanelHandler = {
+	$scope.viewLocationOnMap = function(user){
+		try{
+			
+		}
+		catch(err){
+			console.log("Error in viewLocationOnMap --- " + err.message);
+		}
+	};
+
+
+
+	$scope.calculateAge = function(birthday){
+		try{
+			var age = undefined;
+			var tokens = birthday.split('/');
+
+			var year = tokens[2];
+
+			var currentDate = new Date();
+			var currentYear = currentDate.getFullYear();
+
+			return currentYear - year;
+		}
+		catch(err){
+			console.log("Error in calculateAge --- " + err.message);
+		}
+	};
+
+
+
+	$scope.optionsHandler = {
 		HomePageUrl : urls.HOME ,
 		loadMoreResultsLinkShow : true,
 		lessResultsLinkShow : false,
 
 		goToHomePage : function(){
 			try{
-				var self = $scope.optionsPanelHandler;
+				var self = $scope.optionsHandler;
 				location.href = self.HomePageUrl;
 			}
 			catch(err){
-				console.log("Error in goToHomePage in optionsPanelHandler --- " + err.message);
+				console.log("Error in goToHomePage in optionsHandler --- " + err.message);
 			}
 		},
 
 
 		loadMoreResults : function(){
 			try{
-				var self = $scope.optionsPanelHandler;
+				var self = $scope.optionsHandler;
 
 				self.loadMoreResultsLinkShow = false;
 				self.lessResultsLinkShow = true;
@@ -41,13 +71,13 @@ viewBookApp.controller("ViewBookController" , ["$scope" , "$http" , function($sc
 				$scope.resultsHandler.loadMoreBooks();
 			}
 			catch(err){
-				console.log("Error in loadMoreResults in optionsPanelHandler --- " + err.message);
+				console.log("Error in loadMoreResults in optionsHandler --- " + err.message);
 			}
 		},
 
 		showLessResults : function(){
 			try{
-				var self = $scope.optionsPanelHandler;
+				var self = $scope.optionsHandler;
 
 				self.lessResultsLinkShow = false;
 				self.loadMoreResultsLinkShow = true;
@@ -55,66 +85,92 @@ viewBookApp.controller("ViewBookController" , ["$scope" , "$http" , function($sc
 				$scope.resultsHandler.showOriginallySelectedBook();
 			}
 			catch(err){
-				console.log("Error in loadLessResults in optionsPanelHandler --- " + err.message);
+				console.log("Error in loadLessResults in optionsHandler --- " + err.message);
 			}
-		},
+		}
 
-	}
+	};
+
+
+
+
+
+
+
+
+
+
+
 
 
 	$scope.resultsHandler = {
-		books : [],
 		selectedBook : null,
+		similarBooks : [],
 		results : [],
 		selectedResult : null,
-		selectedResults : [],
-		otherResults : [],
+		similarResults : [],
+		results : [],
 
 		init : function(){
 			try{
 				var self = $scope.resultsHandler;
 
 				if(window.sessionStorage){
-					self.books = JSON.parse(sessionStorage.books);
+					//self.books = JSON.parse(sessionStorage.books);
 					self.selectedBook = JSON.parse(sessionStorage.selectedBook);
 				}
 				else{
 					console.log("session object not available in init in resultsHandler");
+					return;
 				}
 
-				var selectedBooks = self.getSimilarBooks(self.books , self.selectedBook);
-
+				var similarBooks = self.getSimilarBooks(self.selectedBook);
 
 
 				//getting the similar results for selected book
-				for(var i=0 ; i<selectedBooks.length ; i++){
+				//the similar books will also containe the selected book
+				for(var i=0; i < similarBooks.length; i++){
 					//function for getting result and pushing it into otherResults array
 					(function(){
-						var book = selectedBooks[i];
+						var book = similarBooks[i];
 						var result = {book: book , user: null};
 						var userId = book.userId;
 						var user = {};
+
+
+						var params = {"userId" : userId};
+						var paramString = getParamString(params);
+
 						//get user by userId
-						postRequest(urls.GET_USER , {"userId" : userId} , function(data){
-							data = JSON.parse(data);
-							if(data.success){
-								user = data.results[0];
+						$http({
+							url : urls.GET_USER + "?" + paramString,
+							method : "GET"
+						}).then(
+							function(response){
+								data = response.data;
+								if(data.success){
+									user = data.results[0];
 
-								result.user = user;
-								self.otherResults.push(result);
+									result.user = user;
+									self.similarResults.push(result);
 
-								if(userId == self.selectedBook.userId){
-									self.selectedResult = result;
-									self.selectedResults.push(self.selectedResult);
+									if(userId == self.selectedBook.userId){
+										self.selectedResult = result;
+										self.results.push(result);
+									}
 								}
+								else{
+									console.log("\nget user request failed\n");
+								}
+							},
+							function(response){
+								console.log("Something wrong with the response --- " + response);
 							}
-							else{
+						);
 
-							}
-						});
 					})();
-
 				}
+
 			}
 			catch(err){
 				console.log("Error in init in resultsHandler --- " + err.message);
@@ -126,8 +182,7 @@ viewBookApp.controller("ViewBookController" , ["$scope" , "$http" , function($sc
 		loadMoreBooks : function(){
 			try{
 				var self = $scope.resultsHandler;
-
-				self.selectedResults = self.otherResults;
+				self.results = self.similarResults;
 			}
 			catch(err){
 				console.log("Error in loadMoreBooks in resultsHandler --- " + err.message);
@@ -139,8 +194,8 @@ viewBookApp.controller("ViewBookController" , ["$scope" , "$http" , function($sc
 			try{
 				var self = $scope.resultsHandler;
 
-				self.selectedResults = [];
-				self.selectedResults.push(self.selectedResult);
+				self.results = [];
+				self.results.push(self.selectedResult);
 			}
 			catch(err){
 				console.log("Error in loadOriginallySelectedBook in resultsHandler --- " + err.message);
@@ -148,10 +203,11 @@ viewBookApp.controller("ViewBookController" , ["$scope" , "$http" , function($sc
 		},
 
 
-		getSimilarBooks : function(books , selectedBook){
+		getSimilarBooks : function(selectedBook){
 			try{
-				var selectedBooks = [];
-				return books;
+				var similarBooks = [];
+				similarBooks.push(selectedBook);
+				return similarBooks;
 			}
 			catch(err){
 				console.log("Error in getSimilarBooks in resultsHandler --- " + err.message);
