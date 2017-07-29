@@ -90,6 +90,10 @@ public class GenericRequestController extends HttpServlet {
 						response = genericRequestHandler.viewBook(req , res);
 						System.out.println("Response object --- " + response);
 						break;
+					case CHECKOUT :
+						response = genericRequestHandler.checkout(req , res);
+						System.out.println("Response object --- " + response);
+						break;
 					default :
 						break;
 				}

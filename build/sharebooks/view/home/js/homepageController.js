@@ -335,33 +335,13 @@ homepageApp.controller("HomePageController" , ['$scope' , '$http' , function($sc
 		},
 
 
-		viewBook : function(e){
+		viewBook : function(bookId){
 			try{
 				var self = $scope.booksHandler;
 
-				event.preventDefault();
+				//event.preventDefault();
 				event.stopPropagation();
 
-
-				//get the book id from the bookId attribute
-				var elem = event.target;
-				var elemClassTokens = elem.getAttribute("class").split(' ');
-				var token;
-				var elemIsBook = false;
-
-				for(var i=0 ; i<elemClassTokens.length ; i++){
-					token = elemClassTokens[i];
-					if(token == "book"){
-						elemIsBook = true;
-						break;
-					}
-				}
-
-				if(!elemIsBook){
-					elem = elem.parentElement;
-				}
-
-				var bookId = elem.getAttribute("bookId");
 				var book = self.getBookById(bookId);
 
 				if(window.sessionStorage){
@@ -371,7 +351,7 @@ homepageApp.controller("HomePageController" , ['$scope' , '$http' , function($sc
 					else{
 						sessionStorage.setItem("selectedBook" , JSON.stringify(book));
 					}
-					sessionStorage.setItem("books" , JSON.stringify(self.books));
+					//sessionStorage.setItem("books" , JSON.stringify(self.books));
 				}
 
 				window.location.href = urls.VIEW_BOOK;
@@ -385,7 +365,7 @@ homepageApp.controller("HomePageController" , ['$scope' , '$http' , function($sc
 		getBookById : function(id){
 			try{
 				var self = $scope.booksHandler;
-				var books = self.books;
+				var books = self.selectedBooks;
 
 				for(var i=0 ; i<books.length ; i++){
 					if(books[i].id == id){
@@ -409,12 +389,14 @@ homepageApp.controller("HomePageController" , ['$scope' , '$http' , function($sc
 					url: urls.GET_ALL_BOOKS,
 					method: "GET",
 				}).then(function(response){
-					$scope.showPageLoader = false;
-					self.handleBooksData(response);
-					} , function(response){
-					$scope.showPageLoader = false;
-					console.log("Get books response --- " + response);
-				});
+						$scope.showPageLoader = false;
+						self.handleBooksData(response);
+					} , 
+					function(response){
+						$scope.showPageLoader = false;
+						console.log("Get books response --- " + response);
+					}
+				);
 
 			}
 			catch(err){

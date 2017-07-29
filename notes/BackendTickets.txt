@@ -33,3 +33,26 @@ Add property profileImage to the user class
 
 #Ticket 8
 Complete the interfaces
+
+
+
+#Ticket 9
+Create index on name in books table
+
+
+
+#Ticket 10
+Create query for getting rows by row number
+
+
+#Ticket 11
+May or may not need supplier id and target id in Transaction and BookRequest
+
+
+#Ticket 12
+Create a custom servlet class
+
+
+
+#Ticket 13
+Provide functionality for saving the state and asking the user on next login if he wants to continue from where he left 

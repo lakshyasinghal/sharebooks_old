@@ -35,6 +35,11 @@
 	</servlet>
 
 	<servlet>
+		<servlet-name>ViewBook</servlet-name>
+		<servlet-class>com.sharebooks.viewBook.controllers.ViewBookController</servlet-class>
+	</servlet>
+
+	<servlet>
 		<servlet-name>GenericRequestController</servlet-name>
 		<servlet-class>com.sharebooks.genericRequests.controllers.GenericRequestController</servlet-class>
 	</servlet>
@@ -99,6 +104,11 @@
 		<url-pattern>/viewBook</url-pattern>
 	</servlet-mapping>
 
+	<servlet-mapping>
+		<servlet-name>GenericRequestController</servlet-name>
+		<url-pattern>/checkout</url-pattern>
+	</servlet-mapping>
+
 	<!-- <servlet-mapping>
 		<servlet-name>HomePage</servlet-name>
 		<url-pattern>/home</url-pattern>
@@ -113,6 +123,12 @@
 	<servlet-mapping>
 		<servlet-name>HomePage</servlet-name>
 		<url-pattern>/home/*</url-pattern>
+	</servlet-mapping>
+
+
+	<servlet-mapping>
+		<servlet-name>ViewBook</servlet-name>
+		<url-pattern>/viewBook/*</url-pattern>
 	</servlet-mapping>
 
 	<!-- <servlet-mapping>

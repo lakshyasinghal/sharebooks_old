@@ -20,7 +20,8 @@ var statusCodes = {
 	GET_BOOKS_BY_SEARCH_SUCCESSFUL : 18,
 	GET_BOOKS_BY_SEARCH_FAILED : 19,
 	INCORRECT_REQUEST : 20,
-	SESSION_DOES_NOT_EXIST : 21
+	SESSION_DOES_NOT_EXIST : 21,
+	GET_SIMILAR_BOOKS_SUCCESSFUL : 22
 };
 
 
@@ -48,4 +49,5 @@ var messages = [
 	"Books request by search string failed",                                  //19
 	"Something is wrong with the request. Please check",                     //20
 	"Session doesn't exist",                                                 //21
+	"Got similar books to the selected book successfully"
 ];

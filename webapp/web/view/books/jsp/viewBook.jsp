@@ -56,8 +56,8 @@
 					<img src="<%=imagesFolderPath%>/backArrow.png" width="60" height="60">
 				</div>
 
-				<div id="loadMoreResults" ng-show="optionsHandler.loadMoreResultsLinkShow" ng-click="optionsHandler.loadMoreResults()">
-					<span>LOAD MORE SIMILAR RESULTS</span>
+				<div id="showMoreResults" ng-show="optionsHandler.moreResultsLinkShow" ng-click="optionsHandler.showMoreResults()">
+					<span>SHOW MORE SIMILAR RESULTS</span>
 				</div>
 				<div id="showLessResults" ng-show="optionsHandler.lessResultsLinkShow" ng-click="optionsHandler.showLessResults()">
 					<span>SHOW LESS RESULTS</span>
@@ -68,7 +68,7 @@
 
 			<div id="resultsContainer">
 
-				<div class="result" ng-repeat="result in resultsHandler.similarResults">
+				<div class="result" ng-repeat="result in resultsHandler.results">
 					<div class="bookInfo">
 
 						<div class="container">
@@ -85,8 +85,8 @@
 							</div>
 
 							<div class="buttonPanel">
-								<button class="btn btn-danger buy" ng-disabled="result.book.available == 0 || result.book.buy == 0">Buy</button>
-								<button class="btn btn-danger rent" ng-disabled="result.book.available == 0 || result.book.rent == 0">Rent</button>
+								<button class="btn btn-danger buy" ng-click="resultsHandler.proceedToCheckout('buy' , result)" ng-disabled="result.book.available == 0 || result.book.buy == 0">Buy</button>
+								<button class="btn btn-danger rent" ng-click="resultsHandler.proceedToCheckout('rent' , result)" ng-disabled="result.book.available == 0 || result.book.rent == 0">Rent</button>
 							</div>
 						</div>
 					</div>

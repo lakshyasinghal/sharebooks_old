@@ -1,13 +1,25 @@
 Create Table transactions (
 	id int NOT NULL,
 	transactionType smallInt NOT NULL,
-	active smallint NOT NULL,
-	userId int,
-	bookId int,
+	status smallint NOT NULL,
+	requesterId int NOT NULL,
+	supplierId int NOT NULL,
+	bookId int NOT NULL,
 	startDate datetime NOT NULL,
 	endDate datetime,
 	amount double,
 	PRIMARY KEY (id),
-	FOREIGN KEY (userId) REFERENCES User(id),
-	FOREIGN KEY (bookId) REFERENCES Book(id)
+	FOREIGN KEY (requesterId) REFERENCES Users(id),
+	FOREIGN KEY (supplierId) REFERENCES Users(id),
+	FOREIGN KEY (bookId) REFERENCES Books(id)
 );
+
+
+
+
+
+
+
+
+
+status will be either active or completed

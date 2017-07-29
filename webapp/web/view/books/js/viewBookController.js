@@ -47,7 +47,7 @@ viewBookApp.controller("ViewBookController" , ["$scope" , "$http" , function($sc
 
 	$scope.optionsHandler = {
 		HomePageUrl : urls.HOME ,
-		loadMoreResultsLinkShow : true,
+		moreResultsLinkShow : true,
 		lessResultsLinkShow : false,
 
 		goToHomePage : function(){
@@ -61,17 +61,17 @@ viewBookApp.controller("ViewBookController" , ["$scope" , "$http" , function($sc
 		},
 
 
-		loadMoreResults : function(){
+		showMoreResults : function(){
 			try{
 				var self = $scope.optionsHandler;
 
-				self.loadMoreResultsLinkShow = false;
+				self.moreResultsLinkShow = false;
 				self.lessResultsLinkShow = true;
 
-				$scope.resultsHandler.loadMoreBooks();
+				$scope.resultsHandler.showMoreResults();
 			}
 			catch(err){
-				console.log("Error in loadMoreResults in optionsHandler --- " + err.message);
+				console.log("Error in showMoreResults in optionsHandler --- " + err.message);
 			}
 		},
 
@@ -80,12 +80,12 @@ viewBookApp.controller("ViewBookController" , ["$scope" , "$http" , function($sc
 				var self = $scope.optionsHandler;
 
 				self.lessResultsLinkShow = false;
-				self.loadMoreResultsLinkShow = true;
+				self.moreResultsLinkShow = true;
 
-				$scope.resultsHandler.showOriginallySelectedBook();
+				$scope.resultsHandler.showLessResults();
 			}
 			catch(err){
-				console.log("Error in loadLessResults in optionsHandler --- " + err.message);
+				console.log("Error in showLessResults in optionsHandler --- " + err.message);
 			}
 		}
 
@@ -106,10 +106,10 @@ viewBookApp.controller("ViewBookController" , ["$scope" , "$http" , function($sc
 	$scope.resultsHandler = {
 		selectedBook : null,
 		similarBooks : [],
-		results : [],
 		selectedResult : null,
 		similarResults : [],
 		results : [],
+		getSimilarBooksRequestCompleted : false,
 
 		init : function(){
 			try{
@@ -124,12 +124,22 @@ viewBookApp.controller("ViewBookController" , ["$scope" , "$http" , function($sc
 					return;
 				}
 
-				var similarBooks = self.getSimilarBooks(self.selectedBook);
+				self.getSimilarBooks(self.selectedBook);
+
+			}
+			catch(err){
+				console.log("Error in init in resultsHandler --- " + err.message);
+			}
+		},
 
 
+		getSimilarResults : function(){
+			try{
+				var self = $scope.resultsHandler;
+				var similarBooks = self.similarBooks;
 				//getting the similar results for selected book
 				//the similar books will also containe the selected book
-				for(var i=0; i < similarBooks.length; i++){
+				for(var i=0; i < self.similarBooks.length; i++){
 					//function for getting result and pushing it into otherResults array
 					(function(){
 						var book = similarBooks[i];
@@ -156,7 +166,7 @@ viewBookApp.controller("ViewBookController" , ["$scope" , "$http" , function($sc
 
 									if(userId == self.selectedBook.userId){
 										self.selectedResult = result;
-										self.results.push(result);
+										self.results.push(self.selectedResult);
 									}
 								}
 								else{
@@ -170,16 +180,15 @@ viewBookApp.controller("ViewBookController" , ["$scope" , "$http" , function($sc
 
 					})();
 				}
-
 			}
 			catch(err){
-				console.log("Error in init in resultsHandler --- " + err.message);
+
 			}
 		},
 
 
 
-		loadMoreBooks : function(){
+		showMoreResults : function(){
 			try{
 				var self = $scope.resultsHandler;
 				self.results = self.similarResults;
@@ -190,10 +199,9 @@ viewBookApp.controller("ViewBookController" , ["$scope" , "$http" , function($sc
 		},
 
 
-		showOriginallySelectedBook : function(){
+		showLessResults : function(){
 			try{
 				var self = $scope.resultsHandler;
-
 				self.results = [];
 				self.results.push(self.selectedResult);
 			}
@@ -205,14 +213,54 @@ viewBookApp.controller("ViewBookController" , ["$scope" , "$http" , function($sc
 
 		getSimilarBooks : function(selectedBook){
 			try{
-				var similarBooks = [];
-				similarBooks.push(selectedBook);
-				return similarBooks;
+				var self = $scope.resultsHandler;
+				var bookName = selectedBook.name;
+
+				var params = {"bookName" : bookName};
+				var paramString = getParamString(params);
+
+				$http({
+					url : urls.GET_SIMILAR_BOOKS + "?" + paramString,
+					method : "GET",
+					timeout : 3000
+				}).then(
+					function(response){
+						data = response.data;
+						if(data.success){
+							self.similarBooks = data.results;
+							self.getSimilarResults();
+						}
+						else{
+							console.log("\nget similar results request failed\n");
+						}
+					},
+					function(response){
+						console.log("Something wrong with the response --- " + response);
+					}
+				);
+
+				return ;
 			}
 			catch(err){
 				console.log("Error in getSimilarBooks in resultsHandler --- " + err.message);
 			}
+		},
+
+
+		proceedToCheckout : function(option , result){
+			try{
+				var self = $scope.resultsHandler;
+
+				sessionStorage.setItem("option" , option);
+				sessionStorage.setItem("result" , JSON.stringify(result));
+
+				window.location.href = urls.CHECKOUT; 
+			}
+			catch(err){
+				console.log("Error in proceedToCheckout --- " + err.message);
+			}
 		}
+
 	}
 
 

@@ -179,61 +179,6 @@ public final class User extends Entity implements Comparable<User> {
 
 
 
-	//setter methods
-
-	// public void setId(int id){
-	// 	this.id = id;
-	// }
-
-	// public void setUsername(String username){
-	// 	this.username = username;
-	// }
-
-	// public void setPassword(String password){
-	// 	this.password = password;
-	// }
-
-	// public void setName(String name){
-	// 	this.name = name;
-	// }
-
-	// public void setBirthday(String birthday){
-	// 	this.birthday = birthday;
-	// }
-
-	// public void setAddress(String address){
-	// 	this.address = address;
-	// }
-
-	// public void setCity(String city){
-	// 	this.city = city;
-	// }
-
-	// public void setState(String state){
-	// 	this.state = state;
-	// } 
-
-	// public void setPincode(String pincode){
-	// 	this.pincode = pincode;
-	// } 
-
-	// public void setMobileNo(String mobileNo){
-	// 	this.mobileNo = mobileNo;
-	// }
-
-	// public void setBookIds(String bookIds){
-	// 	this.bookIds = bookIds;
-	// }
-
-	// public void setActive(int active){
-	// 	this.active = active;
-	// }
-
-	// public void setCreationTime(java.util.Date creationTime){
-	// 	this.creationTime = creationTime;
-	// }
-
-
 
 
 

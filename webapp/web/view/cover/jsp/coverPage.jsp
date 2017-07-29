@@ -57,7 +57,7 @@
 			<input type="text" id="state" class="form-control" name="state" placeholder="State" required autofocus>
 			<input type="text" id="pincode" class="form-control" name="pincode" placeholder="Pincode" required autofocus>
 			<input type="number" id="mobileNo" class="form-control" name="mobileNo" placeholder="Mobile Number" required>
-			<button type="button" id="userRegistrationButton" class="btn btn-lg btn-danger btn-block">Register Me</button>
+			<button type="button" id="userSignUpButton" class="btn btn-lg btn-danger btn-block">Register Me</button>
 			<h4 id="userRegistrationMessageContainer"></h4>
 
 		</div>

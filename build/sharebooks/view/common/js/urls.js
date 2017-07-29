@@ -11,7 +11,9 @@ var urls = {
 	FILTER_BY_SEARCH : "home/filterBySearch",
 	ADD_BOOK : "home/addBook",
 	VIEW_BOOK : "viewBook",
+	CHECKOUT : "checkout",
 	UPDATE_USER : "home/updateUser",
 	VIEW_HISTORY : "home/viewHistory",
-	GET_NOTIFICATIONS : "home/getNotifications"
+	GET_NOTIFICATIONS : "home/getNotifications",
+	GET_SIMILAR_BOOKS : "viewBook/getSimilarBooks"
 }

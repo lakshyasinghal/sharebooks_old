@@ -1,0 +1,12 @@
+Create Table BookRequestTypes (
+	id smallint NOT NULL,
+	type char(15) NOT NULL
+);
+
+
+Insert into BookRequestTypes (id , type) values (1 , "Notify") , (2 , "Borrow") , (3 , "Buy") , (4 , "Return");
+
+
+
+
+* Master table

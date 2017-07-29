@@ -65,3 +65,35 @@ View history
 
 
 
+#Ticket 11
+-----All pages-----
+Appropriate messages need to be shown for the responses received
+
+
+
+#Ticket 12
+-----Login page-----
+The information should remian intact in the sign up dialog.
+Should disappear only when I click refresh 
+
+
+#Ticket 13
+-----View Book------
+Prices need to be displayed
+
+
+#Ticket 14
+-----View Book------
+Some more options can be added like 1. arrange by prices , arrange by distance
+2. Show same city or same locality results
+
+
+#Ticket 15
+-----all pages----
+Make a common jsp for getting user details and handling session
+
+
+
+#Ticket 16
+-----Relevant pages-----
+Provide an option for saving the current state on view book page or checkout page 

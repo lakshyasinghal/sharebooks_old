@@ -254,4 +254,18 @@ public class GenericRequestHandler implements GenericRequestInterface {
 		}
 	}
 
+
+	//checkout method will send a jsp response containing the checkout.jsp page
+	public Response checkout(HttpServletRequest req , HttpServletResponse res) throws Exception {
+		try {
+			Response response = new Response(JSP , req , res , CHECKOUT_JSP);
+
+			return response;
+		}
+		catch(Exception ex){
+			System.out.println("Error in viewBook in HomePageHandler");
+			throw ex;
+		}
+	}
+
 }

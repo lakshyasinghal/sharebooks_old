@@ -339,7 +339,7 @@ homepageApp.controller("HomePageController" , ['$scope' , '$http' , function($sc
 			try{
 				var self = $scope.booksHandler;
 
-				event.preventDefault();
+				//event.preventDefault();
 				event.stopPropagation();
 
 				var book = self.getBookById(bookId);

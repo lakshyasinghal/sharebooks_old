@@ -1,0 +1,13 @@
+Create table BookRequests (
+	id int NOT NULL,
+	requestType int NOT NULL,
+	requestStatus int NOT NULL,
+	requesterId int NOT NULL,
+	bookId int NOT NULL,
+	targetId int NOT NULL,
+	creationTime datetime,
+	PRIMARY KEY (id),
+	FOREIGN KEY (requesterId) REFERENCES Users(id),
+	FOREIGN KEY (targetId) REFERENCES Users(id),
+	FOREIGN KEY (bookId) REFERENCES Books(id)
+);

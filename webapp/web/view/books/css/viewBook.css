@@ -126,7 +126,7 @@ body {
 }
 
 
-#loadMoreResults , #showLessResults {
+#showMoreResults , #showLessResults {
 	position: absolute;
 	/*height: 40px;*/
 	top: 50%;
@@ -140,7 +140,7 @@ body {
 }
 
 
-#loadMoreResults:hover , #showLessResults:hover {
+#showMoreResults:hover , #showLessResults:hover {
 	text-decoration: underline;
 	/*font-size: 24px;*/
 }
