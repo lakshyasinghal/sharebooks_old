@@ -10,3 +10,35 @@ Tomcat stores the session id even when it is closed and you can resume your sess
 
 
 -------------------------------------------------------------------------------------------------
+
+
+Singleton pattern is a bad choice for database connection
+Instead use connection pool
+
+
+
+-------------------------------------------------------
+
+
+Transaction management
+
+
+
+-------------------------------------------------------
+
+
+SQL Injection and it's prevention
+
+
+-------------------------------------------------------
+
+
+Advantage of block level synchronization
+
+--------------------------------------------------------
+
+
+volatile variables in java
+
+
+

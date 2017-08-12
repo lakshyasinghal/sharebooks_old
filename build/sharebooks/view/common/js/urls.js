@@ -15,5 +15,7 @@ var urls = {
 	UPDATE_USER : "home/updateUser",
 	VIEW_HISTORY : "home/viewHistory",
 	GET_NOTIFICATIONS : "home/getNotifications",
-	GET_SIMILAR_BOOKS : "viewBook/getSimilarBooks"
+	GET_SIMILAR_BOOKS : "viewBook/getSimilarBooks",
+	SEND_REQUEST : "sendRequest",
+	SEND_RESPONSE : "sendResponse"
 }

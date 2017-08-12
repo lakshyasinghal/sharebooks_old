@@ -14,6 +14,7 @@ import javax.servlet.http.*;
 
 public class BookRequestHandler extends EntityHandler {
 	
+	private static boolean debugging = true; 
 
 	public BookRequestHandler(){
 
@@ -70,10 +71,15 @@ public class BookRequestHandler extends EntityHandler {
 
 	public int addBookRequest(BookRequest bookRequest) throws Exception{
 		try{
-			List<String> fields = Arrays.asList("requestType" , "requestStatus" , "requesterId" , "bookId" , "targetId" , "creationTime");
-			List<String> fieldTypes = Arrays.asList("int" , "int" , "int" , "int" , "int" , "datetime");
+			if(debugging){
+				System.out.println("\nInside addBookRequest in BookRequestHandler\n");
+				System.out.println("\nbookRequest ----- \n" + bookRequest.getBookRequestString());
+			}
+
+			List<String> fields = Arrays.asList("requestType" , "requestStatus" , "requesterId" , "bookId" , "targetId" , "creationTime" , "lastModified");
+			List<String> fieldTypes = Arrays.asList("int" , "int" , "int" , "int" , "int" , "dateTime" , "dateTime");
 			List<Object> fieldValues = Arrays.asList(bookRequest.getRequestType() , bookRequest.getRequestStatus() , bookRequest.getRequesterId() , 
-										bookRequest.getBookId() , bookRequest.getTargetId() , bookRequest.getCreationTime());
+										bookRequest.getBookId() , bookRequest.getTargetId() , bookRequest.getCreationTime() , bookRequest.getLastModified());
 
 			int added = addEntity(BOOK_REQUESTS , fields , fieldTypes , fieldValues);
 

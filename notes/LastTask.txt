@@ -1,6 +1,8 @@
-Improve the jsonBuilder to accomodate simple arrays
-
-
-
 Added GET_NOTIFICATIONS request in homePageController and getNotifications method type in homePageHandler
 How to get notifications.
+
+
+
+Complete checkoutHandler
+Add enums for bookRequests and transactions
+

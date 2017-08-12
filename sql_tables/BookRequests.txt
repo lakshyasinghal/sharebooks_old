@@ -6,6 +6,7 @@ Create table BookRequests (
 	bookId int NOT NULL,
 	targetId int NOT NULL,
 	creationTime datetime,
+	lastModified dateTime,
 	PRIMARY KEY (id),
 	FOREIGN KEY (requesterId) REFERENCES Users(id),
 	FOREIGN KEY (targetId) REFERENCES Users(id),

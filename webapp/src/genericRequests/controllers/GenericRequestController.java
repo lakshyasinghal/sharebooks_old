@@ -83,7 +83,7 @@ public class GenericRequestController extends HttpServlet {
 						response = genericRequestHandler.getBook(req , res);
 						break;
 					case GET_ALL_BOOKS :
-						Thread.sleep(1000);
+						//Thread.sleep(1000);
 						response = genericRequestHandler.getAllBooks(req , res);
 						break;
 					case VIEW_BOOK :

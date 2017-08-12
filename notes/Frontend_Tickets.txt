@@ -6,6 +6,7 @@ Local storage and session storage need to be used wherever possible
 -----Login page------
 Request for homepage from login page if the login is successful
 The location url will be changed through javascript once the success message is received. Otherwise an error message will be displayed.
+***************************************************************************
 
 
 
@@ -13,26 +14,26 @@ The location url will be changed through javascript once the success message is 
 -----Login page------
 Register user form needs to be modified.
 New fields need to be added.
-
+****************************************************************************
 
 
 
 #Ticket 3
 ------Home page------
 Get all the books
-
+****************************************************************************
 
 
 #Ticket 4
 ------Home page------
 Get the user
-
+****************************************************************************
 
 
 #Ticket 5
 ------Home page------
 Add book
-
+****************************************************************************
 
 
 #Ticket 6
@@ -73,8 +74,7 @@ Appropriate messages need to be shown for the responses received
 
 #Ticket 12
 -----Login page-----
-The information should remian intact in the sign up dialog.
-Should disappear only when I click refresh 
+Add an image for refresh functionality
 
 
 #Ticket 13
@@ -96,4 +96,9 @@ Make a common jsp for getting user details and handling session
 
 #Ticket 16
 -----Relevant pages-----
-Provide an option for saving the current state on view book page or checkout page 
+Provide an option for saving the current state on view book page or checkout page
+
+
+#Ticket 17
+-----Checkout-----
+Put sounds on the page when the user increases or decreases days. 

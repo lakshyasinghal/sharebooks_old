@@ -19,14 +19,15 @@ public final class BookRequest extends Entity implements Comparable<BookRequest>
 	private int bookId;
 	private int targetId;
 	private java.util.Date creationTime = new java.util.Date();
+	private java.util.Date lastModified = new java.util.Date();
 
 
 	private static final String[] fields;
 	private static final String[] fieldTypes;
 
 	static {
-		fields = new String[]{"id" , "requestType" , "requestStatus" , "requesterId" , "bookId" , "targetId" ,"creationTime"};
-		fieldTypes = new String[]{"int" , "int" , "int" , "int" , "int" , "int" , "datetime"};
+		fields = new String[]{"id" , "requestType" , "requestStatus" , "requesterId" , "bookId" , "targetId" ,"creationTime" , "lastModified"};
+		fieldTypes = new String[]{"int" , "int" , "int" , "int" , "int" , "int" , "datetime" , "datetime"};
 	}
 
 	public BookRequest(){
@@ -34,7 +35,7 @@ public final class BookRequest extends Entity implements Comparable<BookRequest>
 	}
 
 
-	public BookRequest(int id , int requestType , int requestStatus , int requesterId , int bookId , int targetId , java.util.Date creationTime){
+	public BookRequest(int id , int requestType , int requestStatus , int requesterId , int bookId , int targetId , java.util.Date creationTime , java.util.Date lastModified){
 		this.id = id;
 		this.requestType = requestType;
 		this.requestStatus = requestStatus;
@@ -42,6 +43,7 @@ public final class BookRequest extends Entity implements Comparable<BookRequest>
 		this.bookId = bookId;
 		this.targetId = targetId;
 		this.creationTime = creationTime;
+		this.lastModified = lastModified;
 	}
 
 
@@ -121,6 +123,10 @@ public final class BookRequest extends Entity implements Comparable<BookRequest>
 		return creationTime;
 	}
 
+	public java.util.Date getLastModified(){
+		return lastModified;
+	}
+
 
 	
 
@@ -141,14 +147,33 @@ public final class BookRequest extends Entity implements Comparable<BookRequest>
 
 	public Object[] getFieldValues(){
 
-		Object[] fieldValues = {this.id , this.requestType , this.requestStatus , this.requesterId , this.bookId , this.targetId , this.creationTime};
+		Object[] fieldValues = {this.id , this.requestType , this.requestStatus , this.requesterId , this.bookId , this.targetId , this.creationTime , this.lastModified};
 
 		return fieldValues;
 	}
 
 
 
+	public String getBookRequestString() throws Exception {
+		try{
+			StringBuilder bookRequestString = new StringBuilder();
+			bookRequestString.append("\nid - " + this.id);
+			bookRequestString.append("\nrequestType - " + this.requestType);
+			bookRequestString.append("\nrequestStatus - " + this.requestStatus);
+			bookRequestString.append("\nrequesterId - " + this.requesterId);
+			bookRequestString.append("\nbookId - " + this.bookId);
+			bookRequestString.append("\ntargetId - " + this.targetId);
+			bookRequestString.append("\ncreationTime - " + this.creationTime);
+			bookRequestString.append("\nlastModified - " + this.lastModified);
 
+			return bookRequestString.toString();
+
+		}
+		catch(Exception ex){
+			System.out.println("Exception in toString method in BookRequests class");
+			throw ex;
+		}
+	}
 
 
 
@@ -165,12 +190,20 @@ public final class BookRequest extends Entity implements Comparable<BookRequest>
 			int targetId = rs.getInt("targetId");
 
 			java.util.Date creationTime = null;
-			java.sql.Timestamp timestamp = rs.getTimestamp("creationTime");
+			java.util.Date lastModified = null;
+
+			java.sql.Timestamp timestamp = null;
+			timestamp = rs.getTimestamp("creationTime");
 			if(timestamp != null){
 				creationTime = new java.util.Date(timestamp.getTime());
 			}
 
-			BookRequest bookRequest = new BookRequest(id , requestType , requestStatus , requesterId , bookId , targetId , creationTime);
+			timestamp = rs.getTimestamp("lastModified");
+			if(timestamp != null){
+				lastModified = new java.util.Date(timestamp.getTime());
+			}
+
+			BookRequest bookRequest = new BookRequest(id , requestType , requestStatus , requesterId , bookId , targetId , creationTime , lastModified);
 
 			return bookRequest;
 		}
@@ -185,11 +218,11 @@ public final class BookRequest extends Entity implements Comparable<BookRequest>
 	public static BookRequest getBookRequestObjectFromRequest(HttpServletRequest req) throws Exception{
 		try{
 			String id = req.getParameter("id");
-			String requestType = req.getParameter("userId");
-			String requestStatus = req.getParameter("name");
-			String requesterId = req.getParameter("authorName");
-			String bookId = req.getParameter("category");
-			String targetId = req.getParameter("subcategory");
+			String requestType = req.getParameter("requestType");
+			String requestStatus = req.getParameter("requestStatus");
+			String requesterId = req.getParameter("requesterId");
+			String bookId = req.getParameter("bookId");
+			String targetId = req.getParameter("targetId");
 			
 
 			//creating new bookRequest object from values retrieved

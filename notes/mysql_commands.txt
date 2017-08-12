@@ -1,0 +1,8 @@
+Create Table cities Like common_essentials.cities;
+
+Insert into cities Select * from common_essentials.cities;
+
+
+Rename Table table1 to table2;
+
+Alter Table cities Change state_id stateId smallint(6) NOT NULL; 

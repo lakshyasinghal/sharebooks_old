@@ -90,7 +90,7 @@ public class ViewBookController extends HttpServlet {
 			}
 		}
 		catch(Exception ex){
-			System.out.println("Error in isSeesionTimedOut in HomePageController");
+			System.out.println("Error in isSeesionTimedOut in ViewBookController");
 			throw ex;
 		}
 	}
@@ -108,7 +108,7 @@ public class ViewBookController extends HttpServlet {
 			return response;
 		}
 		catch(Exception ex){
-			System.out.println("Error in getSessionTimeOutResponse in HomePageController");
+			System.out.println("Error in getSessionTimeOutResponse in ViewBookController");
 			throw ex;
 		}
 	}

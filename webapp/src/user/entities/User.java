@@ -24,6 +24,7 @@ public final class User extends Entity implements Comparable<User> {
 	private String bookIds = "";
 	private int active = 1;
 	private java.util.Date creationTime = new java.util.Date();
+	private java.util.Date lastVisited = new java.util.Date();
 
 
 	private static final String[] fields;
@@ -32,9 +33,9 @@ public final class User extends Entity implements Comparable<User> {
 
 	static {
 		fields = new String[]{"id" , "username" , "password" , "name" , "birthday" , "address" ,"city" , "state" , "pincode" , "mobileNo" , "bookIds" ,
-				 "active" , "creationTime"};
+				 "active" , "creationTime" , "lastVisited"};
 		fieldTypes = new String[]{"int" , "string" , "string" , "string" , "string" , "string" , "string" , "string" , "string" , "string" ,
-					 "string" , "int" , "datetime"};
+					 "string" , "int" , "datetime" , "datetime"};
 	}
 
 
@@ -45,7 +46,7 @@ public final class User extends Entity implements Comparable<User> {
 
 	//this constructor will be used when fetching user from datatbase
 	public User(int id , String username , String password , String name , String birthday , String address , String city , String state , String pincode , 
-		String mobileNo , String bookIds , int active , java.util.Date creationTime){
+		String mobileNo , String bookIds , int active , java.util.Date creationTime , java.util.Date lastVisited){
 		
 		this.id = id;
 		this.username = username;
@@ -60,6 +61,7 @@ public final class User extends Entity implements Comparable<User> {
 		this.bookIds = bookIds;
 		this.active = active;
 		this.creationTime = creationTime;
+		this.lastVisited = lastVisited;
 	}
 
 
@@ -174,6 +176,10 @@ public final class User extends Entity implements Comparable<User> {
 		return creationTime;
 	}
 
+	public java.util.Date getLastVisited(){
+		return lastVisited;
+	}
+
 
 
 
@@ -193,10 +199,15 @@ public final class User extends Entity implements Comparable<User> {
 
 	public Object[] getFieldValues(){
 		Object[] fieldValues = {this.id , this.username , this.password , this.name , this.birthday , this.address , this.city , 
-								this.state , this.pincode , this.mobileNo , this.bookIds , this.active , this.creationTime};
+								this.state , this.pincode , this.mobileNo , this.bookIds , this.active , this.creationTime , this.lastVisited};
 
 		return fieldValues;
 	}
+
+
+
+
+
 
 
 	//method for getting a book object from the result set
@@ -216,15 +227,24 @@ public final class User extends Entity implements Comparable<User> {
 			int active = rs.getInt("active");
 
 			java.util.Date creationTime = null;
-			java.sql.Timestamp timestamp = rs.getTimestamp("creationTime");
+			java.util.Date lastVisited = null;
+
+			java.sql.Timestamp timestamp = null;
+
+			timestamp = rs.getTimestamp("creationTime");
 			if(timestamp != null){
 				creationTime = new java.util.Date(timestamp.getTime());
+			}
+
+			timestamp = rs.getTimestamp("lastVisited");
+			if(timestamp != null){
+				lastVisited = new java.util.Date(timestamp.getTime());
 			}
 
 
 			//create user object from values
 			User user = new User(id , username , password , name , birthday , address , city , state , pincode , mobileNo , bookIds , 
-								active , creationTime);
+								active , creationTime , lastVisited);
 			return user;
 		}
 		catch(Exception ex){

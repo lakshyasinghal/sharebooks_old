@@ -2,3 +2,33 @@ Q1. let's say that you have a list that contains ten items. You check off the fi
 
 Please give examples.
 What does javascript do?
+
+
+
+
+Q2. How does caching take place?
+
+
+Q3. What is DNS? What role does it play?
+
+
+Q4. How does a browser load a webpage? Tell from the point where you put url into the browser? What all things take place?
+
+
+Q5. What is cors?
+
+
+Q6. What is a promise?
+
+
+
+Q7. How is css loaded in webpage and how browser parses it?
+
+
+
+Q8. What is http and TCP?
+
+
+Q9. What is code injection in javascript?
+
+

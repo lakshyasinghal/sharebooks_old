@@ -4,7 +4,7 @@ Create Table BookRequestTypes (
 );
 
 
-Insert into BookRequestTypes (id , type) values (1 , "Notify") , (2 , "Borrow") , (3 , "Buy") , (4 , "Return");
+Insert into BookRequestTypes (id , type) values (1 , "Rent") , (2 , "Buy") , (3 , "Return");
 
 
 

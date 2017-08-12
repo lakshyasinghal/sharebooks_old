@@ -27,4 +27,6 @@ public final class StatusCodes {
 	public static final int INCORRECT_REQUEST = 20;
 	public static final int SESSION_DOES_NOT_EXIST = 21;
 	public static final int GET_SIMILAR_BOOKS_SUCCESSFUL = 22;
+	public static final int SEND_REQUEST_FAILED = 23;
+	public static final int SEND_REQUEST_SUCCESSFUL = 24;
 }

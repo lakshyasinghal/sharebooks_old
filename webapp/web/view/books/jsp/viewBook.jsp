@@ -46,7 +46,7 @@
 
 	<div id="mainContainer" class="jumbotron full-height" ng-controller="ViewBookController" ng-init="init()">
 
-		<%@include file="header.jsp"%>
+		<%@include file="../../include/head.jsp"%>
 
 
 		<div id="bodyContainer">

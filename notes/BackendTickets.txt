@@ -24,8 +24,6 @@ Correct the name of LoginController
 Modify the response handler class to send status code
 
 
-
-
 #Ticket 7 (High priority)
 Add property profileImage to the user class
 
@@ -56,3 +54,32 @@ Create a custom servlet class
 
 #Ticket 13
 Provide functionality for saving the state and asking the user on next login if he wants to continue from where he left 
+
+
+#Ticket 14
+Search functionality not working accurately
+
+
+#Ticket 15
+Search by category and subcategory not working properly.
+Example - On choosing Data Structures And Algorithms all results are getting fetched
+
+
+#Ticket 16 
+Use connection pool for database connections
+
+
+#Ticket 17 (low priority)
+Implement LRU caching technique
+
+
+#Ticket 18
+Use cities , states , pincodes databases
+
+
+-----------------
+
+#Ticket 19
+lastModified field needs to be added to user on an urgent basis
+
+-----------------

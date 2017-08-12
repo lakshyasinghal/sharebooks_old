@@ -3,6 +3,7 @@ package com.sharebooks.commonResources.entities;
 
 import com.sharebooks.books.models.BooksHandler;
 import com.sharebooks.user.models.UserHandler;
+import com.sharebooks.bookRequests.models.BookRequestHandler;
 //import com.sharebooks.json.models.JSONBuilder;
 import com.sharebooks.response.models.ResponseHandler;
 
@@ -11,6 +12,7 @@ public class Resources {
 
 	private static BooksHandler booksHandler;
 	private static UserHandler userHandler;
+	private static BookRequestHandler bookRequestHandler;
 	// private static JSONBuilder jsonBuilder;
 	private static ResponseHandler responseHandler;
 
@@ -31,6 +33,9 @@ public class Resources {
 			System.out.println("initializing UserHandler");
 			userHandler = new UserHandler();
 
+			System.out.println("initializing BookRequestHandler");
+			bookRequestHandler = new BookRequestHandler();
+
 			// System.out.println("initializing JSONBuilder");
 			// jsonBuilder = new JSONBuilder();
 
@@ -50,6 +55,10 @@ public class Resources {
 
 	public static UserHandler getUserHandler(){
 		return userHandler;
+	}
+
+	public static BookRequestHandler getBookRequestHandler(){
+		return bookRequestHandler;
 	}
 
 	// public static JSONBuilder getJSONBuilder(){

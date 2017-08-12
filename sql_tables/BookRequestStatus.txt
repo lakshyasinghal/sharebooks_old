@@ -4,8 +4,7 @@ Create Table BookRequestStatus (
 );
 
 
-Insert into BookRequestStatus (id , status) values (1 , "") , (2 , "Notified") , (3 , "Borrow request sent") , (4 , "Borrow request accepted") , (5 , "Borrow request rejected") , (6 , "Buy request sent") , (7 , "Buy request accepted") , (8 , "Buy request rejected") , 
-(9 , "Return request sent") , (10 , "Return request accepted");
+Insert into BookRequestStatus (id , status) values (1 , "Request pending") , (2 , "Request accepted") , (3 , "Request rejected")
 
 
 

@@ -28,6 +28,9 @@ home/controllers
 viewBook/interfaces
 viewBook/models
 viewBook/controllers
+checkout/interfaces
+checkout/models
+checkout/controllers
 genericRequests/interfaces
 genericRequests/models
 genericRequests/controllers
