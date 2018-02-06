@@ -1,0 +1,13 @@
+Create Table Notifications (
+	id int AUTO_INCREMENT,
+	notificationType varchar(60) NOT NULL,
+	targetId int NOT NULL,
+	bookRequestId int,
+	bookId int,
+	PRIMARY KEY (id),
+	FOREIGN KEY (bookRequestId) REFERENCES BookRequests(id),
+	FOREIGN KEY (bookId) REFERENCES Books(id)
+);
+
+
+Still expendable

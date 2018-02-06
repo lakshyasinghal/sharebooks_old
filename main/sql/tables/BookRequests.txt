@@ -1,0 +1,15 @@
+Create table BookRequests (
+	id int AUTO_INCREMENT,
+	requestType int NOT NULL,
+	requestStatus int NOT NULL,
+	requesterId int NOT NULL,
+	bookId int NOT NULL,
+	targetId int NOT NULL,
+	estimatedDays int NOT NULL,
+	creationTime datetime,
+	lastModified dateTime,
+	PRIMARY KEY (id),
+	FOREIGN KEY (requesterId) REFERENCES Users(id),
+	FOREIGN KEY (targetId) REFERENCES Users(id),
+	FOREIGN KEY (bookId) REFERENCES Books(id)
+);

@@ -1,0 +1,15 @@
+Create Table BookRequestStatus (
+	id smallint NOT NULL,
+	status char(30) NOT NULL
+);
+
+
+Insert into BookRequestStatus (id , status) values (1 , "Request pending") , (2 , "Request accepted") , (3 , "Request rejected")
+
+
+
+
+
+
+
+* Master table

@@ -1,0 +1,48 @@
+Backend 
+
+1. Add cache mamagement   -------- Done
+2. Add database connection pool   --------- Done
+3. Add properties reader  ------------- Done
+4. Add mail system
+5. Add notifications
+6. Add history
+7. Add transaction management
+8. Add factory for object creation
+9. Correct the names of rest services
+10. Add sql query manager for building queries
+11. Static cache for cities and states
+12. SQL injection validations
+13. Use loggers appropriately
+14. Make mail functionality working
+
+
+
+MySQL
+1. Add new tables 
+2. Create indexes on tables like books , user etc. which will be frequently accessed.
+
+
+Actions
+AppInitializer needs to be connected to the listener
+Packages need to be imported
+
+
+
+
+
+Frontend
+
+1. Add maps to track the users
+2. Resolve previous bugs
+3. Use inheritance
+4. New books added in last 10 days functionalty.
+5. Make enum or static files for status types etc.
+6. The books belonging to the user must not be displayed in the results.
+
+
+
+Pages
+
+1. User info page
+2. Request confirmation page
+3. Feedback page
