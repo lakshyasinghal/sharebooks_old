@@ -1,9 +1,9 @@
 applicationPath="/Users/lakshya.singhal/Desktop/Development/Personal/Git/ShareBooks"
-sourcePath="$applicationPath/webapp"
+sourcePath="$applicationPath/backend/webapp"
 
 libPath="$sourcePath/lib"
 
-buildPath="$applicationPath/build"
+buildPath="$applicationPath/backend/build"
 appName="sharebooks"
 tomcatPath="/Users/lakshya.singhal/Desktop/tomcat/webapps"
 

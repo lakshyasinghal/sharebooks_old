@@ -102,3 +102,8 @@ Provide an option for saving the current state on view book page or checkout pag
 #Ticket 17
 -----Checkout-----
 Put sounds on the page when the user increases or decreases days. 
+
+
+#Ticket 18
+-----Login page-----
+If the db connection is not on, some internal error message must be displayed.

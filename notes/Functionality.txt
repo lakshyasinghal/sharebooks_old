@@ -6,19 +6,43 @@
 6. Correct age functionality for user registration
 7. Provide validations on login page
 8. Create json serializer
+9. Chat boat should be there.
+10. Send email on finalizing a book for rent or buying.
 
 
 
 
 
 
+-------------------------------FRONTEND----------------------------------
+
+
+Login page (Create account)
+
+1. When creating a new account, ask user to enter his residential coordinates.
+
+
+Home Page
+
+1. When the page loads, some random set of books will be loaded in the page. This set will be saved on client side using HTML5 APIS.
+
+2. When we search a book, the results will be fetched from the server.
+
+3. The user icon dropdown will have following links:
+	a. Sign out
+	b. Edit profile
+	c. History
+
+4. Notifications
 
 
 
+View Book
+
+1. 
 
 
-
-
+--------------------------------------------------------------------------
 
 
 

@@ -83,3 +83,12 @@ Use cities , states , pincodes databases
 lastModified field needs to be added to user on an urgent basis
 
 -----------------
+
+
+#Ticket 20
+If DB connection is not on some message must be sent through mail urgently.
+
+
+
+Ticket 21
+Provide database validations for sql injection
